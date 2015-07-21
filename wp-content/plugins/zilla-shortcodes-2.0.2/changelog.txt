@@ -1,0 +1,53 @@
+*** ZillaShortcodes Changelog ***
+
+15 December 2014 - Version 2.0.2
+
+	Updated column CSS so all columns are full width on small screens.
+
+28 October 2014 - Version 2.0.1
+
+	Minor bug fix (line 293) of undefined index in includes/class-tzsc-admin-insert.php
+
+2 May 2014 - Version 2.0
+
+	This theme update removes reliance on tinymce to be compatible with WordPress 3.9.
+	Shortcodes will be added via an "Add Shortcode" button above the content editor.
+	Column shortcode updated to be simpler.
+
+	* zilla-shortcodes.php
+		- remove tinymce references
+	* [New] assets/
+		[New] css/
+			[Moved] admin-css
+				- styles the admin interface
+			[Moved] shortcodes.css
+				- styles the shortcodes
+				- updated styles for current browser requirements
+	* [New] includes/
+		[New] class-tzsc-admin-insert.php
+			- primary file creating the admin interface for adding shortcodes to editor
+		[Moved] config.php
+			- defines shortcode params
+		[Moved] shortcodes.php
+			- Added new simpler zilla_column shortcode
+	* [Removed] tinymce
+
+25 Nov 2013 - Version 1.2
+
+	* zilla-shortcode-lib.js - refresh accordion on activate and window resize
+
+13 Dec 2012 - Version 1.1
+
+	* shortcodes.css
+		- fix width on 4/5 column
+		- update tabs selectors for new UI in WP 3.5
+	* zilla-shortcodes.php
+		- update version number
+	* shortcodes.php
+		- update tabs to work with STATIC ids that will be consistant across pages
+	* zilla-shortcodes-lib.js - fix tabs JS call
+
+8 May 2012 - Version 1.0
+
+	* Initial Release
+

@@ -20,9 +20,9 @@
 		<footer id="footer" class="site-footer" role="contentinfo">
 		<?php zilla_footer_start(); ?>
 
-			<p class="copyright">&copy; <?php echo date( 'Y' ); ?> <a href="<?php echo home_url(); ?>"><?php bloginfo( 'name' ); ?></a>.  <?php _e('Powered by', 'zilla') ?> <a href="http://wordpress.org/">WordPress</a>.</p>
+			<p class="copyright">&copy; <?php echo date( 'Y' ); ?> <a href="<?php echo home_url(); ?>"><?php bloginfo( 'name' ); ?></a>
 
-			<p class="credit"><a href="http://www.themezilla.com/themes/base">Base Theme</a> by <a href="http://www.themezilla.com/">ThemeZilla</a></p>
+			<p class="credit"><<!-- a href="http://facebook.com">Facebook</a> --></p>
 
 		<?php zilla_footer_end(); ?>
 		<!-- END #footer -->

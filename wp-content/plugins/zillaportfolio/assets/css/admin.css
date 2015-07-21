@@ -1,0 +1,144 @@
+.menu-icon-portfolio .wp-menu-image { overflow: hidden; }
+
+.menu-icon-portfolio img {
+	position: relative;
+	top: -1px;
+}
+
+.menu-icon-portfolio:hover img,
+.wp-menu-open .menu-icon-portfolio img { top: -23px; }
+
+.tzp-metabox > p { margin-bottom: 2em; }
+
+.tzp-field:before,
+.tzp-field:after {
+	content: ' ';
+	display: table;
+}
+
+.tzp-field:after { clear: both; }
+
+.tzp-field {
+	clear: both;
+	margin-top: 1em;
+}
+
+.tzp-metabox label { 
+	display: block;
+	margin-top: 5px;
+}
+
+.tzp-left > p {
+	display: block;
+	margin-top: 5px;
+}
+
+.tzp-left {
+	float: left;
+	vertical-align: top;
+	width: 20%;
+}
+
+.tzp-right {
+	float: right;
+	vertical-align: top;
+	width: 80%;
+}
+
+.tzp-desc {
+	margin-top: 0.5em;
+	margin-left: 5px;
+}
+
+.tzp-gallery-upload-desc {
+	display: inline;
+}
+
+.tzp-metabox input[type="text"],
+.tzp-metabox textarea {
+	vertical-align: top;
+	width: 100%;
+}
+
+.tzp-metabox input[type="text"].file {
+	margin-right: 10px;
+	width: 85%;
+}
+
+.tzp-gallery-thumbs { margin-top: 20px; }
+
+.tzp-inline-checkboxes { margin: 5px 0 0 3px; }
+
+.tzp-inline-checkboxes li { 
+	display: inline; 
+	margin-right: 20px;
+}
+
+.tzp-inline-checkboxes label {
+	display: inline;
+	margin-left: 3px;
+}
+
+.tzp-metabox input[type="text"].tzp-color-picker {
+	width: 65px;
+	font-family: monospace;
+	text-align: center;
+	line-height: 16px;
+}
+
+.tzp-metabox .wp-color-result {
+	background-color: #F9F9F9;
+	border: 1px solid #bbb;
+	border-radius: 2px;
+	cursor: pointer;
+	display: inline-block;
+	height: 22px;
+	margin: 0 6px 6px 0;
+	position: relative;
+	top: 1px;
+	user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-webkit-user-select: none;
+	vertical-align: bottom;
+	display: inline-block;
+	padding-left: 30px;
+}
+
+.tzp-metabox .wp-color-result:after {
+	background: #f3f3f3;
+	background-image: -webkit-gradient(linear,left top,left bottom,from(#fefefe),to(#f4f4f4));
+	background-image: -webkit-linear-gradient(top,#fefefe,#f4f4f4);
+	background-image: -moz-linear-gradient(top,#fefefe,#f4f4f4);
+	background-image: -o-linear-gradient(top,#fefefe,#f4f4f4);
+	background-image: linear-gradient(to bottom,#fefefe,#f4f4f4);
+	color: #333;
+	text-shadow: 0 1px 0 #fff;
+	border-radius: inherit;
+	border-left: 1px solid #bbb;
+	content: attr(title);
+	display: block;
+	font-size: 11px;
+	line-height: 22px;
+	margin-left: 3px;
+	padding: 0 6px;
+	position: relative;
+	right: 0;
+	text-align: center;
+	top: 0;
+}
+
+.tzp-metabox .wp-picker-clear,
+.tzp-metabox .wp-picker-default {
+	margin-left: 10px;
+	margin-top: 2px;
+	vertical-align: top;
+}
+
+.tzp-gallery-thumbs li { 
+	display: inline-block; 
+	margin-bottom: 8px;
+	margin-right: 8px;
+}
+
+.tzp-gallery-thumbs img { vertical-align: bottom; }
