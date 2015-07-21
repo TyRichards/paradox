@@ -1,0 +1,94 @@
+/**
+ * Custom Admin Styles
+ *
+ * @since 1.1
+ */
+
+.zilla-metabox {}
+
+.zilla-metabox-description { margin-bottom: 2em; }
+
+.zilla-metabox-field {
+	clear: both;
+	margin-top: 1em;
+}
+
+.zilla-metabox-field:before,
+.zilla-metabox-field:after {
+	content: ' ';
+	display: table;
+}
+
+.zilla-metabox-field:after { clear: both; }
+
+.zilla-metabox-field .howto {
+	margin-top: 0.5em;
+	margin-left: 5px;
+}
+
+.zilla-metabox-gallery-howto { display: inline; }
+
+.zilla-metabox-left {
+	float: left;
+	vertical-align: top;
+	width: 20%;
+}
+
+.zilla-metabox-left > p { margin-top: 0; }
+
+.zilla-metabox-right {
+	float: right;
+	vertical-align: top;
+	width: 80%;
+}
+
+.zilla-metabox-field label {
+	display: block;
+	margin-top: 5px;
+}
+
+.zilla-metabox-field input[type="checkbox"] + label { display: inline; }
+
+.zilla-metabox-field input[type="text"],
+.zilla-metabox-field textarea {
+	vertical-align: top;
+	width: 100%;
+}
+
+.zilla-metabox-field input[type="text"].file {
+	margin-right: 10px;
+	width: 85%;
+}
+
+.zilla-metabox-field .colorpicker-wrapper input { width: auto; }
+
+/*------------------------------------------------------------------------------
+    Misc Styles
+------------------------------------------------------------------------------*/
+.zilla-clear { clear:both; }
+
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+* html .clearfix { zoom: 1; } /* IE6 */
+*:first-child+html .clearfix { zoom: 1; } /* IE7 */
+
+/*------------------------------------------------------------------------------
+	Media Metabox
+------------------------------------------------------------------------------*/
+.zilla-gallery-thumbs { 
+	clear: left; 
+	margin-top: 45px;
+}
+
+.zilla-gallery-thumbs li { 
+	float: left;
+	margin-right: 10px;
+}
+
+.zilla-gallery-thumbs img { vertical-align: bottom; }

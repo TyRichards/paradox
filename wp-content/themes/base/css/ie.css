@@ -1,0 +1,174 @@
+/**
+ * Base Styles for Internet Explorer 8
+ */
+
+.site { min-width: 980px; }
+
+.site-logo {
+	float: left;
+	width: 50%;
+}
+
+.site-navigation > ul {
+	float: right;
+}
+
+.site-navigation {
+	clear: none;
+	float: right;
+	width: 50%;
+}
+
+.comment-form button,
+.comment-form html input[type="submit"],
+.comment-form input[type="reset"],
+.comment-form input[type="submit"] { width: auto; }
+
+input[type="text"],
+input[type="url"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+textarea { padding: 1em 1.25em; }
+
+.comment-form input[type="text"],
+.comment-form input[type="url"],
+.comment-form input[type="email"],
+.comment-form input[type="password"],
+.comment-form input[type="search"],
+.comment-form textarea {
+	float: left;
+	margin-right: 20px;
+}
+
+.comment-form input[type="text"],
+.comment-form input[type="email"],
+.comment-form input[type="url"] { width: 44.4444%; }
+
+.comment-form label {
+	position: relative;
+	top: 1em;
+}
+
+.page-navigation {
+	font-size: 18px;
+	padding: 92px 4.6875%;
+}
+
+.single-post-navigation,
+.comment-navigation {
+	font-size: 18px;
+	padding: 60px 4.6875%;
+}
+
+.post {
+	border-right: 1px solid $form;
+	float: left;
+	height: 0;
+	padding-bottom: 67.1875%;
+	width: 50%;
+}
+
+.single .post {
+	float: none;
+	height: auto;
+	padding-bottom: 100px;
+	width: auto;
+}
+
+.returned-search-results { width: 81.25%; }
+
+#post-0 { padding: 100px 0; }
+
+.entry-header { width: 81.25%; }
+
+.single .entry-header {
+	margin: 100px auto 0;
+	text-align: center;
+	width: 70.3125%;
+}
+
+.single .entry-title { font-size: 48px; }
+
+.entry-content { width: 81.25%; }
+
+.single .entry-content { width: 70.3125%; }
+
+.entry-summary { width: 81.25%; }
+
+.format-quote .overlay blockquote,
+.format-link .overlay h2 { font-size: 26px; }
+
+.single-post .zilla-slide-prev {
+	background-position: -120px -30px;
+	height: 60px;
+	width: 60px;
+}
+
+.single-post .zilla-slide-next {
+	background-position: -180px -30px;
+	height: 60px;
+	width: 60px;
+}
+
+.zilla-gallery .wp-caption { display: block; }
+
+.portfolio-feed .portfolio {
+	float: left;
+	width: 50%;
+}
+
+.portfolio .entry-thumbnail .overlay h2 { font-size: 26px; }
+
+.featured-portfolio .portfolio .entry-thumbnail .overlay h2 { font-size: 48px; }
+
+.portfolio-media-main .zilla-gallery li {
+	display: block;
+	float: left;
+	width: 49.95%;
+}
+
+.portfolio-entry-meta li:first-child { margin-left: 10px; }
+
+.comments {	padding: 100px 0 80px; }
+
+.comments-title,
+.pings-title {
+	font-size: 26px;
+	width: 81.25%;
+}
+
+.commentlist,
+.pinglist { width: 70.3125%; }
+
+.comment .avatar { display: block; }
+
+.comment-respond { width: 70.3125%; }
+
+.site-footer { padding: 43px 4.6875%; }
+
+.copyright { float: left; }
+
+.credit { float: right; }
+
+.footer-column {
+	border-left: 1px solid $form;
+	border-top: none;
+	display: table-cell;
+	padding: 74px 4.75%;
+	width: 33.3333%;
+}
+
+.page { padding-bottom: 100px; }
+
+.page .entry-header .entry-title { font-size: 48px; }
+
+.page .entry-thumbnail + .entry-header { margin-top: 100px; }
+
+.page .entry-header,
+.page .entry-content { width: 70.3125%; }
+
+.contactform button {
+	float: right;
+	width: auto;
+}

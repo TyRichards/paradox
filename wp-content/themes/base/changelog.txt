@@ -1,0 +1,5 @@
+*** Base Changelog ***
+
+05 Sept 2014 - Version 1.0
+
+	First Release

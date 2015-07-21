@@ -1,0 +1,919 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Base\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-06-20 16:19-0500\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Mark Southard <mbsatunc@yahoo.com>\n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.6.5\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../archive.php:21 ../archive.php:23 ../archive.php:25
+#, php-format
+msgid "Archive for: %s"
+msgstr ""
+
+#: ../archive.php:27
+msgid "Archives"
+msgstr ""
+
+#: ../author.php:19
+#, php-format
+msgid "All posts by %s"
+msgstr ""
+
+#: ../category.php:18
+#, php-format
+msgid "Category Archives: %s"
+msgstr ""
+
+#: ../comments.php:32
+msgid "No Comments"
+msgstr ""
+
+#: ../comments.php:32
+msgid "1 Comment"
+msgstr ""
+
+#: ../comments.php:32
+msgid "% Comments"
+msgstr ""
+
+#: ../comments.php:43
+msgid "Trackbacks for this post"
+msgstr ""
+
+#: ../comments.php:55
+msgid "Older Comments"
+msgstr ""
+
+#: ../comments.php:58
+msgid "Newer Comments"
+msgstr ""
+
+#: ../comments.php:69
+msgid "Comments are closed."
+msgstr ""
+
+#: ../comments.php:81
+#, php-format
+msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
+msgstr ""
+
+#: ../comments.php:82
+#, php-format
+msgid ""
+"Logged in as <a href=\"%1$s\">%2$s</a>. <a href=\"%3$s\" title=\"Log out of "
+"this account\">Log out &raquo;</a>"
+msgstr ""
+
+#: ../comments.php:87
+msgid "Cancel Reply"
+msgstr ""
+
+#: ../comments.php:88
+msgid "Submit Comment"
+msgstr ""
+
+#: ../content-none.php:12
+msgid "Error 404: "
+msgstr ""
+
+#: ../content-none.php:12
+msgid "Nothing Found"
+msgstr ""
+
+#: ../content-none.php:23
+#, php-format
+msgid ""
+"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+
+#: ../content-none.php:27
+msgid ""
+"Sorry, but nothing matched your search terms. Please try again with "
+"different keywords."
+msgstr ""
+
+#: ../content-none.php:32
+msgid ""
+"It seems we cannot find what you are looking for. Perhaps searching can help."
+msgstr ""
+
+#: ../footer.php:23
+msgid "Powered by"
+msgstr ""
+
+#: ../framework/zilla-admin-functions.php:30
+msgid "Add New"
+msgstr ""
+
+#: ../framework/zilla-admin-functions.php:31
+#: ../framework/zilla-admin-functions.php:63
+#, php-format
+msgid "Add New %s"
+msgstr ""
+
+#: ../framework/zilla-admin-functions.php:32
+#: ../framework/zilla-admin-functions.php:61
+#, php-format
+msgid "Edit %s"
+msgstr ""
+
+#: ../framework/zilla-admin-functions.php:33
+#, php-format
+msgid "New %s"
+msgstr ""
+
+#: ../framework/zilla-admin-functions.php:34
+#, php-format
+msgid "View %s"
+msgstr ""
+
+#: ../framework/zilla-admin-functions.php:35
+#: ../framework/zilla-admin-functions.php:56
+#, php-format
+msgid "Search %s"
+msgstr ""
+
+#: ../framework/zilla-admin-functions.php:36
+#, php-format
+msgid "No %s found"
+msgstr ""
+
+#: ../framework/zilla-admin-functions.php:37
+#, php-format
+msgid "No %s found in Trash"
+msgstr ""
+
+#: ../framework/zilla-admin-functions.php:57
+#, php-format
+msgid "Popular %s"
+msgstr ""
+
+#: ../framework/zilla-admin-functions.php:58
+#, php-format
+msgid "All %s"
+msgstr ""
+
+#: ../framework/zilla-admin-functions.php:62
+#, php-format
+msgid "Update %s"
+msgstr ""
+
+#: ../framework/zilla-admin-functions.php:64
+#, php-format
+msgid "New %s Name"
+msgstr ""
+
+#: ../framework/zilla-admin-functions.php:65
+#, php-format
+msgid "Separate %s with commas"
+msgstr ""
+
+#: ../framework/zilla-admin-functions.php:66
+#, php-format
+msgid "Add or remove %s"
+msgstr ""
+
+#: ../framework/zilla-admin-functions.php:67
+#, php-format
+msgid "Choose from the most used %s"
+msgstr ""
+
+#: ../framework/zilla-admin-init.php:51
+msgid "Support Forums"
+msgstr ""
+
+#: ../framework/zilla-admin-metaboxes.php:86
+msgid "Insert"
+msgstr ""
+
+#: ../framework/zilla-admin-metaboxes.php:120
+msgid "Create Featured Gallery"
+msgstr ""
+
+#: ../framework/zilla-admin-metaboxes.php:128
+#: ../framework/zilla-admin-metaboxes.php:136
+msgid "Edit Featured Gallery"
+msgstr ""
+
+#: ../framework/zilla-admin-metaboxes.php:173
+msgid "Save Featured Gallery"
+msgstr ""
+
+#: ../framework/zilla-admin-metaboxes.php:183
+msgid "Saving..."
+msgstr ""
+
+#: ../framework/zilla-admin-metaboxes.php:250
+#: ../framework/zilla-admin-metaboxes.php:252
+msgid "Edit Gallery"
+msgstr ""
+
+#: ../functions.php:48
+msgid "Primary Menu"
+msgstr ""
+
+#: ../functions.php:82
+#, php-format
+msgid "Footer Column %d"
+msgstr ""
+
+#: ../functions.php:154
+#, php-format
+msgid "Page %s"
+msgstr ""
+
+#: ../functions.php:253
+msgid "About the author"
+msgstr ""
+
+#: ../functions.php:298
+#, php-format
+msgid "<cite class=\"fn\">%s</cite> "
+msgstr ""
+
+#: ../functions.php:298
+msgid "(Author)"
+msgstr ""
+
+#: ../functions.php:300
+#, php-format
+msgid "%1$s at %2$s"
+msgstr ""
+
+#: ../functions.php:300
+msgid "(Edit)"
+msgstr ""
+
+#: ../functions.php:308
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: ../functions.php:380
+msgid "Featured Portfolio:"
+msgstr ""
+
+#: ../functions.php:386
+msgid "Feature Portfolio"
+msgstr ""
+
+#: ../functions.php:389
+msgid "Should this portfolio be featured at the top of your portfolio?"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:155 ../includes/init.php:72
+msgid "Install Required Plugins"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:156 ../includes/init.php:73
+msgid "Install Plugins"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:157 ../includes/init.php:74
+#, php-format
+msgid "Installing Plugin: %s"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:158
+msgid "Something went wrong."
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:169 ../includes/init.php:86
+msgid "Return to Required Plugins Installer"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:170
+msgid "Return to the dashboard"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:171
+#: ../includes/class-tgm-plugin-activation.php:1840 ../includes/init.php:87
+msgid "Plugin activated successfully."
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:172
+msgid "The following plugin was activated successfully:"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:173
+#, php-format
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:174
+msgid "Dismiss this notice"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1085
+msgid "External Link"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1090
+msgid "Private Repository"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1093
+msgid "Pre-Packaged"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1097
+msgid "WordPress Repository"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1100
+msgid "Required"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1100
+msgid "Recommended"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1103
+msgid "Not Installed"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1105
+msgid "Installed But Not Activated"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1275
+#, php-format
+msgid ""
+"No plugins to install or activate. <a href=\"%1$s\" title=\"Return to the "
+"Dashboard\">Return to the Dashboard</a>"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1291
+msgid "Plugin"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1292
+msgid "Source"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1293
+msgid "Type"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1294
+msgid "Status"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1312
+msgid "Install"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1313
+msgid "Activate"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1823
+msgid "Install package not available."
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1824
+#, php-format
+msgid "Downloading install package from <span class=\"code\">%s</span>&#8230;"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1825
+msgid "Unpacking the package&#8230;"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1826
+msgid "Installing the plugin&#8230;"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1827
+msgid "Plugin install failed."
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1828
+msgid "Plugin installed successfully."
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1839
+msgid "Plugin activation failed."
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1949
+msgid ""
+"The installation and activation process is starting. This process may take a "
+"while on some hosts, so please be patient."
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1950
+#, php-format
+msgid "%1$s installed and activated successfully."
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1950
+#: ../includes/class-tgm-plugin-activation.php:1959
+msgid "Show Details"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1950
+#: ../includes/class-tgm-plugin-activation.php:1959
+msgid "Hide Details"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1951
+msgid "All installations and activations have been completed."
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1952
+#, php-format
+msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1956
+msgid ""
+"The installation process is starting. This process may take a while on some "
+"hosts, so please be patient."
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1957
+#, php-format
+msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1958
+#, php-format
+msgid "The installation of %1$s failed."
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1959
+#, php-format
+msgid "%1$s installed successfully."
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1960
+msgid "All installations have been completed."
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:1961
+#, php-format
+msgid "Installing Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: ../includes/class-tgm-plugin-activation.php:2052
+msgid "Return to the Dashboard"
+msgstr ""
+
+#: ../includes/init.php:75
+msgid "Something went wrong with the plugin API."
+msgstr ""
+
+#: ../includes/init.php:88
+#, php-format
+msgid "All plugins installed and activated successfully. %s"
+msgstr ""
+
+#: ../includes/meta/post-meta.php:13
+msgid "Gallery Settings"
+msgstr ""
+
+#: ../includes/meta/post-meta.php:14
+msgid "Set up your gallery."
+msgstr ""
+
+#: ../includes/meta/post-meta.php:27
+msgid "Gallery Layout"
+msgstr ""
+
+#: ../includes/meta/post-meta.php:28
+msgid "Should the gallery images be stacked or in a slideshow?"
+msgstr ""
+
+#: ../includes/meta/post-meta.php:33
+msgid "Stacked"
+msgstr ""
+
+#: ../includes/meta/post-meta.php:34
+msgid "Slideshow"
+msgstr ""
+
+#: ../includes/meta/post-meta.php:38 ../includes/meta/post-meta.php:42
+msgid "Upload Images"
+msgstr ""
+
+#: ../includes/meta/post-meta.php:39
+msgid "Click to upload images."
+msgstr ""
+
+#: ../includes/meta/post-meta.php:51
+msgid "Quote Settings"
+msgstr ""
+
+#: ../includes/meta/post-meta.php:52 ../includes/meta/post-meta.php:59
+msgid "Input your quote."
+msgstr ""
+
+#: ../includes/meta/post-meta.php:58
+msgid "The Quote"
+msgstr ""
+
+#: ../includes/meta/post-meta.php:71
+msgid "Link Settings"
+msgstr ""
+
+#: ../includes/meta/post-meta.php:72
+msgid "Input your link"
+msgstr ""
+
+#: ../includes/meta/post-meta.php:78
+msgid "The Link"
+msgstr ""
+
+#: ../includes/meta/post-meta.php:79
+msgid "Input your link."
+msgstr ""
+
+#: ../includes/meta/post-meta.php:91
+msgid "Video Settings"
+msgstr ""
+
+#: ../includes/meta/post-meta.php:92
+msgid "These settings enable you to embed videos into your posts."
+msgstr ""
+
+#: ../includes/meta/post-meta.php:98
+msgid "M4V File URL"
+msgstr ""
+
+#: ../includes/meta/post-meta.php:99
+msgid "The URL to the .m4v video file"
+msgstr ""
+
+#: ../includes/meta/post-meta.php:105
+msgid "OGV File URL"
+msgstr ""
+
+#: ../includes/meta/post-meta.php:106
+msgid "The URL to the .ogv video file"
+msgstr ""
+
+#: ../includes/meta/post-meta.php:112
+msgid "Poster Image"
+msgstr ""
+
+#: ../includes/meta/post-meta.php:113
+msgid "The preview image."
+msgstr ""
+
+#: ../includes/meta/post-meta.php:119
+msgid "Embedded Code"
+msgstr ""
+
+#: ../includes/meta/post-meta.php:120
+msgid ""
+"If you are using something other than self hosted video such as Youtube or "
+"Vimeo, paste the embed code here. Width is best at 600px with any height."
+"<br><br> This field will override the above."
+msgstr ""
+
+#: ../includes/meta/post-meta.php:132
+msgid "Audio Settings"
+msgstr ""
+
+#: ../includes/meta/post-meta.php:133
+msgid "These settings enable you to embed audio into your posts."
+msgstr ""
+
+#: ../includes/meta/post-meta.php:139
+msgid "MP3 File URL"
+msgstr ""
+
+#: ../includes/meta/post-meta.php:140
+msgid "The URL to the .mp3 audio file"
+msgstr ""
+
+#: ../includes/meta/post-meta.php:146
+msgid "OGA File URL"
+msgstr ""
+
+#: ../includes/meta/post-meta.php:147
+msgid "The URL to the .oga, .ogg audio file"
+msgstr ""
+
+#: ../includes/meta/seo-meta.php:13
+msgid "SEO Settings"
+msgstr ""
+
+#: ../includes/meta/seo-meta.php:14
+msgid ""
+"These settings enable you to customize the SEO settings for this post/page."
+msgstr ""
+
+#: ../includes/meta/seo-meta.php:20
+msgid "Title"
+msgstr ""
+
+#: ../includes/meta/seo-meta.php:21
+msgid "Most search engines use a maximum of 60 chars for the title."
+msgstr ""
+
+#: ../includes/meta/seo-meta.php:27
+msgid "Description"
+msgstr ""
+
+#: ../includes/meta/seo-meta.php:28
+msgid "Most search engines use a maximum of 160 chars for the description."
+msgstr ""
+
+#: ../includes/meta/seo-meta.php:34
+msgid "Keywords"
+msgstr ""
+
+#: ../includes/meta/seo-meta.php:35
+msgid "A comma separated list of keywords"
+msgstr ""
+
+#: ../includes/meta/seo-meta.php:41
+msgid "Meta Robots Index"
+msgstr ""
+
+#: ../includes/meta/seo-meta.php:42
+msgid "Do you want robots to index this page?"
+msgstr ""
+
+#: ../includes/meta/seo-meta.php:49
+msgid "Meta Robots Follow"
+msgstr ""
+
+#: ../includes/meta/seo-meta.php:50
+msgid "Do you want robots to follow links from this page?"
+msgstr ""
+
+#: ../includes/template-tags.php:167
+msgid "Previous"
+msgstr ""
+
+#: ../includes/template-tags.php:168
+msgid "Next"
+msgstr ""
+
+#: ../includes/template-tags.php:336
+msgid "by"
+msgstr ""
+
+#: ../includes/template-tags.php:338
+#, php-format
+msgid "View all posts by %s"
+msgstr ""
+
+#: ../includes/template-tags.php:360
+msgid "Pages: "
+msgstr ""
+
+#: ../includes/template-tags.php:403
+msgid "&larr; Older Entries"
+msgstr ""
+
+#: ../includes/template-tags.php:406
+msgid "Newer Entries &rarr;"
+msgstr ""
+
+#: ../includes/theme-customize.php:29
+msgid "General Options"
+msgstr ""
+
+#: ../includes/theme-customize.php:32
+msgid ""
+"Control and configure the general setup of your theme. Upload your preferred "
+"logo, setup your feeds and insert your analytics tracking code."
+msgstr ""
+
+#: ../includes/theme-customize.php:42
+msgid "Plain Text Logo"
+msgstr ""
+
+#: ../includes/theme-customize.php:60
+msgid "Logo Upload"
+msgstr ""
+
+#: ../includes/theme-customize.php:75
+msgid "Favicon Upload (16x16 image file)"
+msgstr ""
+
+#: ../includes/theme-customize.php:90
+msgid "Contact Form Email Address"
+msgstr ""
+
+#: ../includes/theme-customize.php:100
+msgid "Style Options"
+msgstr ""
+
+#: ../includes/theme-customize.php:103
+msgid "Give your site a custom coat of paint by updating the style options."
+msgstr ""
+
+#: ../includes/theme-customize.php:119
+msgid "Accent Color"
+msgstr ""
+
+#: ../includes/theme-customize.php:131
+msgid "Custom CSS"
+msgstr ""
+
+#: ../includes/widgets/widget-flickr.php:50
+msgid "Custom Flickr Photos"
+msgstr ""
+
+#: ../includes/widgets/widget-flickr.php:51
+msgid "A widget that displays your Flickr photos."
+msgstr ""
+
+#: ../includes/widgets/widget-flickr.php:121
+#: ../includes/widgets/widget-tweets.php:124
+#: ../includes/widgets/widget-video.php:113
+msgid "Title:"
+msgstr ""
+
+#: ../includes/widgets/widget-flickr.php:126
+msgid "Intro:"
+msgstr ""
+
+#: ../includes/widgets/widget-flickr.php:131
+msgid "Flickr ID:"
+msgstr ""
+
+#: ../includes/widgets/widget-flickr.php:136
+msgid "Number of Photos:"
+msgstr ""
+
+#: ../includes/widgets/widget-flickr.php:144
+msgid "Type (user or group):"
+msgstr ""
+
+#: ../includes/widgets/widget-flickr.php:152
+msgid "Display (random or latest):"
+msgstr ""
+
+#: ../includes/widgets/widget-tweets.php:29
+msgid "Custom Latest Tweets"
+msgstr ""
+
+#: ../includes/widgets/widget-tweets.php:32
+msgid "A new widget that displays your latest tweets"
+msgstr ""
+
+#: ../includes/widgets/widget-tweets.php:67
+msgid "There was an error grabbing the Twitter feed"
+msgstr ""
+
+#: ../includes/widgets/widget-tweets.php:129
+msgid "Twitter Username e.g. themezilla"
+msgstr ""
+
+#: ../includes/widgets/widget-tweets.php:134
+msgid "Number of tweets"
+msgstr ""
+
+#: ../includes/widgets/widget-tweets.php:136
+msgid "Feeds include replies and retweets"
+msgstr ""
+
+#: ../includes/widgets/widget-tweets.php:140
+msgid "Follow Text e.g. Follow me on Twitter"
+msgstr ""
+
+#: ../includes/widgets/widget-tweets.php:144
+msgid "Tweets are cached for 5 minutes to improve performance"
+msgstr ""
+
+#: ../includes/widgets/widget-tweets.php:195
+#: ../includes/widgets/widget-tweets.php:197
+#: ../includes/widgets/widget-tweets.php:199
+#: ../includes/widgets/widget-tweets.php:201
+msgid "Not properly configured, check settings"
+msgstr ""
+
+#: ../includes/widgets/widget-tweets.php:292
+#: ../includes/widgets/widget-tweets.php:293
+msgid "Twitter Widget Settings"
+msgstr ""
+
+#: ../includes/widgets/widget-tweets.php:329
+msgid "Insufficient permissions"
+msgstr ""
+
+#: ../includes/widgets/widget-tweets.php:338
+msgid ""
+"Twitter requires that you register an application in order to utilize their "
+"API. Directions to get the Consumer Key, Consumer Secret, Access Token, and "
+"Access Token Secret."
+msgstr ""
+
+#: ../includes/widgets/widget-tweets.php:340
+msgid "Create a new Twitter application"
+msgstr ""
+
+#: ../includes/widgets/widget-tweets.php:341
+msgid "Fill in all fields on the create application page."
+msgstr ""
+
+#: ../includes/widgets/widget-tweets.php:342
+msgid "Agree to rules, fill out captcha, and submit your application"
+msgstr ""
+
+#: ../includes/widgets/widget-tweets.php:343
+msgid ""
+"Copy the Consumer Key, Consumer Secret, Access Token, and Access Token "
+"Secret into the fields below"
+msgstr ""
+
+#: ../includes/widgets/widget-tweets.php:344
+msgid "Click the Save Changes button at the bottom of this page"
+msgstr ""
+
+#: ../includes/widgets/widget-video.php:47
+msgid "Custom Video Widget"
+msgstr ""
+
+#: ../includes/widgets/widget-video.php:49
+msgid "A widget that displays your YouTube or Vimeo Video."
+msgstr ""
+
+#: ../includes/widgets/widget-video.php:118
+msgid "Embed Code:"
+msgstr ""
+
+#: ../includes/widgets/widget-video.php:123
+msgid "Short Description:"
+msgstr ""
+
+#: ../search.php:15
+msgid "Search Results for"
+msgstr ""
+
+#: ../searchform.php:13
+msgid "To search type and hit enter"
+msgstr ""
+
+#: ../tag.php:17
+#, php-format
+msgid "Tag Archives: %s"
+msgstr ""
+
+#: ../template-archives.php:28
+msgid "Last 30 Posts"
+msgstr ""
+
+#: ../template-archives.php:37
+msgid "Archives by Month:"
+msgstr ""
+
+#: ../template-archives.php:43
+msgid "Archives by Subject:"
+msgstr ""
+
+#: ../template-contact.php:14
+msgid "Please enter your name."
+msgstr ""
+
+#: ../template-contact.php:15
+msgid "Please enter your email address."
+msgstr ""
+
+#: ../template-contact.php:16
+msgid "You entered an invalid email address."
+msgstr ""
+
+#: ../template-contact.php:17
+msgid "Please enter a message."
+msgstr ""
+
+#: ../template-contact.php:105
+msgid "Thanks, your email was sent successfully."
+msgstr ""
+
+#: ../template-contact.php:113
+msgid "Sorry, an error occured."
+msgstr ""
+
+#: ../template-contact.php:118
+msgid "Name:"
+msgstr ""
+
+#: ../template-contact.php:125
+msgid "Email:"
+msgstr ""
+
+#: ../template-contact.php:135
+msgid "Message:"
+msgstr ""
+
+#: ../template-contact.php:144
+msgid "Send Email"
+msgstr ""

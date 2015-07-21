@@ -1,0 +1,68 @@
+/*** ZillaFramework Changelog ***/
+
+6 January 2014 - Version 1.1
+	Note: Supports only 3.5+
+
+	* init.php
+		- update framework version to 1.1
+		- remove require calls for removed files
+	* zilla-admin-init.php
+		- remove page redirect on theme install
+		- modify zilla_menu function
+		- remove script and style enqueues for removed/unused files
+		- remove theme options variable
+		- remove zilla_link_custom_styles function
+		- remove zilla_create_custom_styles
+		- add zilla_output_custom_styles - outputs custom styles in the head via zilla_head
+	* zilla-theme-functions.php
+		- remove custom login logo
+		- allow WP to print generator meta tag
+		- remove add/update/remove/get theme options functions
+	* zilla-admin-functions.php
+		- remove zilla_is_theme_activated() function
+		- remove zilla_get_theme_changelog() function
+		- remove zilla_admin_notice() function
+		- remove zilla_get_more_themes_rss() function
+		- remove zilla_do_you_need_to_get_your_update_on() function
+		- remove zilla_create_input() function
+		- remove zilla_add_framework_page() function
+	* zilla-admin-metaboxes.php 
+		- update metabox HTML
+		- remove pre-WP3.5 support
+		- remove load of unneeded scripts
+		- update color input to use WP Color Picker
+		- update enqueue scripts function name
+	* zilla-admin.css - update styles
+	* zilla-admin.js - remove unneeded framework JS code
+
+
+	REMOVED
+	* zilla-admin-page-update.php
+	* zilla-admin-page-options.php
+
+23 July 2013 - Version 1.0.2.6
+
+	* init.php 
+		- update framework version
+		- remove call to zilla-admin-page-themes.php
+	* zilla-admin-page-options.php - update themes URL in options page header
+
+	REMOVED
+	* zilla-admin-page-themes.php
+
+5 Dec 2012 - Version 1.0.2.5
+
+	* init.php - update framework version
+	* zilla-admin-init.php 
+		- remove theme data fall back; change requires WordPress 3.4
+		- use site_url() for custom stylesheet url
+	* zilla-admin-page-options.php - sanitize file name in theme options image upload
+	* zilla-admin-functions.php - sanitize file name in theme options image upload
+	* zilla-admin-metaboxes.php 
+		- use new media editor functionality with fallback for WP sub 3.5
+		- remove calls to thickbox, if using pre 3.5
+		- PHP 5.4 bug fix
+	* zilla-theme-functions.php - PHP 5.4 bug fix
+	* zilla-admin.css - add simple stylings for gallery thumbs
+
+	WordPress dependency: 3.4
