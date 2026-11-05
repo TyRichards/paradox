@@ -4,10 +4,14 @@ types:
   - brand
 client: Cooper Calisthenics
 projectDate: September 2014
-order: 49
+order: 48
+cover: /images/work/cooper-calisthenics-logo/CooperCalistentics-Logo.jpg
+coverAlt: Paradox - Ty Richards - Cooper Calisthenics
+featured: false
+placeholder: false
 legacy:
   wpId: 91
-  url: https://paradoxcreative.com/portfolio/cooper-calisthenics-logo/
+  url: "https://paradoxcreative.com/portfolio/cooper-calisthenics-logo/"
   modified: 2015-07-22
-  thumbnail: https://paradoxcreative.com/wp-content/uploads/2015/07/CooperCalistentics-Logo-360x296.jpg
+  thumbnail: "http://paradoxcreative.com/wp-content/uploads/2015/07/CooperCalistentics-Logo.jpg"
 ---

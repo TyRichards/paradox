@@ -1,16 +1,23 @@
 ---
 title: Chris Bullard
-summary: Brand & Artist Website
+summary: "Brand & Artist Website"
 types:
   - brand
   - web
-order: 31
+order: 30
+cover: /images/work/chris-bullard/ChrisBullard-Thumb.jpg
+coverAlt: Paradox - Ty Richards - Chris Bullard Website
+gallery:
+  - /images/work/chris-bullard/ChrisBullard-Web.jpg
+  - /images/work/chris-bullard/ChrisBullard-Logo.jpg
+featured: false
+placeholder: false
 legacy:
   wpId: 178
-  url: https://paradoxcreative.com/portfolio/chris-bullard/
+  url: "https://paradoxcreative.com/portfolio/chris-bullard/"
   modified: 2015-07-23
-  thumbnail: https://paradoxcreative.com/wp-content/uploads/2015/07/ChrisBullard-Thumb.jpg
+  thumbnail: "http://paradoxcreative.com/wp-content/uploads/2015/07/ChrisBullard-Thumb.jpg"
   gallery:
-    - https://paradoxcreative.com/wp-content/uploads/2015/07/ChrisBullard-Web-960x624.jpg
-    - https://paradoxcreative.com/wp-content/uploads/2015/07/ChrisBullard-Logo-960x540.jpg
+    - "http://paradoxcreative.com/wp-content/uploads/2015/07/ChrisBullard-Web.jpg"
+    - "http://paradoxcreative.com/wp-content/uploads/2015/07/ChrisBullard-Logo.jpg"
 ---

@@ -1,16 +1,23 @@
 ---
 title: Victory Blue
-summary: Industrial Product Brand & Brochure Website Design
+summary: "Industrial Product Brand & Brochure Website Design"
 types:
   - brand
   - web
-order: 16
+order: 15
+cover: /images/work/victory-blue/VictoryBlue-Thumb.jpg
+coverAlt: Paradox - Ty Richards - Victory Blue Website
+gallery:
+  - /images/work/victory-blue/VictoryBlue-Logo.jpg
+  - /images/work/victory-blue/VictoryBlue-Web.jpg
+featured: false
+placeholder: false
 legacy:
   wpId: 237
-  url: https://paradoxcreative.com/portfolio/victory-blue/
+  url: "https://paradoxcreative.com/portfolio/victory-blue/"
   modified: 2015-08-05
-  thumbnail: https://paradoxcreative.com/wp-content/uploads/2015/07/VictoryBlue-Thumb.jpg
+  thumbnail: "http://paradoxcreative.com/wp-content/uploads/2015/07/VictoryBlue-Thumb.jpg"
   gallery:
-    - https://paradoxcreative.com/wp-content/uploads/2015/07/VictoryBlue-Logo-960x540.jpg
-    - https://paradoxcreative.com/wp-content/uploads/2015/07/VictoryBlue-Web-960x624.jpg
+    - "http://paradoxcreative.com/wp-content/uploads/2015/07/VictoryBlue-Logo.jpg"
+    - "http://paradoxcreative.com/wp-content/uploads/2015/07/VictoryBlue-Web.jpg"
 ---

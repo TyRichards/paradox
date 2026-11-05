@@ -1,16 +1,23 @@
 ---
-title: Chris & Lolly
-summary: Brand & Single-Page Artist Website
+title: "Chris & Lolly"
+summary: "Brand & Single-Page Artist Website"
 types:
   - brand
   - web
-order: 32
+order: 31
+cover: /images/work/chris-lolly/ChrisAndLolly-Thumb.jpg
+coverAlt: "Paradox - Ty Richards - Chris & Lolly Website"
+gallery:
+  - /images/work/chris-lolly/ChrisAndLolly-Web.jpg
+  - /images/work/chris-lolly/ChrisAndLolly-Logo.jpg
+featured: false
+placeholder: false
 legacy:
   wpId: 174
-  url: https://paradoxcreative.com/portfolio/chris-lolly/
+  url: "https://paradoxcreative.com/portfolio/chris-lolly/"
   modified: 2015-07-27
-  thumbnail: https://paradoxcreative.com/wp-content/uploads/2015/07/ChrisAndLolly-Thumb.jpg
+  thumbnail: "http://paradoxcreative.com/wp-content/uploads/2015/07/ChrisAndLolly-Thumb.jpg"
   gallery:
-    - https://paradoxcreative.com/wp-content/uploads/2015/07/ChrisAndLolly-Web-960x624.jpg
-    - https://paradoxcreative.com/wp-content/uploads/2015/07/ChrisAndLolly-Logo-960x540.jpg
+    - "http://paradoxcreative.com/wp-content/uploads/2015/07/ChrisAndLolly-Web.jpg"
+    - "http://paradoxcreative.com/wp-content/uploads/2015/07/ChrisAndLolly-Logo.jpg"
 ---
