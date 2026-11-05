@@ -1,31 +1,161 @@
 ---
-import MarkdownPage from '../components/MarkdownPage.astro';
-import PlaceholderNote from '../components/PlaceholderNote.astro';
+import MarkdownPage from '@/components/MarkdownPage.astro';
+import { Alert, AlertDescription, AlertTitle } from '@/components/starwind/alert';
+import { Button } from '@/components/starwind/button';
+import { Input } from '@/components/starwind/input';
+import { Label } from '@/components/starwind/label';
+import { Spinner } from '@/components/starwind/spinner';
+import { Textarea } from '@/components/starwind/textarea';
+
+// Cloudflare's always-pass test site key, used only by `astro dev` so the form works without real keys.
+const DEV_TEST_SITE_KEY = '1x00000000000000000000AA';
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || (import.meta.env.DEV ? DEV_TEST_SITE_KEY : '');
+const configured = Boolean(siteKey);
 ---
 
 <MarkdownPage id="contact">
-  <PlaceholderNote label="Contact form stub — not wired up yet. See README “Next steps” for free, static-friendly options." />
-  <form class="max-w-xl space-y-4" aria-describedby="contact-form-note" onsubmit="return false;">
-    <p id="contact-form-note" class="sr-only">This form is a non-functional placeholder.</p>
-    <label class="block">
-      <span class="text-sm font-semibold">Name</span>
-      <input type="text" name="name" disabled class="mt-1 block w-full rounded-md border border-line bg-mist px-3 py-2" />
-    </label>
-    <label class="block">
-      <span class="text-sm font-semibold">Email</span>
-      <input type="email" name="email" disabled class="mt-1 block w-full rounded-md border border-line bg-mist px-3 py-2" />
-    </label>
-    <label class="block">
-      <span class="text-sm font-semibold">Project details and rough budget</span>
-      <textarea name="message" rows="5" disabled class="mt-1 block w-full rounded-md border border-line bg-mist px-3 py-2"
-      ></textarea>
-    </label>
-    <button
-      type="submit"
-      disabled
-      class="cursor-not-allowed rounded-full bg-ink px-6 py-3 text-sm font-bold tracking-wide text-paper uppercase opacity-50"
-    >
-      Send
-    </button>
+  {configured && <script slot="head" is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+
+  <form
+    id="contact-form"
+    action="/api/contact"
+    method="post"
+    class="mt-10 max-w-xl space-y-6"
+    novalidate
+    data-configured={configured ? 'true' : 'false'}
+  >
+    {
+      !configured && (
+        <Alert variant="warning">
+          <AlertTitle>The contact form isn’t switched on yet</AlertTitle>
+          <AlertDescription>Please use the email address above for now.</AlertDescription>
+        </Alert>
+      )
+    }
+
+    <fieldset class="space-y-6" disabled={!configured}>
+      <div class="grid gap-6 sm:grid-cols-2">
+        <div class="space-y-2">
+          <Label for="contact-name">Name</Label>
+          <Input id="contact-name" name="name" autocomplete="name" required maxlength={200} />
+        </div>
+        <div class="space-y-2">
+          <Label for="contact-email">Email</Label>
+          <Input id="contact-email" name="email" type="email" autocomplete="email" required maxlength={320} />
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <Label for="contact-message">Project details</Label>
+        <Textarea
+          id="contact-message"
+          name="message"
+          rows={6}
+          required
+          maxlength={5000}
+          placeholder="What are you building, and when do you need it?"
+        />
+      </div>
+
+      <div class="space-y-2">
+        <Label for="contact-budget">Rough budget</Label>
+        <Input id="contact-budget" name="budget" maxlength={200} placeholder="A ballpark is fine" />
+      </div>
+
+      <div class="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
+        <label for="contact-company">Company (leave blank)</label>
+        <input id="contact-company" name="company" type="text" tabindex="-1" autocomplete="off" />
+      </div>
+
+      {configured && <div class="cf-turnstile" data-sitekey={siteKey} data-action="contact" data-theme="light" />}
+
+      <div class="flex items-center gap-4">
+        <Button type="submit" variant="primary" size="lg" class="rounded-full font-bold" data-submit>
+          <Spinner class="hidden" data-spinner />
+          <span data-label>Send</span>
+        </Button>
+      </div>
+    </fieldset>
+
+    <div data-status aria-live="polite"></div>
   </form>
+
+  <template id="contact-success">
+    <Alert variant="success">
+      <AlertTitle>Thanks, message sent.</AlertTitle>
+      <AlertDescription>Ty will get back to you soon.</AlertDescription>
+    </Alert>
+  </template>
+  <template id="contact-error">
+    <Alert variant="error">
+      <AlertTitle>Something went wrong</AlertTitle>
+      <AlertDescription data-message>Please try again, or email instead.</AlertDescription>
+    </Alert>
+  </template>
 </MarkdownPage>
+
+<script>
+  declare global {
+    interface Window {
+      turnstile?: { reset: (widget?: string | HTMLElement) => void };
+    }
+  }
+
+  const form = document.querySelector<HTMLFormElement>('#contact-form');
+
+  function showStatus(kind: 'success' | 'error', message?: string) {
+    const target = form?.querySelector<HTMLElement>('[data-status]');
+    const template = document.querySelector<HTMLTemplateElement>(`#contact-${kind}`);
+    if (!target || !template) return;
+    const node = template.content.cloneNode(true) as DocumentFragment;
+    const text = node.querySelector<HTMLElement>('[data-message]');
+    if (message && text) text.textContent = message;
+    target.replaceChildren(node);
+  }
+
+  function setBusy(busy: boolean) {
+    const button = form?.querySelector<HTMLButtonElement>('[data-submit]');
+    if (!button) return;
+    button.disabled = busy;
+    button.querySelector('[data-spinner]')?.classList.toggle('hidden', !busy);
+    const label = button.querySelector('[data-label]');
+    if (label) label.textContent = busy ? 'Sending…' : 'Send';
+  }
+
+  const status = new URLSearchParams(location.search).get('status');
+  if (status === 'sent') showStatus('success');
+  if (status === 'error') showStatus('error');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (form.dataset.configured !== 'true') return;
+    if (!form.reportValidity()) return;
+
+    const data = new FormData(form);
+    if (!data.get('cf-turnstile-response')) {
+      showStatus('error', 'Please wait for the spam check to finish, then send again.');
+      return;
+    }
+
+    setBusy(true);
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new URLSearchParams(data as unknown as Record<string, string>),
+      });
+      const body = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
+      if (res.ok && body.ok) {
+        form.reset();
+        showStatus('success');
+      } else {
+        showStatus('error', body.error);
+      }
+    } catch {
+      showStatus('error');
+    } finally {
+      setBusy(false);
+      window.turnstile?.reset();
+    }
+  });
+</script>
