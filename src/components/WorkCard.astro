@@ -1,0 +1,41 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { WORK_TYPE_LABELS } from '../lib/content';
+
+interface Props {
+  entry: CollectionEntry<'work'>;
+}
+
+const { entry } = Astro.props;
+const { title, summary, types, cover, coverAlt } = entry.data;
+---
+
+<a
+  href={`/work/${entry.id}/`}
+  class="group flex h-full flex-col overflow-hidden rounded-lg border border-line bg-paper transition hover:-translate-y-0.5 hover:border-ink hover:shadow-lg"
+>
+  {
+    cover ? (
+      <img src={cover} alt={coverAlt ?? ''} loading="lazy" class="aspect-[360/296] w-full object-cover" />
+    ) : (
+      <div class="flex aspect-[360/296] items-end bg-ink p-5 text-paper transition-colors group-hover:bg-accent">
+        <span class="text-2xl leading-tight font-black tracking-tight">{title}</span>
+      </div>
+    )
+  }
+  <div class="flex flex-1 flex-col gap-2 p-5">
+    <h3 class="font-bold group-hover:text-accent">{title}</h3>
+    {summary && <p class="text-sm text-muted">{summary}</p>}
+    {
+      types.length > 0 && (
+        <ul class="mt-auto flex flex-wrap gap-2 pt-2">
+          {types.map((t) => (
+            <li class="rounded-full bg-mist px-2.5 py-0.5 text-xs font-semibold tracking-wide uppercase">
+              {WORK_TYPE_LABELS[t]}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</a>

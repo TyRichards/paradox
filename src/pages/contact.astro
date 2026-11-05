@@ -1,0 +1,31 @@
+---
+import MarkdownPage from '../components/MarkdownPage.astro';
+import PlaceholderNote from '../components/PlaceholderNote.astro';
+---
+
+<MarkdownPage id="contact">
+  <PlaceholderNote label="Contact form stub — not wired up yet. See README “Next steps” for free, static-friendly options." />
+  <form class="max-w-xl space-y-4" aria-describedby="contact-form-note" onsubmit="return false;">
+    <p id="contact-form-note" class="sr-only">This form is a non-functional placeholder.</p>
+    <label class="block">
+      <span class="text-sm font-semibold">Name</span>
+      <input type="text" name="name" disabled class="mt-1 block w-full rounded-md border border-line bg-mist px-3 py-2" />
+    </label>
+    <label class="block">
+      <span class="text-sm font-semibold">Email</span>
+      <input type="email" name="email" disabled class="mt-1 block w-full rounded-md border border-line bg-mist px-3 py-2" />
+    </label>
+    <label class="block">
+      <span class="text-sm font-semibold">Project details and rough budget</span>
+      <textarea name="message" rows="5" disabled class="mt-1 block w-full rounded-md border border-line bg-mist px-3 py-2"
+      ></textarea>
+    </label>
+    <button
+      type="submit"
+      disabled
+      class="cursor-not-allowed rounded-full bg-ink px-6 py-3 text-sm font-bold tracking-wide text-paper uppercase opacity-50"
+    >
+      Send
+    </button>
+  </form>
+</MarkdownPage>

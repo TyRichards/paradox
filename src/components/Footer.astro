@@ -1,0 +1,18 @@
+---
+import { site } from '../lib/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-24 border-t border-line bg-mist">
+  <div
+    class="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-10 text-sm text-muted sm:flex-row sm:items-center sm:justify-between"
+  >
+    <p>&copy; {year} {site.name}. A creative shop deep in the heart of Texas.</p>
+    <ul class="flex gap-6">
+      <li><a class="hover:text-ink" href="/contact/">Contact</a></li>
+      <li><a class="hover:text-ink" href="/privacy/">Privacy</a></li>
+      <li><a class="hover:text-ink" href="/rss.xml">RSS</a></li>
+    </ul>
+  </div>
+</footer>

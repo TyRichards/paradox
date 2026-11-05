@@ -1,0 +1,50 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import PlaceholderNote from '../components/PlaceholderNote.astro';
+import { getPage, getServices, getWork } from '../lib/content';
+
+const page = await getPage('services');
+const { Content } = await render(page);
+const work = await getWork();
+const services = await Promise.all(
+  (await getServices()).map(async (service) => ({
+    service,
+    Body: (await render(service)).Content,
+    count: service.data.workType ? work.filter((w) => w.data.types.includes(service.data.workType!)).length : 0,
+  })),
+);
+---
+
+<BaseLayout title={page.data.title} description={page.data.description}>
+  <PageHeader title={page.data.title} />
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="prose prose-lg max-w-3xl">
+      <Content />
+    </div>
+
+    <ul class="mt-12 grid gap-6 md:grid-cols-2">
+      {
+        services.map(({ service, Body, count }) => (
+          <li class="flex flex-col rounded-lg border border-line p-8">
+            <h2 class="text-2xl font-black tracking-tight">{service.data.title}</h2>
+            <p class="mt-2 text-muted">{service.data.summary}</p>
+            {service.data.placeholder && <PlaceholderNote label="Placeholder service copy." />}
+            <div class="prose">
+              <Body />
+            </div>
+            {service.data.workType && count > 0 && (
+              <a
+                href={`/work/type/${service.data.workType}/`}
+                class="mt-6 text-sm font-bold tracking-wide text-accent uppercase hover:text-ink"
+              >
+                See {count} {service.data.title.toLowerCase()} projects &rarr;
+              </a>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</BaseLayout>

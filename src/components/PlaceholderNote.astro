@@ -1,0 +1,14 @@
+---
+interface Props {
+  label?: string;
+}
+
+const { label = 'Placeholder content — replace before launch.' } = Astro.props;
+---
+
+<p
+  class="my-6 rounded-md border border-dashed border-accent bg-highlight/60 px-4 py-3 text-sm font-semibold text-accent-ink"
+  role="note"
+>
+  {label}
+</p>

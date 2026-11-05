@@ -1,0 +1,77 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PlaceholderNote from '../../components/PlaceholderNote.astro';
+import { getWork, WORK_TYPE_LABELS } from '../../lib/content';
+
+export const getStaticPaths = (async () => {
+  const work = await getWork();
+  return work.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, prev: work[i - 1], next: work[i + 1] },
+  }));
+}) satisfies GetStaticPaths;
+
+const { entry, prev, next } = Astro.props;
+const { Content } = await render(entry);
+const { title, summary, types, client, projectDate, cover, coverAlt, placeholder } = entry.data;
+const hasBody = Boolean(entry.body?.trim());
+---
+
+<BaseLayout title={title} description={summary ?? `${title} — a Paradox project.`}>
+  <PageHeader eyebrow="Work" title={title} lede={summary}>
+    <dl class="mt-6 flex flex-wrap gap-x-8 gap-y-2 text-sm">
+      {
+        types.length > 0 && (
+          <div>
+            <dt class="font-bold">Type</dt>
+            <dd class="text-muted">{types.map((t) => WORK_TYPE_LABELS[t]).join(', ')}</dd>
+          </div>
+        )
+      }
+      {
+        client && (
+          <div>
+            <dt class="font-bold">Client</dt>
+            <dd class="text-muted">{client}</dd>
+          </div>
+        )
+      }
+      {
+        projectDate && (
+          <div>
+            <dt class="font-bold">Date</dt>
+            <dd class="text-muted">{projectDate}</dd>
+          </div>
+        )
+      }
+    </dl>
+  </PageHeader>
+
+  <div class="mx-auto max-w-6xl px-6">
+    {placeholder && <PlaceholderNote />}
+    {cover && <img src={cover} alt={coverAlt ?? ''} class="mb-10 w-full rounded-lg border border-line" />}
+    {
+      hasBody && (
+        <div class="prose prose-lg max-w-3xl">
+          <Content />
+        </div>
+      )
+    }
+    {
+      !cover && (
+        <p class="mt-6 max-w-3xl rounded-md bg-mist px-4 py-3 text-sm text-muted">
+          Project images and write-up haven’t been migrated yet. They’ll come over with the WordPress import (see
+          IMPORT.md).
+        </p>
+      )
+    }
+
+    <nav aria-label="More work" class="mt-16 flex justify-between gap-4 border-t border-line pt-6 text-sm font-semibold">
+      {prev ? <a class="hover:text-accent" href={`/work/${prev.id}/`}>&larr; {prev.data.title}</a> : <span />}
+      {next && <a class="text-right hover:text-accent" href={`/work/${next.id}/`}>{next.data.title} &rarr;</a>}
+    </nav>
+  </div>
+</BaseLayout>

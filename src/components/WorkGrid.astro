@@ -1,0 +1,45 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import WorkCard from './WorkCard.astro';
+import { WORK_TYPES, WORK_TYPE_LABELS, type WorkType } from '../lib/content';
+
+interface Props {
+  entries: CollectionEntry<'work'>[];
+  active?: WorkType;
+}
+
+const { entries, active } = Astro.props;
+const filters = [
+  { label: 'All', href: '/work/', current: !active },
+  ...WORK_TYPES.map((t) => ({ label: WORK_TYPE_LABELS[t], href: `/work/type/${t}/`, current: active === t })),
+];
+---
+
+<div class="mx-auto max-w-6xl px-6">
+  <nav aria-label="Filter work by type" class="mb-10">
+    <ul class="flex flex-wrap gap-2">
+      {
+        filters.map((f) => (
+          <li>
+            <a
+              href={f.href}
+              aria-current={f.current ? 'page' : undefined}
+              class="rounded-full border border-line px-4 py-1.5 text-sm font-semibold transition-colors hover:border-ink aria-[current=page]:border-ink aria-[current=page]:bg-ink aria-[current=page]:text-paper"
+            >
+              {f.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+  <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {
+      entries.map((entry) => (
+        <li>
+          <WorkCard entry={entry} />
+        </li>
+      ))
+    }
+  </ul>
+</div>

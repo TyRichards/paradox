@@ -1,0 +1,33 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/*
+ * Brand tokens. Loosely based on the archived 2015 theme (near-black #232527 on white, Lato);
+ * swap fonts/colors here once the new brand direction is settled.
+ */
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --color-ink: #232527;
+  --color-paper: #ffffff;
+  --color-mist: #f4f4f2;
+  --color-line: #e4e4e0;
+  --color-muted: #6b6e72;
+  --color-accent: #e4572e;
+  --color-accent-ink: #b8401d;
+  --color-highlight: #fff9c0;
+}
+
+@layer base {
+  html {
+    @apply bg-paper text-ink antialiased;
+  }
+
+  ::selection {
+    @apply bg-highlight text-ink;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+}

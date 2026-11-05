@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+---
+
+<BaseLayout title="Not found" noindex>
+  <PageHeader title="That page wandered off." lede="It may have moved in the site rebuild.">
+    <a href="/" class="mt-8 inline-block text-sm font-bold tracking-wide text-accent uppercase hover:text-ink">
+      &larr; Back home
+    </a>
+  </PageHeader>
+</BaseLayout>

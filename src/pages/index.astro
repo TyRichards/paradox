@@ -1,0 +1,105 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WorkCard from '../components/WorkCard.astro';
+import { formatDate, getPage, getPosts, getServices, getWork } from '../lib/content';
+
+const home = await getPage('home');
+const { Content } = await render(home);
+
+const work = await getWork();
+const featured = work.filter((w) => w.data.featured);
+const selectedWork = (featured.length > 0 ? featured : work).slice(0, 6);
+const services = await getServices();
+const posts = (await getPosts()).slice(0, 3);
+---
+
+<BaseLayout description={home.data.description}>
+  <section class="bg-ink text-paper">
+    <div class="mx-auto max-w-6xl px-6 py-24 sm:py-32">
+      <h1 class="max-w-4xl text-4xl leading-tight font-black tracking-tight text-balance sm:text-6xl">
+        {home.data.heading ?? home.data.title}
+      </h1>
+      {
+        home.data.ctas && (
+          <div class="mt-10 flex flex-wrap gap-4">
+            {home.data.ctas.map((cta, i) => (
+              <a
+                href={cta.href}
+                class:list={[
+                  'rounded-full px-6 py-3 text-sm font-bold tracking-wide uppercase transition-colors',
+                  i === 0
+                    ? 'bg-accent text-paper hover:bg-paper hover:text-ink'
+                    : 'border border-paper/40 hover:border-paper hover:bg-paper hover:text-ink',
+                ]}
+              >
+                {cta.label}
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 py-20">
+    <div class="prose prose-lg max-w-3xl prose-p:text-ink">
+      <Content />
+    </div>
+  </section>
+
+  <section class="border-y border-line bg-mist">
+    <div class="mx-auto max-w-6xl px-6 py-20">
+      <div class="mb-10 flex items-end justify-between gap-4">
+        <h2 class="text-3xl font-black tracking-tight">Selected work</h2>
+        <a href="/work/" class="text-sm font-bold tracking-wide text-accent uppercase hover:text-ink">All work &rarr;</a>
+      </div>
+      <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          selectedWork.map((entry) => (
+            <li>
+              <WorkCard entry={entry} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 py-20">
+    <h2 class="mb-10 text-3xl font-black tracking-tight">What Paradox does</h2>
+    <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        services.map((s) => (
+          <li class="rounded-lg border border-line p-6">
+            <h3 class="text-lg font-bold">{s.data.title}</h3>
+            <p class="mt-2 text-sm text-muted">{s.data.summary}</p>
+          </li>
+        ))
+      }
+    </ul>
+    <a href="/services/" class="mt-8 inline-block text-sm font-bold tracking-wide text-accent uppercase hover:text-ink">
+      Services &rarr;
+    </a>
+  </section>
+
+  {
+    posts.length > 0 && (
+      <section class="mx-auto max-w-6xl px-6 pb-8">
+        <h2 class="mb-8 text-3xl font-black tracking-tight">From the blog</h2>
+        <ul class="divide-y divide-line border-y border-line">
+          {posts.map((post) => (
+            <li>
+              <a href={`/blog/${post.id}/`} class="group flex flex-col gap-1 py-5 sm:flex-row sm:items-baseline sm:gap-6">
+                <time datetime={post.data.pubDate.toISOString()} class="shrink-0 text-sm text-muted sm:w-44">
+                  {formatDate(post.data.pubDate)}
+                </time>
+                <span class="font-bold group-hover:text-accent">{post.data.title}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+</BaseLayout>
