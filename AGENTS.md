@@ -5,7 +5,8 @@ Static Astro 7 + Tailwind 4 site for Paradox Creative, deployed to Cloudflare Pa
 - Content is Markdown in `src/content/`, with schemas in `src/content.config.ts`. Site settings are in `src/data/site.json` (schema in `src/lib/site.ts`).
 - `public/admin/config.yml` (Sveltia CMS) mirrors those schemas. Change both together. Quote YAML flow-map values that contain commas.
 - Don't invent client work or testimonials. Mark unverified copy with `placeholder: true`.
-- No database CMS, no paid Cloudflare products (D1, R2, paid Workers), no SSR adapter.
+- No database CMS, no paid Cloudflare products (D1, R2, paid Workers), no SSR adapter. The only server code is the free-tier Pages Function in `functions/api/contact.ts`.
+- UI uses Starwind UI (`src/components/starwind/`, add with `npx starwind@latest add <name>`). Styles and tokens live in `src/styles/starwind.css`; use semantic tokens (`primary`, `muted-foreground`, `border`) and the brand names (`teal`, `teal-light`, `ink`) rather than raw hex. Don't add React or shadcn/ui to this site.
 - Run `npm run check` and `npm run build` before committing.
 
 ## Development
