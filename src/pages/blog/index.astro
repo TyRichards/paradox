@@ -1,0 +1,50 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import { Badge } from '@/components/starwind/badge';
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/starwind/card';
+import { formatDate, getPosts } from '@/lib/content';
+
+const posts = await getPosts();
+---
+
+<BaseLayout title="Blog" description="Notes and news from Paradox.">
+  <PageHeader title="Blog" lede="Notes and news from Paradox." />
+  <div class="mx-auto max-w-6xl px-6">
+    {
+      posts.length === 0 ? (
+        <p class="text-muted-foreground">No posts yet.</p>
+      ) : (
+        <ul class="grid max-w-3xl gap-4">
+          {posts.map((post) => (
+            <li>
+              <a href={`/blog/${post.id}/`} class="group block rounded-xl">
+                <Card class="transition group-hover:ring-teal">
+                  <CardHeader>
+                    <div class="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+                      <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+                      {post.data.draft && (
+                        <Badge variant="outline" size="sm" eyebrow>
+                          Draft
+                        </Badge>
+                      )}
+                      {post.data.placeholder && (
+                        <Badge variant="warning" size="sm" eyebrow>
+                          Placeholder
+                        </Badge>
+                      )}
+                    </div>
+                    <CardTitle class="text-2xl font-black tracking-tight group-hover:text-primary">
+                      {post.data.title}
+                    </CardTitle>
+                    {post.data.description && <CardDescription>{post.data.description}</CardDescription>}
+                  </CardHeader>
+                </Card>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</BaseLayout>

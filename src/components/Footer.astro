@@ -1,0 +1,28 @@
+---
+import { Button } from '@/components/starwind/button';
+import { Separator } from '@/components/starwind/separator';
+import { site } from '@/lib/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-24 bg-ink text-paper">
+  <div class="mx-auto max-w-6xl px-6 py-12">
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <p class="text-2xl font-black tracking-tight">Got a project?</p>
+        <p class="mt-1 text-paper/70">Tell Paradox about it. Ballpark budgets welcome.</p>
+      </div>
+      <Button href="/contact/" class="bg-teal-light text-ink hover:bg-paper">Let’s chat</Button>
+    </div>
+    <Separator class="my-8 bg-paper/15" />
+    <div class="flex flex-col gap-4 text-sm text-paper/70 sm:flex-row sm:items-center sm:justify-between">
+      <p>&copy; {year} {site.name}. A creative shop deep in the heart of Texas.</p>
+      <ul class="flex gap-6">
+        <li><a class="hover:text-teal-light" href="/contact/">Contact</a></li>
+        <li><a class="hover:text-teal-light" href="/privacy/">Privacy</a></li>
+        <li><a class="hover:text-teal-light" href="/rss.xml">RSS</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>

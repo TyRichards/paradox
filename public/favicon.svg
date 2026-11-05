@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 136 97">
+  <!-- Left diamond outline (light teal) -->
+  <path d="M45 5 L86 48 L45 91 L4 48 Z M45 20 L71 48 L45 76 L19 48 Z" fill="#71eac6" fill-rule="evenodd"/>
+  <!-- Right diamond outline (dark teal) -->
+  <path d="M91 5 L132 48 L91 91 L50 48 Z M91 20 L117 48 L91 76 L65 48 Z" fill="#51a589" fill-rule="evenodd"/>
+</svg>

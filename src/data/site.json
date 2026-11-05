@@ -1,0 +1,14 @@
+{
+  "name": "Paradox",
+  "title": "Paradox | Creative Shop – Texas Based",
+  "description": "Paradox is a humble but potent creative shop deep in the heart of Texas, run by Ty Richards.",
+  "owner": "Ty Richards",
+  "emailDisplay": "ty at paradoxcreative dot com",
+  "nav": [
+    { "label": "Work", "href": "/work/" },
+    { "label": "Services", "href": "/services/" },
+    { "label": "About", "href": "/about/" },
+    { "label": "Blog", "href": "/blog/" },
+    { "label": "Contact", "href": "/contact/" }
+  ]
+}

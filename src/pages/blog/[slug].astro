@@ -1,0 +1,61 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PlaceholderNote from '@/components/PlaceholderNote.astro';
+import { Badge } from '@/components/starwind/badge';
+import { Prose } from '@/components/starwind/prose';
+import { Separator } from '@/components/starwind/separator';
+import { formatDate, getPosts } from '@/lib/content';
+
+export const getStaticPaths = (async () => {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { title, description, pubDate, updatedDate, cover, coverAlt, tags, placeholder, draft } = post.data;
+---
+
+<BaseLayout title={title} description={description} noindex={draft}>
+  <article class="mx-auto max-w-3xl px-6 pt-16 sm:pt-24">
+    <header class="mb-10">
+      <p class="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+        <Badge href="/blog/" variant="secondary" eyebrow class="font-bold text-primary">Blog</Badge>
+        <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+        {
+          updatedDate && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>
+                Updated <time datetime={updatedDate.toISOString()}>{formatDate(updatedDate)}</time>
+              </span>
+            </>
+          )
+        }
+      </p>
+      <h1 class="mt-4 font-heading text-4xl font-black tracking-tight text-balance sm:text-5xl">{title}</h1>
+      {description && <p class="mt-4 text-lg text-muted-foreground">{description}</p>}
+      {placeholder && <PlaceholderNote />}
+    </header>
+    {cover && <img src={cover} alt={coverAlt ?? ''} class="mb-10 w-full rounded-xl" />}
+    <Prose class="max-w-none text-lg">
+      <Content />
+    </Prose>
+    {
+      tags.length > 0 && (
+        <>
+          <Separator class="mt-12 mb-6" />
+          <ul class="flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <li>
+                <Badge variant="secondary">#{tag}</Badge>
+              </li>
+            ))}
+          </ul>
+        </>
+      )
+    }
+  </article>
+</BaseLayout>

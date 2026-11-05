@@ -1,0 +1,60 @@
+---
+import { render } from 'astro:content';
+import ArrowRight from '@tabler/icons/outline/arrow-right.svg';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import PlaceholderNote from '@/components/PlaceholderNote.astro';
+import { Button } from '@/components/starwind/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/starwind/card';
+import { Prose } from '@/components/starwind/prose';
+import { getPage, getServices, getWork } from '@/lib/content';
+
+const page = await getPage('services');
+const { Content } = await render(page);
+const work = await getWork();
+const services = await Promise.all(
+  (await getServices()).map(async (service) => ({
+    service,
+    Body: (await render(service)).Content,
+    count: service.data.workType ? work.filter((w) => w.data.types.includes(service.data.workType!)).length : 0,
+  })),
+);
+---
+
+<BaseLayout title={page.data.title} description={page.data.description}>
+  <PageHeader title={page.data.title} />
+  <div class="mx-auto max-w-6xl px-6">
+    <Prose class="text-lg">
+      <Content />
+    </Prose>
+
+    <ul class="mt-12 grid gap-6 md:grid-cols-2">
+      {
+        services.map(({ service, Body, count }) => (
+          <li class="h-full">
+            <Card class="h-full border-t-4 border-teal-light">
+              <CardHeader>
+                <CardTitle class="text-2xl font-black tracking-tight">{service.data.title}</CardTitle>
+                <CardDescription>{service.data.summary}</CardDescription>
+              </CardHeader>
+              <CardContent class="flex-1">
+                {service.data.placeholder && <PlaceholderNote label="Placeholder service copy." />}
+                <Prose>
+                  <Body />
+                </Prose>
+              </CardContent>
+              {service.data.workType && count > 0 && (
+                <CardFooter>
+                  <Button href={`/work/type/${service.data.workType}/`} variant="ghost" size="sm" class="font-bold text-primary">
+                    {`See ${count} ${service.data.title.toLowerCase()} projects`}
+                    <ArrowRight />
+                  </Button>
+                </CardFooter>
+              )}
+            </Card>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</BaseLayout>

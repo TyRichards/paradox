@@ -1,0 +1,27 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import PlaceholderNote from '@/components/PlaceholderNote.astro';
+import { Prose } from '@/components/starwind/prose';
+import { getPage } from '@/lib/content';
+
+interface Props {
+  id: string;
+}
+
+const page = await getPage(Astro.props.id);
+const { Content } = await render(page);
+---
+
+<BaseLayout title={page.data.title} description={page.data.description}>
+  <slot name="head" slot="head" />
+  <PageHeader title={page.data.title} />
+  <div class="mx-auto max-w-6xl px-6">
+    {page.data.placeholder && <PlaceholderNote />}
+    <Prose class="text-lg">
+      <Content />
+    </Prose>
+    <slot />
+  </div>
+</BaseLayout>

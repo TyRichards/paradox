@@ -1,0 +1,7 @@
+# Local secrets for `npx wrangler pages dev dist`. Copy to .dev.vars (gitignored).
+# The Turnstile values below are Cloudflare's always-pass test keys, not real credentials.
+TURNSTILE_SECRET=1x0000000000000000000000000000000AA
+TURNSTILE_HOSTNAMES=localhost
+RESEND_API_KEY=re_replace_me
+CONTACT_TO_EMAIL=you@example.com
+# CONTACT_FROM_EMAIL=Paradox website <hello@paradoxcreative.com>

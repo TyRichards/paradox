@@ -1,0 +1,48 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import WorkCard from '@/components/WorkCard.astro';
+import { Button } from '@/components/starwind/button';
+import { WORK_TYPES, WORK_TYPE_LABELS, type WorkType } from '@/lib/content';
+
+interface Props {
+  entries: CollectionEntry<'work'>[];
+  active?: WorkType;
+}
+
+const { entries, active } = Astro.props;
+const filters = [
+  { label: 'All', href: '/work/', current: !active },
+  ...WORK_TYPES.map((t) => ({ label: WORK_TYPE_LABELS[t], href: `/work/type/${t}/`, current: active === t })),
+];
+---
+
+<div class="mx-auto max-w-6xl px-6">
+  <nav aria-label="Filter work by type" class="mb-10">
+    <ul class="flex flex-wrap gap-2">
+      {
+        filters.map((f) => (
+          <li>
+            <Button
+              href={f.href}
+              size="sm"
+              variant={f.current ? 'primary' : 'outline'}
+              aria-current={f.current ? 'page' : undefined}
+              class="rounded-full font-semibold"
+            >
+              {f.label}
+            </Button>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+  <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {
+      entries.map((entry) => (
+        <li>
+          <WorkCard entry={entry} />
+        </li>
+      ))
+    }
+  </ul>
+</div>
