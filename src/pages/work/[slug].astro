@@ -18,6 +18,10 @@ const { entry, prev, next } = Astro.props;
 const { Content } = await render(entry);
 const { title, summary, types, client, projectDate, cover, coverAlt, gallery, placeholder } = entry.data;
 const hasBody = Boolean(entry.body?.trim());
+
+const hero = gallery.length > 0 ? gallery[0] : null;
+const heroAlt = hero ? `${title} — project screenshot` : '';
+const remainingGallery = gallery.length > 1 ? gallery.slice(1) : [];
 ---
 
 <BaseLayout title={title} description={summary ?? `${title} — a Paradox project.`}>
@@ -52,7 +56,20 @@ const hasBody = Boolean(entry.body?.trim());
 
   <div class="mx-auto max-w-6xl px-6">
     {placeholder && <PlaceholderNote />}
-    {cover && <img src={cover} alt={coverAlt ?? ''} class="mb-10 w-full rounded-lg border border-line" />}
+    {
+      hero ? (
+        <img src={hero} alt={heroAlt} class="mb-10 w-full rounded-lg border border-line" />
+      ) : (
+        cover && (
+          <img
+            src={cover}
+            alt={coverAlt ?? ''}
+            class="mx-auto mb-10 block max-w-full rounded-lg border border-line"
+            style="max-width: min(100%, 480px);"
+          />
+        )
+      )
+    }
     {
       hasBody && (
         <div class="prose prose-lg max-w-3xl">
@@ -61,9 +78,9 @@ const hasBody = Boolean(entry.body?.trim());
       )
     }
     {
-      gallery.length > 0 && (
+      remainingGallery.length > 0 && (
         <div class="mt-10 grid gap-4 sm:grid-cols-2">
-          {gallery.map((img) => (
+          {remainingGallery.map((img) => (
             <img src={img} alt="" loading="lazy" class="w-full rounded-lg border border-line" />
           ))}
         </div>
