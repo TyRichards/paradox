@@ -1,0 +1,16 @@
+# Cloudflare Pages redirects: legacy WordPress URLs -> new routes.
+# https://developers.cloudflare.com/pages/configuration/redirects/
+# Static rules must come before dynamic (splat) rules.
+
+/portfolio                  /work/          301
+/quote                      /contact/       301
+/quote/                     /contact/       301
+/2015/07/21/hello-world/    /blog/          301
+/feed/                      /rss.xml        301
+/wp-sitemap.xml             /sitemap-index.xml  301
+/wp-admin/                  /admin/         302
+
+/portfolio/*                /work/:splat    301
+/portfolio-type/*           /work/type/:splat   301
+/category/*                 /blog/          301
+/author/*                   /about/         301
