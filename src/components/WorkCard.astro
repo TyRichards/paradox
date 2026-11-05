@@ -15,7 +15,7 @@ const { title, summary, types, cover, coverAlt } = entry.data;
   class="group flex h-full flex-col overflow-hidden rounded-lg border border-line bg-paper transition hover:-translate-y-0.5 hover:border-ink hover:shadow-lg"
 >
   {cover && <img src={cover} alt={coverAlt ?? ''} loading="lazy" class="aspect-[360/296] w-full object-cover" />}
-  <div class:list={['flex flex-1 flex-col gap-2 p-5', !cover && 'border-t-4 border-ink group-hover:border-accent']}>
+  <div class:list={['flex flex-1 flex-col gap-2 p-5', !cover && 'border-t-4 border-accent-light group-hover:border-accent']}>
     <h3 class:list={['font-black tracking-tight group-hover:text-accent', cover ? 'text-base' : 'text-xl']}>{title}</h3>
     {summary && <p class="text-sm text-muted">{summary}</p>}
     {
