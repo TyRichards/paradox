@@ -7,8 +7,14 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 
 <header class="border-b border-line">
   <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-5">
-    <a href="/" class="block">
-      <img src="/logo.png" alt={site.name} class="h-7" width="511" height="97" />
+    <a href="/" class="block shrink-0">
+      <img
+        src="/logo.png"
+        alt={site.name}
+        width="511"
+        height="97"
+        class="block h-8 w-auto max-w-full object-contain object-left"
+      />
     </a>
     <nav aria-label="Main">
       <ul class="flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold tracking-wide uppercase">
