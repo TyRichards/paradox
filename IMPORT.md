@@ -1,107 +1,115 @@
 # WordPress import plan
 
-The content in this repo is a **bootstrap** of the public structure of <https://paradoxcreative.com>. A WordPress export (WXR) isn't available yet. This document records what was bootstrapped, what's missing, and how to do the full import once the WXR exists.
+This document records what was imported from the WordPress export (WXR), what's still outstanding, and how to finish the migration.
 
-## What's here now (bootstrapped 2026-11-05)
+## Import status (updated 2026-11-05)
 
-The live site's HTML and REST API sit behind a Cloudflare bot challenge, so the content was gathered from:
+The WXR export (`paradox.wordpress.2026-11-05.000.xml`, WordPress 7.1.4 / WP Engine) was imported with `node scripts/import-wxr.mjs`. The raw WXR is under `import/` (gitignored).
 
-- The public WordPress sitemaps (`/wp-sitemap-*.xml`), which list every published post, page, portfolio item, and taxonomy term, with last-modified dates.
-- Wayback Machine captures of the live pages from July 2026 (titles, descriptors, portfolio types, client/date meta, image URLs). Spot-checked against the live site.
-
-| WordPress | Count | New location | Status |
+| WordPress content | Count | New location | Status |
 | --- | --- | --- | --- |
-| Portfolio items (`portfolio` post type) | 51 | `src/content/work/<slug>.md` | Title, one-line descriptor, portfolio types, client/date (where set), grid order, WordPress ID, original URL, thumbnail URL, and gallery image URLs. **No images or long-form copy imported.** |
-| Portfolio types (`portfolio-type`) | 4: brand, web, print, app | `types` field on work entries; `src/content/services/*.md` | Service descriptions are labeled placeholders. |
-| Pages | 4: Home, Portfolio, Quote, Privacy | `src/content/pages/` | Home intro and Quote (now Contact) copied verbatim. Portfolio became `/work/`. Privacy **not** copied (see below). |
-| Posts | 1: “Hello world!” | — | Skipped: it's the WordPress default post. `src/content/blog/` holds one labeled placeholder post. |
-| Categories | 1: Uncategorized | — | Skipped. |
-| Author | Ty Richards | `src/data/site.json` (`owner`) | |
+| Portfolio items (`portfolio`) | 51 | `src/content/work/<slug>.md` | **Imported.** Title, summary (from `content:encoded`), types, client, projectDate, menu_order, cover image, gallery images. 134 images downloaded to `public/images/work/<slug>/`. |
+| Portfolio types (`portfolio-type`) | 4 | `types` field + `src/content/services/*.md` | Types mapped. Service descriptions remain labeled placeholders. |
+| Home page (WP ID 2) | 1 | `src/content/pages/home.md` | **Imported.** Body text from WXR. |
+| Quote page (WP ID 67) | 1 | `src/content/pages/contact.md` | **Imported.** Body text from WXR. |
+| Portfolio page (WP ID 16) | 1 | `/work/` route | Skipped (empty in WXR; the route already exists). |
+| Privacy page (WP ID 41) | 1 | `src/content/pages/privacy.md` | **Skipped.** Generic 2015 boilerplate about orders/payments that doesn't match the static site. Left as a rewrite placeholder. |
+| Posts | 1 | — | **Skipped.** Only post is the default "Hello world!" (ID 1). The placeholder blog post remains. |
+| Comments | ~1 | — | Skipped. No comment system on the static site. |
+| Attachments | 158 | `public/images/work/` | **134 project images downloaded** (covers + galleries). 24 remaining attachments are site chrome (logos, favicons, headshots) not used in content. |
+| Categories | 1 | — | Skipped (only "Uncategorized"). |
+| Nav menus | 2 | `src/data/site.json` | Already defined; WXR nav items not imported (hardcoded in site.json). |
+| Author | 1 | `src/data/site.json` (`owner`) | Already set. |
 
-Nothing about client work was written beyond what the live site already says publicly. The About page, service blurbs, privacy policy, and blog post are flagged `placeholder: true` and show a visible notice on the page.
+### What's still outstanding
 
-## Getting the export
+- [ ] **Privacy policy:** Rewrite `src/content/pages/privacy.md` to match what the static site actually collects.
+- [ ] **About page:** Write real copy for `src/content/pages/about.md`.
+- [ ] **Service descriptions:** Write real copy for the four `src/content/services/*.md` files.
+- [ ] **Blog:** Write real posts (or set `draft: true` on the placeholder and leave it). Delete `src/content/blog/welcome-to-the-new-paradox.md` before launch.
+- [ ] **Image optimization:** The current images are served as-is from `public/`. For production, consider moving to entry-relative folders with Astro's `image()` schema helper for responsive/optimized output. See the "Images (future optimization)" section below.
+- [ ] **`_tzp_portfolio_url`:** Not present in any WXR portfolio item. No `projectUrl` field was added.
 
-1. In WP Admin, go to **Tools → Export → All content** and download the `.xml` (WXR). "All content" includes the `portfolio` custom post type and attachments.
-2. Get the media files: either download `wp-content/uploads/` from the host (SFTP or a backup) or let the import script fetch each attachment by URL. The URLs are already recorded in `legacy.thumbnail` and `legacy.gallery`.
-3. Put the export somewhere outside the repo, or under `import/` (add it to `.gitignore`; it contains emails and comment data).
+## Source data
+
+### Bootstrap (2026-11-05, before WXR)
+
+The live site's HTML and REST API sit behind a Cloudflare bot challenge, so the initial content was gathered from:
+
+- The public WordPress sitemaps (`/wp-sitemap-*.xml`)
+- Wayback Machine captures of the live pages from July 2026
+
+### WXR import (2026-11-05)
+
+Full "All content" export from `wp export` on WP Engine (`paradoxsites`), WordPress 7.1.4. The raw file is in `import/` (gitignored; contains the author's email address).
 
 ## Field mapping
 
 ### Portfolio → `src/content/work/`
 
-Match existing files by `legacy.wpId` (= `wp:post_id`) and fall back to the slug. **Update files in place; don't create duplicates.** Keep each filename (= `wp:post_name`) so `/portfolio/<slug>/` keeps redirecting to `/work/<slug>/`.
+Files matched by `legacy.wpId` (= `wp:post_id`), falling back to slug. Updated in place; no duplicates.
 
-| WXR | Front matter |
-| --- | --- |
-| `title` | `title` |
-| first paragraph of `content:encoded` | `summary` (already set; keep unless the WXR differs) |
-| rest of `content:encoded` (HTML → Markdown) | body |
-| `category domain="portfolio-type"` | `types` |
-| postmeta `_tzp_portfolio_client` | `client` |
-| postmeta `_tzp_portfolio_date` | `projectDate` (free text, e.g. “July 2012”) |
-| postmeta `_tzp_portfolio_url` | add as a link in the body, or add a `projectUrl` field to the schema and CMS config |
-| postmeta `_thumbnail_id` → attachment | `cover` (+ `coverAlt` from the attachment alt text) |
-| postmeta `_tzp_gallery_images_ids` → attachments | gallery images (see “Images” below) |
-| `wp:menu_order` | `order` (current values come from the live grid order) |
-| `wp:post_id`, `link`, `wp:post_modified` | `legacy.wpId`, `legacy.url`, `legacy.modified` |
+| WXR | Front matter | Notes |
+| --- | --- | --- |
+| `title` | `title` | |
+| first paragraph of `content:encoded` | `summary` | HTML→Markdown; kept the WXR version |
+| rest of `content:encoded` | body | Rare: only a few items had body text beyond the summary |
+| `category domain="portfolio-type"` | `types` | |
+| postmeta `_tzp_portfolio_client` | `client` | 10 items have this |
+| postmeta `_tzp_portfolio_date` | `projectDate` | 10 items; free text like "July 2012" |
+| postmeta `_tzp_portfolio_url` | — | **Not present** in any WXR item |
+| postmeta `_thumbnail_id` → attachment | `cover`, `coverAlt` | Downloaded to `public/images/work/<slug>/` |
+| postmeta `_tzp_gallery_images_ids` → attachments | `gallery` (local paths) | Downloaded; also kept as `legacy.gallery` (original URLs) |
+| `wp:menu_order` | `order` | 0 = first in grid (Victory with Valvoline) |
+| `wp:post_id`, `link`, `wp:post_modified` | `legacy.wpId`, `legacy.url`, `legacy.modified` | |
 
 ### Posts → `src/content/blog/`
 
-| WXR | Front matter |
-| --- | --- |
-| `wp:post_name` | filename (`<slug>.md`) |
-| `title` | `title` |
-| `excerpt:encoded` | `description` |
-| `wp:post_date_gmt` | `pubDate` |
-| `wp:post_modified_gmt` | `updatedDate` (only if meaningfully later) |
-| `category domain="post_tag"` / `domain="category"` | `tags` |
-| `wp:status` ≠ `publish` | `draft: true` |
-| `content:encoded` (HTML → Markdown) | body |
-| `wp:post_id`, `link` | `legacy.wpId`, `legacy.url` |
-
-Skip the default “Hello world!” post (ID 1) and its “Mr WordPress” comment. Comments aren't migrated: there's no comment system on the static site.
+Only one published post in the WXR (ID 1, "Hello world!"), which was skipped per plan.
 
 ### Pages → `src/content/pages/`
 
-Only pages that exist in `src/content/pages/` are mapped. A new WordPress page needs a new file there, a route in `src/pages/`, and an entry under the `pages` collection in `public/admin/config.yml`.
-
-The 2015 **Privacy** page is generic boilerplate about orders, payments, and newsletters that the new site doesn't have. Rewrite it rather than import it.
+| WP ID | WP slug | Astro page | Status |
+| --- | --- | --- | --- |
+| 2 | `contact` | `home.md` | **Imported** (WP ID 2's `title` is "Home" and its slug is "contact" due to WP permalink history) |
+| 16 | `portfolio` | `/work/` route | Skipped (empty) |
+| 41 | `privacy` | `privacy.md` | Skipped (rewrite placeholder) |
+| 67 | `quote` | `contact.md` | **Imported** |
 
 ## Images
 
-The schema currently treats `cover` as a plain URL/path string served from `public/` (`/images/uploads/...`), which is what the CMS writes. For imported work images:
+Covers and gallery images are served as static files from `public/images/work/<slug>/`. WordPress size suffixes (e.g. `-960x624`) were stripped when downloading.
 
-- **Simple:** save them to `public/images/work/<slug>/` and set `cover: /images/work/<slug>/<file>`. Astro serves them as-is.
-- **Optimized (recommended for the full import):** store each work entry as a folder (`src/content/work/<slug>/index.md` plus images), switch `cover` to Astro's `image()` schema helper, and set `path: '{{slug}}/index'`, `media_folder: ''`, `public_folder: ''` on the `work` collection in the CMS config. That gives responsive, optimized images at build time. See the Sveltia [Astro guide](https://sveltiacms.app/en/docs/frameworks/astro).
+### Future optimization
 
-To show gallery images, add a `gallery` field (a list of images) to the work schema, the CMS config, and `src/pages/work/[slug].astro`.
+For responsive/optimized images at build time:
 
-Strip WordPress size suffixes (`-960x624`, `-300x151`) and download the original files where possible.
+1. Move each work entry to a folder: `src/content/work/<slug>/index.md` with images alongside.
+2. Switch `cover` to Astro's `image()` schema helper in `src/content.config.ts`.
+3. Set `path: '{{slug}}/index'`, `media_folder: ''`, `public_folder: ''` on the `work` collection in `public/admin/config.yml`.
 
-## Suggested import script
+See the [Sveltia Astro guide](https://sveltiacms.app/en/docs/frameworks/astro) for details.
 
-Write it as a one-off Node script (e.g. `scripts/import-wxr.mjs`) using:
+## Import script
 
-- [`fast-xml-parser`](https://www.npmjs.com/package/fast-xml-parser) to read the WXR
-- [`turndown`](https://www.npmjs.com/package/turndown) to convert HTML to Markdown (strip `[zilla_*]` / `[gallery]` shortcodes first)
-- [`yaml`](https://www.npmjs.com/package/yaml) with `lineWidth: 0` to write front matter in the same style Sveltia CMS writes, which keeps later CMS diffs small
+The import script lives at `scripts/import-wxr.mjs`. It uses `fast-xml-parser` (added as a dev dependency). It's idempotent: re-running it overwrites the same files with the same content.
 
-Make it idempotent (re-runnable), and commit its output in reviewable chunks: work, then blog, then pages.
+```sh
+node scripts/import-wxr.mjs import/paradox.wordpress.2026-11-05.000.xml
+```
 
 ## URLs and redirects
 
-`public/_redirects` already maps the known legacy URLs: `/portfolio/*`, `/portfolio-type/*`, `/quote/`, `/category/*`, `/author/*`, `/feed/`, and the hello-world permalink. If the import brings in more posts, WordPress date permalinks (`/YYYY/MM/DD/<slug>/`) need a rule such as:
+`public/_redirects` maps the known legacy URLs: `/portfolio/*`, `/portfolio-type/*`, `/quote/`, `/category/*`, `/author/*`, `/feed/`, and the hello-world permalink. Since the only real post was skipped, no date-based permalink rules were added.
 
-```
-/:year/:month/:day/:slug/   /blog/:slug/   301
-```
+## Checklist
 
-Add it **after** the static rules. Then check the old sitemaps against the new site, e.g. with `curl -sI` against each `<loc>`.
-
-## Done when
-
-- [ ] Every URL in the old `wp-sitemap-*.xml` files returns 200 on the new site or redirects (301) to one that does
-- [ ] Work entries have covers and write-ups; `placeholder` is off wherever real copy exists
-- [ ] Real blog posts are in, and the placeholder post is deleted
-- [ ] `npm run build` passes, and spot-checks of the CMS (`/admin/`) open imported entries without errors
+- [x] `npm run build` passes (64 pages, 0 errors)
+- [x] Work entries have covers and galleries from the WXR
+- [x] `placeholder: false` on all work entries
+- [x] Home and contact page bodies from WXR
+- [ ] Privacy policy rewritten
+- [ ] About page written
+- [ ] Service descriptions written
+- [ ] Real blog posts added
+- [ ] Image optimization (entry-relative folders + `image()`)

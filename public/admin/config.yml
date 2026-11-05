@@ -107,6 +107,7 @@ collections:
       - { name: order, label: Sort order, widget: number, value_type: int, default: 999, hint: 'Lower numbers appear first.' }
       - { name: cover, label: Cover image, widget: image, required: false }
       - { name: coverAlt, label: Cover image alt text, widget: string, required: false }
+      - { name: gallery, label: Gallery images, widget: list, field: { name: image, widget: image }, required: false }
       - { name: featured, label: Featured on home page, widget: boolean, default: false }
       - { name: placeholder, label: Placeholder, widget: boolean, default: false, hint: 'Shows a “placeholder content” notice on the page.' }
       - name: legacy

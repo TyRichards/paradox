@@ -54,6 +54,7 @@ const work = defineCollection({
     order: z.number().int().default(999),
     cover: z.string().optional(),
     coverAlt: z.string().optional(),
+    gallery: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     placeholder: z.boolean().default(false),
     legacy: z
