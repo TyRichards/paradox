@@ -1,4 +1,6 @@
 ---
+import { Badge } from '@/components/starwind/badge';
+
 interface Props {
   title: string;
   eyebrow?: string;
@@ -9,8 +11,14 @@ const { title, eyebrow, lede } = Astro.props;
 ---
 
 <header class="mx-auto max-w-6xl px-6 pt-16 pb-10 sm:pt-24">
-  {eyebrow && <p class="mb-3 text-sm font-bold tracking-widest text-accent uppercase">{eyebrow}</p>}
-  <h1 class="text-4xl font-black tracking-tight text-balance sm:text-5xl">{title}</h1>
-  {lede && <p class="mt-4 max-w-2xl text-lg text-muted">{lede}</p>}
+  {
+    eyebrow && (
+      <Badge variant="secondary" eyebrow class="mb-4 font-bold text-primary">
+        {eyebrow}
+      </Badge>
+    )
+  }
+  <h1 class="font-heading text-4xl font-black tracking-tight text-balance sm:text-5xl">{title}</h1>
+  {lede && <p class="mt-4 max-w-2xl text-lg text-muted-foreground">{lede}</p>}
   <slot />
 </header>

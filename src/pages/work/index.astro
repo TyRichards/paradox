@@ -1,16 +1,13 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import PageHeader from '../../components/PageHeader.astro';
-import WorkGrid from '../../components/WorkGrid.astro';
-import { getWork } from '../../lib/content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import WorkGrid from '@/components/WorkGrid.astro';
+import { getWork } from '@/lib/content';
 
 const work = await getWork();
 ---
 
 <BaseLayout title="Work" description="Brand, web, app, and print projects by Paradox.">
-  <PageHeader
-    title="Work"
-    lede={`${work.length} projects carried over from the paradoxcreative.com portfolio. Full case studies and images arrive with the WordPress import.`}
-  />
+  <PageHeader title="Work" lede={`${work.length} brand, web, app, and print projects from the Paradox portfolio.`} />
   <WorkGrid entries={work} />
 </BaseLayout>

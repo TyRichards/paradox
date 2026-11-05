@@ -1,7 +1,8 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import WorkCard from './WorkCard.astro';
-import { WORK_TYPES, WORK_TYPE_LABELS, type WorkType } from '../lib/content';
+import WorkCard from '@/components/WorkCard.astro';
+import { Button } from '@/components/starwind/button';
+import { WORK_TYPES, WORK_TYPE_LABELS, type WorkType } from '@/lib/content';
 
 interface Props {
   entries: CollectionEntry<'work'>[];
@@ -21,13 +22,15 @@ const filters = [
       {
         filters.map((f) => (
           <li>
-            <a
+            <Button
               href={f.href}
+              size="sm"
+              variant={f.current ? 'primary' : 'outline'}
               aria-current={f.current ? 'page' : undefined}
-              class="rounded-full border border-line px-4 py-1.5 text-sm font-semibold transition-colors hover:border-ink aria-[current=page]:border-ink aria-[current=page]:bg-ink aria-[current=page]:text-paper"
+              class="rounded-full font-semibold"
             >
               {f.label}
-            </a>
+            </Button>
           </li>
         ))
       }

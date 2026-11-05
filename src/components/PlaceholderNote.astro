@@ -1,4 +1,6 @@
 ---
+import { Alert, AlertDescription } from '@/components/starwind/alert';
+
 interface Props {
   label?: string;
 }
@@ -6,9 +8,6 @@ interface Props {
 const { label = 'Placeholder content — replace before launch.' } = Astro.props;
 ---
 
-<p
-  class="my-6 rounded-md border border-dashed border-accent bg-highlight/60 px-4 py-3 text-sm font-semibold text-accent-ink"
-  role="note"
->
-  {label}
-</p>
+<Alert variant="warning" role="note" class="my-6 border-dashed bg-warning/40 text-warning-foreground">
+  <AlertDescription class="text-sm font-semibold">{label}</AlertDescription>
+</Alert>

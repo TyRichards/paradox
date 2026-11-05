@@ -1,8 +1,13 @@
 ---
 import { render } from 'astro:content';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import WorkCard from '../components/WorkCard.astro';
-import { formatDate, getPage, getPosts, getServices, getWork } from '../lib/content';
+import ArrowRight from '@tabler/icons/outline/arrow-right.svg';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import WorkCard from '@/components/WorkCard.astro';
+import { Avatar, AvatarImage } from '@/components/starwind/avatar';
+import { Button } from '@/components/starwind/button';
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/starwind/card';
+import { Prose } from '@/components/starwind/prose';
+import { formatDate, getPage, getPosts, getServices, getWork } from '@/lib/content';
 
 const home = await getPage('home');
 const { Content } = await render(home);
@@ -17,32 +22,28 @@ const posts = (await getPosts()).slice(0, 3);
 <BaseLayout description={home.data.description}>
   <section class="bg-ink text-paper">
     <div class="mx-auto flex max-w-6xl flex-col items-center px-6 py-20 text-center sm:py-28">
-      <img
-        src="/images/ty-richards.png"
-        alt="Ty Richards"
-        width="600"
-        height="600"
-        fetchpriority="high"
-        class="mb-10 aspect-square h-40 w-40 rounded-full object-cover ring-4 ring-accent-light sm:h-52 sm:w-52"
-      />
-      <h1 class="max-w-4xl text-4xl leading-tight font-black tracking-tight text-balance sm:text-6xl">
+      <Avatar class="mb-10 h-40 w-40 border-4 border-teal-light bg-paper sm:h-52 sm:w-52">
+        <AvatarImage src="/images/ty-richards.png" alt="Ty Richards" width="600" height="600" fetchpriority="high" />
+      </Avatar>
+      <h1 class="max-w-4xl font-heading text-4xl leading-tight font-black tracking-tight text-balance sm:text-6xl">
         {home.data.heading ?? home.data.title}
       </h1>
       {
         home.data.ctas && (
           <div class="mt-10 flex flex-wrap justify-center gap-4">
             {home.data.ctas.map((cta, i) => (
-              <a
+              <Button
                 href={cta.href}
+                size="lg"
                 class:list={[
-                  'rounded-full px-6 py-3 text-sm font-bold tracking-wide uppercase transition-colors',
+                  'rounded-full font-bold tracking-wide uppercase',
                   i === 0
-                    ? 'bg-accent text-paper hover:bg-paper hover:text-ink'
-                    : 'border border-paper/40 hover:border-paper hover:bg-paper hover:text-ink',
+                    ? 'bg-teal-light text-ink hover:bg-paper'
+                    : 'border border-paper/40 bg-transparent text-paper hover:bg-paper hover:text-ink',
                 ]}
               >
                 {cta.label}
-              </a>
+              </Button>
             ))}
           </div>
         )
@@ -51,16 +52,18 @@ const posts = (await getPosts()).slice(0, 3);
   </section>
 
   <section class="mx-auto max-w-6xl px-6 py-20">
-    <div class="prose prose-lg max-w-3xl prose-p:text-ink">
+    <Prose class="max-w-3xl text-xl [--prose-color:var(--foreground)]">
       <Content />
-    </div>
+    </Prose>
   </section>
 
-  <section class="border-y border-line bg-mist">
+  <section class="border-y bg-muted">
     <div class="mx-auto max-w-6xl px-6 py-20">
       <div class="mb-10 flex items-end justify-between gap-4">
-        <h2 class="text-3xl font-black tracking-tight">Selected work</h2>
-        <a href="/work/" class="text-sm font-bold tracking-wide text-accent uppercase hover:text-ink">All work &rarr;</a>
+        <h2 class="font-heading text-3xl font-black tracking-tight">Selected work</h2>
+        <Button href="/work/" variant="ghost" class="font-bold text-primary">
+          All work <ArrowRight />
+        </Button>
       </div>
       <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {
@@ -75,34 +78,40 @@ const posts = (await getPosts()).slice(0, 3);
   </section>
 
   <section class="mx-auto max-w-6xl px-6 py-20">
-    <h2 class="mb-10 text-3xl font-black tracking-tight">What Paradox does</h2>
+    <div class="mb-10 flex items-end justify-between gap-4">
+      <h2 class="font-heading text-3xl font-black tracking-tight">What Paradox does</h2>
+      <Button href="/services/" variant="ghost" class="font-bold text-primary">
+        Services <ArrowRight />
+      </Button>
+    </div>
     <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {
         services.map((s) => (
-          <li class="rounded-lg border border-line p-6">
-            <h3 class="text-lg font-bold">{s.data.title}</h3>
-            <p class="mt-2 text-sm text-muted">{s.data.summary}</p>
+          <li class="h-full">
+            <Card class="h-full border-t-4 border-teal-light">
+              <CardHeader>
+                <CardTitle class="font-bold">{s.data.title}</CardTitle>
+                <CardDescription class="text-sm">{s.data.summary}</CardDescription>
+              </CardHeader>
+            </Card>
           </li>
         ))
       }
     </ul>
-    <a href="/services/" class="mt-8 inline-block text-sm font-bold tracking-wide text-accent uppercase hover:text-ink">
-      Services &rarr;
-    </a>
   </section>
 
   {
     posts.length > 0 && (
       <section class="mx-auto max-w-6xl px-6 pb-8">
-        <h2 class="mb-8 text-3xl font-black tracking-tight">From the blog</h2>
-        <ul class="divide-y divide-line border-y border-line">
+        <h2 class="mb-8 font-heading text-3xl font-black tracking-tight">From the blog</h2>
+        <ul class="divide-y border-y">
           {posts.map((post) => (
             <li>
               <a href={`/blog/${post.id}/`} class="group flex flex-col gap-1 py-5 sm:flex-row sm:items-baseline sm:gap-6">
-                <time datetime={post.data.pubDate.toISOString()} class="shrink-0 text-sm text-muted sm:w-44">
+                <time datetime={post.data.pubDate.toISOString()} class="shrink-0 text-sm text-muted-foreground sm:w-44">
                   {formatDate(post.data.pubDate)}
                 </time>
-                <span class="font-bold group-hover:text-accent">{post.data.title}</span>
+                <span class="font-bold group-hover:text-primary">{post.data.title}</span>
               </a>
             </li>
           ))}

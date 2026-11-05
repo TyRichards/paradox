@@ -1,12 +1,14 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHeader from '../components/PageHeader.astro';
+import ArrowLeft from '@tabler/icons/outline/arrow-left.svg';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import { Button } from '@/components/starwind/button';
 ---
 
 <BaseLayout title="Not found" noindex>
   <PageHeader title="That page wandered off." lede="It may have moved in the site rebuild.">
-    <a href="/" class="mt-8 inline-block text-sm font-bold tracking-wide text-accent uppercase hover:text-ink">
-      &larr; Back home
-    </a>
+    <Button href="/" variant="primary" class="mt-8 rounded-full font-bold">
+      <ArrowLeft /> Back home
+    </Button>
   </PageHeader>
 </BaseLayout>
