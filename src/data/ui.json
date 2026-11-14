@@ -5,7 +5,7 @@
     "menuTitle": "Menu"
   },
   "footer": {
-    "heading": "Busywork eating your week?",
+    "heading": "Busywork eating your week.",
     "text": "Start with a $79 Process Audit to find what to fix first and what’s worth automating.",
     "cta": { "label": "Book a Process Audit", "href": "/contact/?offer=process-audit" },
     "tagline": "Business process & automation, from Texas.",
@@ -57,23 +57,23 @@
     "successTitle": "Thanks, your message is on its way.",
     "successText": "Ty will reply by email.",
     "errorTitle": "That didn’t go through",
-    "errorText": "Please try again, or email instead.",
+    "errorText": "Try again, or email instead.",
     "notConfiguredTitle": "The contact form isn’t switched on yet",
-    "notConfiguredText": "Please use the email address above for now.",
-    "tokenPending": "Please wait for the spam check to finish, then send again.",
+    "notConfiguredText": "Use the email address above for now.",
+    "tokenPending": "Wait for the spam check to finish, then send again.",
     "errors": {
-      "too_large": "Your message is too long. Please shorten it and try again.",
-      "not_configured": "The contact form isn’t switched on yet. Please email instead.",
-      "bad_request": "We couldn’t read the form. Please refresh the page and try again.",
+      "too_large": "Your message is too long. Shorten it and try again.",
+      "not_configured": "The contact form isn’t switched on yet. Email instead.",
+      "bad_request": "We couldn’t read the form. Refresh the page and try again.",
       "missing_fields": "Name, email, and a short note are required.",
       "too_long": "One of the fields is too long.",
-      "invalid_email": "Please enter a valid email address.",
-      "spam_check": "The spam check failed. Please refresh the page and try again.",
-      "send_failed": "Your message couldn’t be sent. Please try again or email instead."
+      "invalid_email": "Enter a valid email address.",
+      "spam_check": "The spam check failed. Refresh the page and try again.",
+      "send_failed": "Your message couldn’t be sent. Try again or email instead."
     }
   },
   "notFound": {
-    "title": "That page wandered off.",
+    "title": "That page isn’t here.",
     "lede": "It may have moved when the site was rebuilt.",
     "backLabel": "Back home"
   }

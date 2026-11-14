@@ -4,7 +4,7 @@ description: Paradox is a business process and automation agency run by Ty Richa
 heading: About Paradox
 closing:
   heading: Start with an audit
-  text: The $79 Process Audit is the easiest way to see whether Paradox is a good fit.
+  text: The $79 Process Audit is a good way to see whether Paradox is a fit.
   cta:
     label: Book a Process Audit
     href: /contact/?offer=process-audit
@@ -12,7 +12,9 @@ closing:
 
 Paradox is a business process and automation agency run by Ty Richards in Texas.
 
-Paradox started as a creative shop, building brands, websites, and web apps for churches, nonprofits, startups, and local businesses. Today the focus is business processes: finding where work gets stuck, fixing it, and automating the repetitive parts so they keep running without anyone babysitting them.
+Paradox started as a creative shop, building brands, websites, and web apps for churches, nonprofits, startups, and local businesses.
+
+Today the focus is business processes. We find where work gets stuck, fix it, and automate the repetitive parts so they keep running without anyone babysitting them.
 
 Paradox works with two kinds of clients: established businesses fixing processes that have grown messy, and startups that want to build healthy ones from day one.
 

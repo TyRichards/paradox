@@ -2,10 +2,10 @@
 title: Brand/Web Foundation
 price: $499
 cadence: one-time
-summary: "The basics a new or refreshed business needs to look credible: a simple brand and a clean, basic website."
+summary: A brand and a basic website, if you need a place to stand.
 bullets:
   - A logo and a one-page brand guide (colors and type)
-  - A basic, mobile-friendly website
+  - A basic website that works on phones, tablets and desktop
   - A contact form that sends to your inbox
 ctaLabel: Get the foundation
 featured: false
