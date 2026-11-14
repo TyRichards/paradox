@@ -1,15 +1,14 @@
 {
   "name": "Paradox",
-  "title": "Paradox | Business Process & Automation",
-  "description": "I fix the processes that slow businesses down, and automate the busywork. Run by Ty Richards in Texas.",
+  "title": "Paradox | Process and Automation",
+  "description": "I fix the processes that slow businesses down. Run by Ty Richards in Texas.",
   "owner": "Ty Richards",
   "emailDisplay": "ty at paradoxcreative dot com",
   "nav": [
     { "label": "Pricing", "href": "/pricing/" },
     { "label": "Work", "href": "/work/" },
     { "label": "About", "href": "/about/" },
-    { "label": "Blog", "href": "/blog/" },
     { "label": "Contact", "href": "/contact/" }
   ],
-  "navCta": { "label": "Book a $79 Process Audit", "href": "/contact/?offer=process-audit" }
+  "navCta": { "label": "Book an audit", "href": "/contact/?offer=process-audit" }
 }

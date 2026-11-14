@@ -5,9 +5,11 @@ import ContactForm from '@/components/content/ContactForm.astro';
 // Cloudflare's always-pass test site key, used only by `astro dev` so the form works without real keys.
 const DEV_TEST_SITE_KEY = '1x00000000000000000000AA';
 const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || (import.meta.env.DEV ? DEV_TEST_SITE_KEY : '');
+// The form stays hidden until it can actually send: set PUBLIC_CONTACT_FORM_ENABLED=true once Resend is configured.
+const showForm = Boolean(siteKey) && import.meta.env.PUBLIC_CONTACT_FORM_ENABLED === 'true';
 ---
 
 <MarkdownPage id="contact">
-  {siteKey && <script slot="head" is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
-  <ContactForm siteKey={siteKey} />
+  {showForm && <script slot="head" is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+  <ContactForm render={showForm} siteKey={siteKey} />
 </MarkdownPage>

@@ -87,21 +87,22 @@ What the Function does on each POST (JSON or form-encoded):
 | Name | Type | Value |
 | --- | --- | --- |
 | `PUBLIC_TURNSTILE_SITE_KEY` | Text | Turnstile site key. Read at **build** time, so redeploy after setting it. |
+| `PUBLIC_CONTACT_FORM_ENABLED` | Text | `true` to show the form. Read at **build** time. Leave unset (off) until Resend works; `/contact/` then shows only the email link. |
 | `TURNSTILE_SECRET` | Secret | Turnstile secret key |
 | `TURNSTILE_HOSTNAMES` | Text | Comma-separated hostnames allowed to solve the widget, e.g. `example.com,www.example.com,paradox-cnd.pages.dev`. If unset, only the request's own hostname is accepted. |
 | `RESEND_API_KEY` | Secret | Resend API key |
 | `CONTACT_TO_EMAIL` | Text | Inbox for inquiries (comma-separate for more than one) |
 | `CONTACT_FROM_EMAIL` | Text | Optional. Sender on the verified domain, e.g. `Paradox website <hello@example.com>`. Defaults to `onboarding@resend.dev`, which Resend only delivers to the account owner. |
 
-If `PUBLIC_TURNSTILE_SITE_KEY` is missing from a production build, the form renders disabled with a "use email instead" notice. If the server secrets are missing, the Function returns 503. Either way it fails closed.
+The form only renders when both `PUBLIC_TURNSTILE_SITE_KEY` is set and `PUBLIC_CONTACT_FORM_ENABLED=true` (including in `npm run dev`). Otherwise `/contact/` shows just the email link. If the server secrets are missing, the Function returns 503. Either way it fails closed.
 
 ### Local testing
 
-`npm run dev` renders the form with Cloudflare's always-pass test site key, but the Astro dev server doesn't run Pages Functions. To test the whole round trip:
+`PUBLIC_CONTACT_FORM_ENABLED=true npm run dev` renders the form with Cloudflare's always-pass test site key, but the Astro dev server doesn't run Pages Functions. To test the whole round trip:
 
 ```sh
 cp .dev.vars.example .dev.vars          # Turnstile test secret + your values
-PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA npm run build
+PUBLIC_CONTACT_FORM_ENABLED=true PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA npm run build
 npx wrangler pages dev dist             # http://localhost:8788/contact/
 ```
 

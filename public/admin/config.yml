@@ -148,10 +148,9 @@ collections:
       - { name: price, label: Price, widget: string, hint: 'Shown as written, e.g. “$79”.' }
       - { name: cadence, label: Billing, widget: string, required: false, hint: 'e.g. “one-time” or “per month”.' }
       - { name: summary, label: Short description, widget: text }
-      - { name: bullets, label: Bullet points, widget: list, min: 1, max: 5, field: { name: bullet, label: Bullet, widget: string } }
+      - { name: bullets, label: Bullet points, widget: list, required: false, max: 5, field: { name: bullet, label: Bullet, widget: string } }
       - { name: ctaLabel, label: Button label, widget: string, hint: 'The button links to the contact form with this offer preselected.' }
-      - { name: featured, label: Featured (main offer), widget: boolean, default: false }
-      - { name: featuredLabel, label: Featured badge, widget: string, required: false }
+      - { name: featured, label: 'Featured (main offer, quietly emphasized on Pricing)', widget: boolean, default: false }
       - { name: order, label: Sort order, widget: number, value_type: int, default: 999, hint: 'Lower numbers appear first.' }
 
   - name: pages

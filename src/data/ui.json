@@ -5,7 +5,7 @@
     "menuTitle": "Menu"
   },
   "footer": {
-    "tagline": "Business process & automation, from Texas.",
+    "tagline": "Process and automation, from Texas.",
     "links": [
       { "label": "Pricing", "href": "/pricing/" },
       { "label": "Contact", "href": "/contact/" },
@@ -19,7 +19,7 @@
   "work": {
     "title": "Work",
     "description": "Selected projects by Paradox.",
-    "lede": "A few projects. More case studies are on the way.",
+    "lede": "A few projects.",
     "empty": "Case studies are on the way.",
     "eyebrow": "Work",
     "typeLabel": "Type",

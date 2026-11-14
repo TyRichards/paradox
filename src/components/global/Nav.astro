@@ -1,4 +1,5 @@
 ---
+import Button from "@/components/Button.astro";
 import NavLink from "@/components/global/NavLink.astro";
 import { getNav } from "@/lib/content";
 import { site } from "@/lib/site";
@@ -21,6 +22,9 @@ const inSection = (href: string) => href !== "/" && path.startsWith(href);
         </NavLink>
       ))}
     </ul>
+    {site.navCta && (
+      <Button element="link" href={site.navCta.href} emphasis="secondary">{site.navCta.label}</Button>
+    )}
   </nav>
 </header>
 
@@ -47,6 +51,11 @@ const inSection = (href: string) => href !== "/" && path.startsWith(href);
       width: auto;
     }
     .nav_menu {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4) var(--space-6);
       @media (width < 30rem) {
         width: 100%;
       }

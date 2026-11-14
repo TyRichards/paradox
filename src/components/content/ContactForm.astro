@@ -71,6 +71,7 @@ const messages = {
   </form>
 )}
 
+{render && (
 <template id="contact-success">
   <div class="contact-form_note success">
     <p class="contact-form_note-title">{t.successTitle}</p>
@@ -83,6 +84,7 @@ const messages = {
     <p data-message>{t.errorText}</p>
   </div>
 </template>
+)}
 
 <script>
   declare global {

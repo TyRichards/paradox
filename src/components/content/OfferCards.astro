@@ -1,0 +1,81 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Button from "@/components/Button.astro";
+import { offerContactHref } from "@/lib/content";
+
+interface Props {
+  render?: boolean;
+  offers: CollectionEntry<"offers">[];
+  class?: string;
+}
+
+const { render = true, offers, class: className } = Astro.props;
+---
+
+{render && offers?.length > 0 && (
+  <ul class:list={["offer-cards_wrap", className]} role="list">
+    {offers.map(({ id, data }) => (
+      <li id={id} class:list={["offer-cards_item", data.featured && "featured"]}>
+        <h2 class="offer-cards_title text-style-h5">{data.title}</h2>
+        <p class="offer-cards_price">
+          <span class="text-style-h3">{data.price}</span>
+          {data.cadence && <span class="color-faded">{data.cadence}</span>}
+        </p>
+        <p class="color-faded">{data.summary}</p>
+        {data.bullets.length > 0 && (
+          <ul class="offer-cards_points color-faded">
+            {data.bullets.map((bullet) => <li>{bullet}</li>)}
+          </ul>
+        )}
+        <div class="offer-cards_action">
+          <Button element="link" href={offerContactHref(id)} emphasis={data.featured ? "primary" : "secondary"}>
+            {data.ctaLabel}
+          </Button>
+        </div>
+      </li>
+    ))}
+  </ul>
+)}
+
+<style is:global>
+  @layer components {
+    .offer-cards_wrap {
+      width: 100%;
+      display: grid;
+      gap: var(--space-5);
+      @media (width >= 48rem) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+    .offer-cards_item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      padding: var(--space-6);
+      border: var(--border-width) solid var(--border);
+      border-radius: var(--radius-main);
+      &.featured {
+        border-color: var(--accent);
+        box-shadow: inset 0 0 0 var(--border-width) var(--accent);
+      }
+    }
+    .offer-cards_title {
+      margin: 0;
+    }
+    .offer-cards_price {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      column-gap: var(--space-2);
+      row-gap: var(--space-2);
+    }
+    .offer-cards_points {
+      padding-left: 1.25em;
+      list-style: disc;
+    }
+    .offer-cards_action {
+      margin-top: auto;
+      padding-top: var(--space-4);
+    }
+  }
+</style>

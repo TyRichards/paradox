@@ -1,7 +1,7 @@
 ---
 title: Contact
-description: Get in touch.
+description: Email Ty.
 heading: Let’s talk
 ---
 
-Tell me what’s slowing you down. I’ll reply by email at [ty@paradoxcreative.com](mailto:ty@paradoxcreative.com).
+[ty@paradoxcreative.com](mailto:ty@paradoxcreative.com). I’ll reply.
