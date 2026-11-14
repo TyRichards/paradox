@@ -1,6 +1,7 @@
 ---
 title: Worship Online
 published: true
+projectUrl: https://worshiponline.com
 summary: "Music Lesson Brand & Subscription Web App"
 types:
   - app
