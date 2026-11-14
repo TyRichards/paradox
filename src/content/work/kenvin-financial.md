@@ -1,5 +1,6 @@
 ---
 title: Kenvin Financial
+published: false
 summary: Financial Advisor Website Design
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: Paradox - Ty Richards - Kenvin Financial Website
 gallery:
   - /images/work/kenvin-financial/KenvinFinancial-Web.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 211
   url: "https://paradoxcreative.com/portfolio/kenvin-financial/"

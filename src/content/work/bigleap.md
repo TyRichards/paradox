@@ -1,5 +1,6 @@
 ---
 title: BigLeap
+published: false
 summary: Crowd-Sourcing Non-Profit Website Design
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: Paradox - Ty Richards - BigLeap Website
 gallery:
   - /images/work/bigleap/BigLeap-Web.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 281
   url: "https://paradoxcreative.com/portfolio/bigleap/"

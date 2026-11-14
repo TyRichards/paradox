@@ -1,5 +1,6 @@
 ---
 title: Euphoria Entertainment
+published: false
 types:
   - brand
 client: Euphoria Entertainment
@@ -10,7 +11,6 @@ coverAlt: Paradox - Ty Richards - Euphoria Entertainment
 gallery:
   - /images/work/euphoria-entertainment/Euphoria-Logo2.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 103
   url: "https://paradoxcreative.com/portfolio/euphoria-entertainment/"

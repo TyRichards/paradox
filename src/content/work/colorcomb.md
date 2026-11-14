@@ -1,5 +1,6 @@
 ---
 title: Colorcomb LTD
+published: false
 summary: eCommerce Web Design
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: Paradox - Ty Richards - Colorcomb Website
 gallery:
   - /images/work/colorcomb/ColorComb-Web.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 151
   url: "https://paradoxcreative.com/portfolio/colorcomb/"

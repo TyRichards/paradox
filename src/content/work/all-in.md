@@ -1,5 +1,6 @@
 ---
 title: All In
+published: false
 types:
   - brand
 client: Harvest Church
@@ -10,7 +11,6 @@ coverAlt: Paradox - Ty Richards - Harvest Church
 gallery:
   - /images/work/all-in/AllIn-Logo2.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 110
   url: "https://paradoxcreative.com/portfolio/all-in/"

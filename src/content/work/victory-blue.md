@@ -1,5 +1,6 @@
 ---
 title: Victory Blue
+published: false
 summary: "Industrial Product Brand & Brochure Website Design"
 types:
   - brand
@@ -11,7 +12,6 @@ gallery:
   - /images/work/victory-blue/VictoryBlue-Logo.jpg
   - /images/work/victory-blue/VictoryBlue-Web.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 237
   url: "https://paradoxcreative.com/portfolio/victory-blue/"

@@ -1,5 +1,6 @@
 ---
 title: Victory with Valvoline
+published: false
 summary: Partnership Marketing Website
 types:
   - web
@@ -13,7 +14,6 @@ gallery:
   - /images/work/victory-with-valvoline/VictoryWithValvoline-Web41.jpg
   - /images/work/victory-with-valvoline/VictoryWithValvoline-Web51.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 241
   url: "https://paradoxcreative.com/portfolio/victory-with-valvoline/"

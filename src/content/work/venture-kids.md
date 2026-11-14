@@ -1,5 +1,6 @@
 ---
 title: Venture Kids
+published: false
 types:
   - brand
 client: Harvest Church
@@ -8,7 +9,6 @@ order: 42
 cover: /images/work/venture-kids/VentureKids-Logo.jpg
 coverAlt: Paradox - Ty Richards - Harvest Church
 featured: false
-placeholder: false
 legacy:
   wpId: 108
   url: "https://paradoxcreative.com/portfolio/venture-kids/"

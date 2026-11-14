@@ -1,5 +1,6 @@
 ---
 title: Sullivan Chimney Sweep Brand
+published: false
 types:
   - brand
 client: Sullivan Chimney Sweep
@@ -8,7 +9,6 @@ order: 45
 cover: /images/work/sullivan-chimney-sweep-brand/Sullivan-Logo.jpg
 coverAlt: Paradox - Ty Richards - Sullivan Chimney Sweep
 featured: false
-placeholder: false
 legacy:
   wpId: 101
   url: "https://paradoxcreative.com/portfolio/sullivan-chimney-sweep-brand/"

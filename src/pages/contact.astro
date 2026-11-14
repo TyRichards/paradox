@@ -2,15 +2,26 @@
 import MarkdownPage from '@/components/MarkdownPage.astro';
 import { Alert, AlertDescription, AlertTitle } from '@/components/starwind/alert';
 import { Button } from '@/components/starwind/button';
-import { Input } from '@/components/starwind/input';
+import { Input, InputVariants } from '@/components/starwind/input';
 import { Label } from '@/components/starwind/label';
 import { Spinner } from '@/components/starwind/spinner';
 import { Textarea } from '@/components/starwind/textarea';
+import { getOffers } from '@/lib/content';
+import { ui } from '@/lib/ui';
 
 // Cloudflare's always-pass test site key, used only by `astro dev` so the form works without real keys.
 const DEV_TEST_SITE_KEY = '1x00000000000000000000AA';
 const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || (import.meta.env.DEV ? DEV_TEST_SITE_KEY : '');
 const configured = Boolean(siteKey);
+
+const t = ui.contact;
+const offers = await getOffers();
+const messages = {
+  submit: t.submitLabel,
+  sending: t.sendingLabel,
+  tokenPending: t.tokenPending,
+  errors: t.errors,
+};
 ---
 
 <MarkdownPage id="contact">
@@ -23,12 +34,13 @@ const configured = Boolean(siteKey);
     class="mt-10 max-w-xl space-y-6"
     novalidate
     data-configured={configured ? 'true' : 'false'}
+    data-messages={JSON.stringify(messages)}
   >
     {
       !configured && (
         <Alert variant="warning">
-          <AlertTitle>The contact form isn’t switched on yet</AlertTitle>
-          <AlertDescription>Please use the email address above for now.</AlertDescription>
+          <AlertTitle>{t.notConfiguredTitle}</AlertTitle>
+          <AlertDescription>{t.notConfiguredText}</AlertDescription>
         </Alert>
       )
     }
@@ -36,35 +48,43 @@ const configured = Boolean(siteKey);
     <fieldset class="space-y-6" disabled={!configured}>
       <div class="grid gap-6 sm:grid-cols-2">
         <div class="space-y-2">
-          <Label for="contact-name">Name</Label>
+          <Label for="contact-name">{t.nameLabel}</Label>
           <Input id="contact-name" name="name" autocomplete="name" required maxlength={200} />
         </div>
         <div class="space-y-2">
-          <Label for="contact-email">Email</Label>
+          <Label for="contact-email">{t.emailLabel}</Label>
           <Input id="contact-email" name="email" type="email" autocomplete="email" required maxlength={320} />
         </div>
       </div>
 
-      <div class="space-y-2">
-        <Label for="contact-message">Project details</Label>
-        <Textarea
-          id="contact-message"
-          name="message"
-          rows={6}
-          required
-          maxlength={5000}
-          placeholder="What are you building, and when do you need it?"
-        />
+      <div class="grid gap-6 sm:grid-cols-2">
+        <div class="space-y-2">
+          <Label for="contact-company">{t.companyLabel}</Label>
+          <Input id="contact-company" name="company" autocomplete="organization" maxlength={200} />
+        </div>
+        <div class="space-y-2">
+          <Label for="contact-offer">{t.offerLabel}</Label>
+          <select id="contact-offer" name="offer" class={InputVariants.input({ class: 'pr-10' })}>
+            {
+              offers.map((offer) => (
+                <option value={offer.id}>
+                  {offer.data.title} ({offer.data.price})
+                </option>
+              ))
+            }
+            <option value="" selected>{t.offerOther}</option>
+          </select>
+        </div>
       </div>
 
       <div class="space-y-2">
-        <Label for="contact-budget">Rough budget</Label>
-        <Input id="contact-budget" name="budget" maxlength={200} placeholder="A ballpark is fine" />
+        <Label for="contact-message">{t.messageLabel}</Label>
+        <Textarea id="contact-message" name="message" rows={6} required maxlength={5000} placeholder={t.messagePlaceholder} />
       </div>
 
       <div class="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
-        <label for="contact-company">Company (leave blank)</label>
-        <input id="contact-company" name="company" type="text" tabindex="-1" autocomplete="off" />
+        <label for="contact-website">Website</label>
+        <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off" />
       </div>
 
       {configured && <div class="cf-turnstile" data-sitekey={siteKey} data-action="contact" data-theme="light" />}
@@ -72,7 +92,7 @@ const configured = Boolean(siteKey);
       <div class="flex items-center gap-4">
         <Button type="submit" variant="primary" size="lg" class="rounded-full font-bold" data-submit>
           <Spinner class="hidden" data-spinner />
-          <span data-label>Send</span>
+          <span data-label>{t.submitLabel}</span>
         </Button>
       </div>
     </fieldset>
@@ -82,14 +102,14 @@ const configured = Boolean(siteKey);
 
   <template id="contact-success">
     <Alert variant="success">
-      <AlertTitle>Thanks, message sent.</AlertTitle>
-      <AlertDescription>Ty will get back to you soon.</AlertDescription>
+      <AlertTitle>{t.successTitle}</AlertTitle>
+      <AlertDescription>{t.successText}</AlertDescription>
     </Alert>
   </template>
   <template id="contact-error">
     <Alert variant="error">
-      <AlertTitle>Something went wrong</AlertTitle>
-      <AlertDescription data-message>Please try again, or email instead.</AlertDescription>
+      <AlertTitle>{t.errorTitle}</AlertTitle>
+      <AlertDescription data-message>{t.errorText}</AlertDescription>
     </Alert>
   </template>
 </MarkdownPage>
@@ -101,7 +121,17 @@ const configured = Boolean(siteKey);
     }
   }
 
+  type Messages = { submit: string; sending: string; tokenPending: string; errors: Record<string, string> };
+
   const form = document.querySelector<HTMLFormElement>('#contact-form');
+  const messages: Messages = JSON.parse(form?.dataset.messages ?? '{}');
+  const params = new URLSearchParams(location.search);
+
+  const offerSelect = form?.querySelector<HTMLSelectElement>('#contact-offer');
+  const requestedOffer = params.get('offer');
+  if (offerSelect && requestedOffer && [...offerSelect.options].some((o) => o.value === requestedOffer)) {
+    offerSelect.value = requestedOffer;
+  }
 
   function showStatus(kind: 'success' | 'error', message?: string) {
     const target = form?.querySelector<HTMLElement>('[data-status]');
@@ -113,18 +143,20 @@ const configured = Boolean(siteKey);
     target.replaceChildren(node);
   }
 
+  const errorMessage = (code?: string | null) => (code ? messages.errors?.[code] : undefined);
+
   function setBusy(busy: boolean) {
     const button = form?.querySelector<HTMLButtonElement>('[data-submit]');
     if (!button) return;
     button.disabled = busy;
     button.querySelector('[data-spinner]')?.classList.toggle('hidden', !busy);
     const label = button.querySelector('[data-label]');
-    if (label) label.textContent = busy ? 'Sending…' : 'Send';
+    if (label) label.textContent = busy ? messages.sending : messages.submit;
   }
 
-  const status = new URLSearchParams(location.search).get('status');
+  const status = params.get('status');
   if (status === 'sent') showStatus('success');
-  if (status === 'error') showStatus('error');
+  if (status === 'error') showStatus('error', errorMessage(params.get('code')));
 
   form?.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -133,7 +165,7 @@ const configured = Boolean(siteKey);
 
     const data = new FormData(form);
     if (!data.get('cf-turnstile-response')) {
-      showStatus('error', 'Please wait for the spam check to finish, then send again.');
+      showStatus('error', messages.tokenPending);
       return;
     }
 
@@ -146,10 +178,12 @@ const configured = Boolean(siteKey);
       });
       const body = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
       if (res.ok && body.ok) {
+        const offer = offerSelect?.value;
         form.reset();
+        if (offerSelect && offer !== undefined) offerSelect.value = offer;
         showStatus('success');
       } else {
-        showStatus('error', body.error);
+        showStatus('error', errorMessage(body.error));
       }
     } catch {
       showStatus('error');

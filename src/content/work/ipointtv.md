@@ -1,5 +1,6 @@
 ---
 title: iPointTV
+published: false
 summary: "Brand & eCommerce Website"
 types:
   - brand
@@ -11,7 +12,6 @@ gallery:
   - /images/work/ipointtv/iPoint-Web.jpg
   - /images/work/ipointtv/iPoint-Logo.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 198
   url: "https://paradoxcreative.com/portfolio/ipointtv/"

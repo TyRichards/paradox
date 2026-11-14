@@ -1,5 +1,6 @@
 ---
 title: Global Events
+published: false
 summary: Event Portfolio Website
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: Paradox - Ty Richards - Global Events Website
 gallery:
   - /images/work/global-events/GlobalEvents-Web.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 272
   url: "https://paradoxcreative.com/portfolio/global-events/"

@@ -15,7 +15,8 @@ backend:
   # Cloudflare Worker and set its URL here (see docs/CMS.md):
   # base_url: https://sveltia-cms-auth.<your-subdomain>.workers.dev
 
-site_url: https://paradoxcreative.com
+# site_url is omitted on purpose: Sveltia falls back to the origin the CMS is
+# opened on, so previews work on pages.dev and any custom domain.
 logo:
   src: /admin/logo.png
   show_in_header: true
@@ -56,7 +57,6 @@ collections:
       - { name: coverAlt, label: Cover image alt text, widget: string, required: false }
       - { name: tags, label: Tags, widget: list, required: false }
       - { name: draft, label: Draft, widget: boolean, default: false, hint: 'Drafts show in `npm run dev` but are left out of the production build.' }
-      - { name: placeholder, label: Placeholder, widget: boolean, default: false, hint: 'Shows a “placeholder content” notice on the page.' }
       - name: legacy
         label: WordPress origin
         widget: object
@@ -71,7 +71,7 @@ collections:
   - name: work
     label: Work
     label_singular: Project
-    description: Portfolio projects. Files live in src/content/work/. Imported from the live WordPress portfolio.
+    description: Portfolio projects. Files live in src/content/work/. Only entries marked Published get a page and appear in listings.
     folder: src/content/work
     extension: md
     format: frontmatter
@@ -80,18 +80,20 @@ collections:
     preview_path: /work/{{slug}}/
     summary: '{{title}} — {{summary}}'
     sortable_fields:
-      fields: [order, title]
+      fields: [order, title, published]
       default:
         field: order
         direction: ascending
     view_filters:
       filters:
+        - { name: published, label: Published, field: published, pattern: true }
         - { name: brand, label: Brand, field: types, pattern: brand }
         - { name: web, label: Web, field: types, pattern: web }
         - { name: print, label: Print, field: types, pattern: print }
         - { name: app, label: App, field: types, pattern: app }
     fields:
       - { name: title, label: Title, widget: string }
+      - { name: published, label: Published, widget: boolean, default: false, hint: 'Off keeps the file but hides the project: no page, not listed.' }
       - { name: summary, label: Summary, widget: string, required: false, hint: 'One-line descriptor, e.g. “Brochure Website”.' }
       - name: types
         label: Types
@@ -105,12 +107,12 @@ collections:
           - { label: App, value: app }
       - { name: client, label: Client, widget: string, required: false }
       - { name: projectDate, label: Project date, widget: string, required: false, hint: 'Free text, e.g. “July 2012”.' }
+      - { name: projectUrl, label: Live site URL, widget: string, type: url, required: false, hint: 'Adds a “Visit the live site” button.' }
       - { name: order, label: Sort order, widget: number, value_type: int, default: 999, hint: 'Lower numbers appear first.' }
       - { name: cover, label: Cover image, widget: image, required: false }
       - { name: coverAlt, label: Cover image alt text, widget: string, required: false }
       - { name: gallery, label: Gallery images, widget: list, field: { name: image, widget: image }, required: false }
       - { name: featured, label: Featured on home page, widget: boolean, default: false }
-      - { name: placeholder, label: Placeholder, widget: boolean, default: false, hint: 'Shows a “placeholder content” notice on the page.' }
       - name: legacy
         label: WordPress origin
         widget: object
@@ -125,15 +127,17 @@ collections:
           - { name: gallery, label: Original gallery image URLs, widget: list, required: false }
       - { name: body, label: Write-up, widget: richtext, required: false }
 
-  - name: services
-    label: Services
-    label_singular: Service
-    description: Service cards on /services/ and the home page. Files live in src/content/services/.
-    folder: src/content/services
+  - name: offers
+    label: Offers
+    label_singular: Offer
+    description: Pricing cards on /pricing/ and the home page. Files live in src/content/offers/. The filename is the id used in /contact/?offer=<id>.
+    folder: src/content/offers
     extension: md
     format: frontmatter
     create: true
     slug: '{{slug}}'
+    preview_path: /pricing/
+    summary: '{{price}} {{cadence}} — {{title}}'
     sortable_fields:
       fields: [order, title]
       default:
@@ -141,20 +145,14 @@ collections:
         direction: ascending
     fields:
       - { name: title, label: Title, widget: string }
-      - { name: summary, label: Summary, widget: string }
-      - name: workType
-        label: Linked work type
-        widget: select
-        required: false
-        hint: Links the service card to the matching /work/type/ page.
-        options:
-          - { label: Brand, value: brand }
-          - { label: Web, value: web }
-          - { label: Print, value: print }
-          - { label: App, value: app }
-      - { name: order, label: Sort order, widget: number, value_type: int, default: 999 }
-      - { name: placeholder, label: Placeholder, widget: boolean, default: false }
-      - { name: body, label: Body, widget: richtext, required: false }
+      - { name: price, label: Price, widget: string, hint: 'Shown as written, e.g. “$79”.' }
+      - { name: cadence, label: Billing, widget: string, required: false, hint: 'e.g. “one-time” or “per month”.' }
+      - { name: summary, label: Short description, widget: text }
+      - { name: bullets, label: Bullet points, widget: list, min: 3, max: 5, field: { name: bullet, label: Bullet, widget: string } }
+      - { name: ctaLabel, label: Button label, widget: string, hint: 'The button links to the contact form with this offer preselected.' }
+      - { name: featured, label: Featured (main offer), widget: boolean, default: false }
+      - { name: featuredLabel, label: Featured badge, widget: string, required: false }
+      - { name: order, label: Sort order, widget: number, value_type: int, default: 999, hint: 'Lower numbers appear first.' }
 
   - name: pages
     label: Pages
@@ -167,15 +165,82 @@ collections:
         fields:
           - { name: title, label: Title, widget: string }
           - { name: description, label: Meta description, widget: text, required: false }
+          - { name: eyebrow, label: Hero eyebrow, widget: string, required: false }
           - { name: heading, label: Hero heading, widget: text }
-          - name: ctas
-            label: Hero buttons
+          - { name: lede, label: Hero lede, widget: text, required: false }
+          - name: portrait
+            label: Hero portrait
+            widget: object
+            required: false
+            fields:
+              - { name: src, label: Image, widget: image }
+              - { name: alt, label: Alt text, widget: string }
+          - &ctas_field
+            name: ctas
+            label: Buttons
             widget: list
             required: false
             fields:
               - { name: label, label: Label, widget: string }
               - { name: href, label: Link, widget: string }
+          - name: offersSection
+            label: Offers section
+            widget: object
+            required: false
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: intro, label: Intro, widget: text, required: false }
+              - { name: linkLabel, label: Link to pricing label, widget: string }
+          - name: workSection
+            label: Work section
+            widget: object
+            required: false
+            hint: Shows published work only. Hidden when nothing is published.
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: linkLabel, label: Link to all work label, widget: string }
+          - &audiences_field
+            name: audiences
+            label: Who it’s for
+            widget: object
+            required: false
+            hint: Leave empty on Home to reuse the Pricing page’s list.
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - name: items
+                label: Audiences
+                widget: list
+                fields:
+                  - { name: title, label: Title, widget: string }
+                  - { name: body, label: Description, widget: text }
+          - &closing_field
+            name: closing
+            label: Closing call to action
+            widget: object
+            required: false
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: text, label: Text, widget: text }
+              - name: cta
+                label: Button
+                widget: object
+                fields:
+                  - { name: label, label: Label, widget: string }
+                  - { name: href, label: Link, widget: string }
           - { name: body, label: Intro, widget: richtext }
+      - name: pricing
+        label: Pricing
+        file: src/content/pages/pricing.md
+        preview_path: /pricing/
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: description, label: Meta description, widget: text, required: false }
+          - { name: eyebrow, label: Eyebrow, widget: string, required: false }
+          - { name: heading, label: Heading, widget: string, required: false }
+          - { name: lede, label: Lede, widget: text, required: false }
+          - *audiences_field
+          - *closing_field
+          - { name: body, label: Notes below the cards, widget: richtext, required: false }
       - name: about
         label: About
         file: src/content/pages/about.md
@@ -183,9 +248,11 @@ collections:
         fields: &page_fields
           - { name: title, label: Title, widget: string }
           - { name: description, label: Meta description, widget: text, required: false }
-          - { name: placeholder, label: Placeholder, widget: boolean, default: false }
+          - { name: eyebrow, label: Eyebrow, widget: string, required: false }
+          - { name: heading, label: Heading, widget: string, required: false }
+          - { name: lede, label: Lede, widget: text, required: false }
+          - *closing_field
           - { name: body, label: Body, widget: richtext }
-      - { name: services, label: Services intro, file: src/content/pages/services.md, preview_path: /services/, fields: *page_fields }
       - { name: contact, label: Contact, file: src/content/pages/contact.md, preview_path: /contact/, fields: *page_fields }
       - { name: privacy, label: Privacy policy, file: src/content/pages/privacy.md, preview_path: /privacy/, fields: *page_fields }
 
@@ -205,6 +272,110 @@ collections:
           - name: nav
             label: Main navigation
             widget: list
-            fields:
+            hint: The Blog link is hidden automatically while there are no published posts.
+            fields: &link_fields
               - { name: label, label: Label, widget: string }
               - { name: href, label: Link, widget: string }
+          - { name: navCta, label: Header button, widget: object, required: false, fields: *link_fields }
+      - name: ui
+        label: Interface text
+        file: src/data/ui.json
+        format: json
+        fields:
+          - name: header
+            label: Header
+            widget: object
+            fields:
+              - { name: skipToContent, label: Skip link (screen readers), widget: string }
+              - { name: openMenu, label: Mobile menu button (screen readers), widget: string }
+              - { name: menuTitle, label: Mobile menu title, widget: string }
+          - name: footer
+            label: Footer
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: text, label: Text, widget: text }
+              - { name: cta, label: Button, widget: object, fields: *link_fields }
+              - { name: tagline, label: Tagline (after the copyright), widget: string }
+              - { name: links, label: Links, widget: list, fields: *link_fields }
+              - { name: rssLabel, label: RSS link label, widget: string, hint: 'Shown only while there are posts.' }
+          - name: pricing
+            label: Pricing
+            widget: object
+            fields:
+              - { name: featuredDefaultLabel, label: Featured badge fallback, widget: string }
+          - name: work
+            label: Work
+            widget: object
+            fields:
+              - { name: title, label: Page title, widget: string }
+              - { name: description, label: Meta description, widget: text }
+              - { name: lede, label: Lede, widget: text }
+              - { name: empty, label: Empty state, widget: string }
+              - { name: eyebrow, label: Project page eyebrow, widget: string }
+              - { name: typeLabel, label: Type label, widget: string }
+              - { name: clientLabel, label: Client label, widget: string }
+              - { name: dateLabel, label: Date label, widget: string }
+              - { name: visitSiteLabel, label: Live site button, widget: string }
+              - { name: screenshotAltSuffix, label: Screenshot alt text suffix, widget: string, hint: 'Added after the project title.' }
+              - { name: moreWorkLabel, label: Previous/next nav label (screen readers), widget: string }
+              - name: types
+                label: Work type labels
+                widget: object
+                fields:
+                  - { name: brand, label: Brand, widget: string }
+                  - { name: web, label: Web, widget: string }
+                  - { name: print, label: Print, widget: string }
+                  - { name: app, label: App, widget: string }
+          - name: blog
+            label: Blog
+            widget: object
+            fields:
+              - { name: title, label: Page title, widget: string }
+              - { name: description, label: Meta and RSS description, widget: text }
+              - { name: lede, label: Lede, widget: text }
+              - { name: empty, label: Empty state, widget: string }
+              - { name: eyebrow, label: Post eyebrow, widget: string }
+              - { name: homeHeading, label: Home page heading, widget: string }
+              - { name: updatedLabel, label: Updated label, widget: string }
+              - { name: draftLabel, label: Draft badge, widget: string }
+              - { name: feedTitle, label: RSS feed title, widget: string }
+          - name: contact
+            label: Contact form
+            widget: object
+            fields:
+              - { name: nameLabel, label: Name label, widget: string }
+              - { name: emailLabel, label: Email label, widget: string }
+              - { name: companyLabel, label: Business name label, widget: string }
+              - { name: offerLabel, label: Offer select label, widget: string }
+              - { name: offerOther, label: Offer select fallback option, widget: string }
+              - { name: messageLabel, label: Message label, widget: string }
+              - { name: messagePlaceholder, label: Message placeholder, widget: text }
+              - { name: submitLabel, label: Send button, widget: string }
+              - { name: sendingLabel, label: Sending button, widget: string }
+              - { name: successTitle, label: Success title, widget: string }
+              - { name: successText, label: Success text, widget: text }
+              - { name: errorTitle, label: Error title, widget: string }
+              - { name: errorText, label: Generic error text, widget: text }
+              - { name: notConfiguredTitle, label: Form-off title, widget: string }
+              - { name: notConfiguredText, label: Form-off text, widget: text }
+              - { name: tokenPending, label: Spam check pending, widget: text }
+              - name: errors
+                label: Error messages
+                widget: object
+                fields:
+                  - { name: too_large, label: Too large, widget: text }
+                  - { name: not_configured, label: Not configured, widget: text }
+                  - { name: bad_request, label: Unreadable form, widget: text }
+                  - { name: missing_fields, label: Missing fields, widget: text }
+                  - { name: too_long, label: Field too long, widget: text }
+                  - { name: invalid_email, label: Invalid email, widget: text }
+                  - { name: spam_check, label: Spam check failed, widget: text }
+                  - { name: send_failed, label: Send failed, widget: text }
+          - name: notFound
+            label: 404 page
+            widget: object
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: lede, label: Lede, widget: text }
+              - { name: backLabel, label: Back button, widget: string }

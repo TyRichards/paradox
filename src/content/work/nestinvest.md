@@ -1,5 +1,6 @@
 ---
 title: NestInvest
+published: false
 summary: Crowd-funding Website
 types:
   - app
@@ -10,7 +11,6 @@ coverAlt: Paradox - Ty Richards - NestInvest Website
 gallery:
   - /images/work/nestinvest/NestInvest-Web.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 269
   url: "https://paradoxcreative.com/portfolio/nestinvest/"

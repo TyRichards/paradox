@@ -1,5 +1,6 @@
 ---
 title: "The Law Offices of M. Lake Berry, PLLC."
+published: false
 summary: Law Firm Landing Page
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: Paradox - Ty Richards - M. Lake Berry PLLC Website
 gallery:
   - /images/work/the-law-offices-of-m-lake-berry-pllc/LawMLB-Web.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 266
   url: "https://paradoxcreative.com/portfolio/the-law-offices-of-m-lake-berry-pllc/"

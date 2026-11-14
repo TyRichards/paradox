@@ -1,5 +1,6 @@
 ---
 title: Bronson Rock Brand
+published: false
 types:
   - brand
   - print
@@ -11,7 +12,6 @@ coverAlt: Paradox - Ty Richards - Bronson Rock
 gallery:
   - /images/work/bronson-rock/BronsonRock-Logo.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 81
   url: "https://paradoxcreative.com/portfolio/bronson-rock/"

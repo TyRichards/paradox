@@ -1,5 +1,6 @@
 ---
 title: North Texas Roofing
+published: false
 summary: Roofing Company Website
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: Paradox - Ty Richards - North Texas Roofing Website
 gallery:
   - /images/work/north-texas-roofing/NorthTexasRoofing-Web.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 218
   url: "https://paradoxcreative.com/portfolio/north-texas-roofing/"

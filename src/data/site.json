@@ -1,14 +1,15 @@
 {
   "name": "Paradox",
-  "title": "Paradox | Creative Shop – Texas Based",
-  "description": "Paradox is a humble but potent creative shop deep in the heart of Texas, run by Ty Richards.",
+  "title": "Paradox | Business Process & Automation",
+  "description": "Paradox helps businesses find, fix, and automate the processes that slow them down. Run by Ty Richards in Texas.",
   "owner": "Ty Richards",
   "emailDisplay": "ty at paradoxcreative dot com",
   "nav": [
+    { "label": "Pricing", "href": "/pricing/" },
     { "label": "Work", "href": "/work/" },
-    { "label": "Services", "href": "/services/" },
     { "label": "About", "href": "/about/" },
     { "label": "Blog", "href": "/blog/" },
     { "label": "Contact", "href": "/contact/" }
-  ]
+  ],
+  "navCta": { "label": "Book a $79 Process Audit", "href": "/contact/?offer=process-audit" }
 }

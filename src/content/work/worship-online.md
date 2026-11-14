@@ -1,5 +1,6 @@
 ---
 title: Worship Online
+published: true
 summary: "Music Lesson Brand & Subscription Web App"
 types:
   - app
@@ -29,7 +30,6 @@ gallery:
   - /images/work/worship-online/WorshipOnline-Profile1.jpg
   - /images/work/worship-online/WorshipOnline-CMS.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 285
   url: "https://paradoxcreative.com/portfolio/worship-online/"

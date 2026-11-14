@@ -1,5 +1,6 @@
 ---
 title: VicNRG
+published: false
 summary: Industrial Company Brochure Website
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: Paradox - Ty Richards - VicNRG Website
 gallery:
   - /images/work/vicnrg/VicNRG-Web.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 248
   url: "https://paradoxcreative.com/portfolio/vicnrg/"

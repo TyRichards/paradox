@@ -1,5 +1,6 @@
 ---
 title: Daystar
+published: false
 summary: Facebook App Design
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: Paradox - Ty Richards - Daystar
 gallery:
   - /images/work/daystar/Daystar-Web.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 189
   url: "https://paradoxcreative.com/portfolio/daystar/"

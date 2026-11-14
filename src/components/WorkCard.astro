@@ -2,7 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { Badge } from '@/components/starwind/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/starwind/card';
-import { WORK_TYPE_LABELS } from '@/lib/content';
+import { ui } from '@/lib/ui';
 
 interface Props {
   entry: CollectionEntry<'work'>;
@@ -32,7 +32,7 @@ const { title, summary, types, cover, coverAlt } = entry.data;
             {types.map((t) => (
               <li>
                 <Badge variant="secondary" size="sm" eyebrow class="font-semibold">
-                  {WORK_TYPE_LABELS[t]}
+                  {ui.work.types[t]}
                 </Badge>
               </li>
             ))}

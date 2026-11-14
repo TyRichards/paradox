@@ -1,5 +1,6 @@
 ---
 title: College Student Apartments
+published: false
 summary: "Brand & Apartment Listing Website"
 types:
   - print
@@ -11,7 +12,6 @@ gallery:
   - /images/work/college-student-apartments/CSA-Web1.jpg
   - /images/work/college-student-apartments/CSA-Logo1.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 131
   url: "https://paradoxcreative.com/portfolio/college-student-apartments/"

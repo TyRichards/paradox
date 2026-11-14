@@ -1,5 +1,6 @@
 ---
 title: "Simply Black & White"
+published: false
 summary: Photography Portfolio Website Design
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: "Paradox - Ty Richards - Simply Black & White Website"
 gallery:
   - /images/work/simply-black-white/SimplyBlackAndWhite-Web.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 231
   url: "https://paradoxcreative.com/portfolio/simply-black-white/"

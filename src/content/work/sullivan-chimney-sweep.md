@@ -1,5 +1,6 @@
 ---
 title: Sullivan Chimney Sweep
+published: false
 summary: "Chimney Sweep Brand & Website"
 types:
   - brand
@@ -11,7 +12,6 @@ gallery:
   - /images/work/sullivan-chimney-sweep/SullivanChimneySweep-Logo.jpg
   - /images/work/sullivan-chimney-sweep/SullivanChimneySweep-Home.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 322
   url: "https://paradoxcreative.com/portfolio/sullivan-chimney-sweep/"

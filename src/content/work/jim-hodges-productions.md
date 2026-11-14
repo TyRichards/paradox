@@ -1,5 +1,6 @@
 ---
 title: Jim Hodges Productions
+published: false
 summary: "Music Producer Brand & Website"
 types:
   - brand
@@ -11,7 +12,6 @@ gallery:
   - /images/work/jim-hodges-productions/JimHodges-Web1.jpg
   - /images/work/jim-hodges-productions/JimHodgesProductions-Logo1.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 203
   url: "https://paradoxcreative.com/portfolio/jim-hodges-productions/"

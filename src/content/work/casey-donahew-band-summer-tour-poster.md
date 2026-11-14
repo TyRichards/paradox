@@ -1,5 +1,6 @@
 ---
 title: Summer Tour 2015 Poster
+published: false
 types:
   - print
 client: Casey Donahew Band
@@ -10,7 +11,6 @@ coverAlt: Paradox - Ty Richards - Casey Donahew Band
 gallery:
   - /images/work/casey-donahew-band-summer-tour-poster/CaseyDonahewBand-Poster1a.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 86
   url: "https://paradoxcreative.com/portfolio/casey-donahew-band-summer-tour-poster/"

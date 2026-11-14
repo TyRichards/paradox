@@ -1,5 +1,6 @@
 ---
 title: Cross Timbers
+published: false
 summary: Multi-Campus Ministry Website
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: Paradox - Ty Richards - Cross Timbers Community Church Website
 gallery:
   - /images/work/cross-timbers/CrossTimbers-Web.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 186
   url: "https://paradoxcreative.com/portfolio/cross-timbers/"

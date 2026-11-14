@@ -4,6 +4,9 @@
  * Verifies a Cloudflare Turnstile token server-side, then relays the message to email via Resend.
  * Everything else on the site stays static; this only runs on POSTs to /api/contact.
  *
+ * Errors come back as short codes (`{ ok: false, error: 'missing_fields' }`). The page maps them to
+ * the messages in src/data/ui.json (contact.errors), so all user-facing copy stays in content.
+ *
  * Environment (Pages project → Settings → Variables and Secrets):
  *   TURNSTILE_SECRET     (secret)   Turnstile widget secret key
  *   TURNSTILE_HOSTNAMES  (text)     Comma-separated hostnames the widget may be solved on
@@ -40,42 +43,54 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 // carry a placeholder hostname and no action, so those checks only apply to real secrets.
 const TEST_SECRETS = new Set(['1x0000000000000000000000000000000AA', '2x0000000000000000000000000000000AA', '3x0000000000000000000000000000000AA']);
 
-const LIMITS = { name: 200, email: 320, budget: 200, message: 5000 } as const;
+const LIMITS = { name: 200, email: 320, company: 200, message: 5000 } as const;
+// Offer ids are content filenames (src/content/offers/<id>.md); anything else is dropped.
+const OFFER_PATTERN = /^[a-z0-9][a-z0-9-]{0,63}$/;
 
-type Fields = Record<'name' | 'email' | 'budget' | 'message' | 'company' | 'token', string>;
+type ErrorCode =
+  | 'too_large'
+  | 'not_configured'
+  | 'bad_request'
+  | 'missing_fields'
+  | 'too_long'
+  | 'invalid_email'
+  | 'spam_check'
+  | 'send_failed';
+
+type Fields = Record<'name' | 'email' | 'company' | 'offer' | 'message' | 'honeypot' | 'token', string>;
 
 export const onRequestPost = async ({ request, env }: Context): Promise<Response> => {
   const wantsRedirect = isPlainFormPost(request);
-  const reply = (status: number, body: { ok: boolean; error?: string }) =>
-    wantsRedirect ? redirectBack(request, body.ok) : json(status, body);
+  const reply = (status: number, body: { ok: boolean; error?: ErrorCode }) =>
+    wantsRedirect ? redirectBack(request, body) : json(status, body);
 
   if (Number(request.headers.get('content-length') ?? 0) > MAX_BODY_BYTES) {
-    return reply(413, { ok: false, error: 'Message is too large.' });
+    return reply(413, { ok: false, error: 'too_large' });
   }
 
   if (!env.TURNSTILE_SECRET || !env.RESEND_API_KEY || !env.CONTACT_TO_EMAIL) {
     console.error('contact: missing TURNSTILE_SECRET, RESEND_API_KEY, or CONTACT_TO_EMAIL');
-    return reply(503, { ok: false, error: 'The contact form is not configured yet. Please email instead.' });
+    return reply(503, { ok: false, error: 'not_configured' });
   }
 
   let fields: Fields;
   try {
     fields = await readFields(request);
   } catch {
-    return reply(400, { ok: false, error: 'Could not read the form submission.' });
+    return reply(400, { ok: false, error: 'bad_request' });
   }
 
   // Bots that fill the hidden field get a normal-looking success and no email.
-  if (fields.company) return reply(200, { ok: true });
+  if (fields.honeypot) return reply(200, { ok: true });
 
   const problem = validate(fields);
   if (problem) return reply(422, { ok: false, error: problem });
 
   const verified = await verifyTurnstile(fields.token, request, env);
-  if (!verified) return reply(403, { ok: false, error: 'Spam check failed. Please refresh the page and try again.' });
+  if (!verified) return reply(403, { ok: false, error: 'spam_check' });
 
   const sent = await sendEmail(fields, env);
-  if (!sent) return reply(502, { ok: false, error: 'Your message could not be sent. Please try again or email instead.' });
+  if (!sent) return reply(502, { ok: false, error: 'send_failed' });
 
   return reply(200, { ok: true });
 };
@@ -102,20 +117,25 @@ async function readFields(request: Request): Promise<Fields> {
   return {
     name: str('name'),
     email: str('email'),
-    budget: str('budget'),
-    message: str('message'),
     company: str('company'),
+    offer: OFFER_PATTERN.test(str('offer')) ? str('offer') : '',
+    message: str('message'),
+    honeypot: str('website'),
     token: str('cf-turnstile-response') || str('turnstileToken'),
   };
 }
 
-function validate({ name, email, budget, message }: Fields): string | null {
-  if (!name || !email || !message) return 'Name, email, and project details are required.';
-  if (name.length > LIMITS.name || email.length > LIMITS.email || budget.length > LIMITS.budget) {
-    return 'One of the fields is too long.';
+function validate({ name, email, company, message }: Fields): ErrorCode | null {
+  if (!name || !email || !message) return 'missing_fields';
+  if (
+    name.length > LIMITS.name ||
+    email.length > LIMITS.email ||
+    company.length > LIMITS.company ||
+    message.length > LIMITS.message
+  ) {
+    return 'too_long';
   }
-  if (message.length > LIMITS.message) return `Project details must be under ${LIMITS.message} characters.`;
-  if (!EMAIL_PATTERN.test(email)) return 'Please enter a valid email address.';
+  if (!EMAIL_PATTERN.test(email)) return 'invalid_email';
   return null;
 }
 
@@ -162,13 +182,14 @@ async function verifyTurnstile(token: string, request: Request, env: Env): Promi
   return true;
 }
 
-async function sendEmail({ name, email, budget, message }: Fields, env: Env): Promise<boolean> {
+async function sendEmail({ name, email, company, offer, message }: Fields, env: Env): Promise<boolean> {
   const to = env.CONTACT_TO_EMAIL!.split(',').map((s) => s.trim()).filter(Boolean);
   const safeName = name.replace(/[\r\n]+/g, ' ');
   const text = [
     `Name: ${safeName}`,
     `Email: ${email}`,
-    `Budget: ${budget || '(not given)'}`,
+    `Business: ${company || '(not given)'}`,
+    `Interested in: ${offer || '(not sure yet)'}`,
     '',
     message,
   ].join('\n');
@@ -185,7 +206,7 @@ async function sendEmail({ name, email, budget, message }: Fields, env: Env): Pr
         from: env.CONTACT_FROM_EMAIL || DEFAULT_FROM,
         to,
         reply_to: email,
-        subject: `New project inquiry from ${safeName}`,
+        subject: offer ? `New inquiry (${offer}) from ${safeName}` : `New inquiry from ${safeName}`,
         text,
       }),
     });
@@ -206,13 +227,14 @@ function isPlainFormPost(request: Request) {
   return !type.includes('application/json') && accept.includes('text/html');
 }
 
-function redirectBack(request: Request, ok: boolean) {
+function redirectBack(request: Request, { ok, error }: { ok: boolean; error?: ErrorCode }) {
   const url = new URL('/contact/', request.url);
   url.searchParams.set('status', ok ? 'sent' : 'error');
+  if (error) url.searchParams.set('code', error);
   return Response.redirect(url.toString(), 303);
 }
 
-function json(status: number, body: { ok: boolean; error?: string }) {
+function json(status: number, body: { ok: boolean; error?: ErrorCode }) {
   return new Response(JSON.stringify(body), {
     status,
     headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' },

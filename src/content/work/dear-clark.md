@@ -1,5 +1,6 @@
 ---
 title: Dear Clark
+published: false
 summary: eCommerce Website
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: Paradox - Ty Richards - Dear Clark Website
 gallery:
   - /images/work/dear-clark/DearClark-Web1.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 127
   url: "https://paradoxcreative.com/portfolio/dear-clark/"

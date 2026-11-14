@@ -1,5 +1,6 @@
 ---
 title: Derma Clinic
+published: false
 summary: Brochure Website
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: Paradox - Ty Richards - DermaClinic Medical Spa
 gallery:
   - /images/work/derma-clinic/DermaClinic-Web.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 192
   url: "https://paradoxcreative.com/portfolio/derma-clinic/"

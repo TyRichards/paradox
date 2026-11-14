@@ -4,16 +4,17 @@ import PageHeader from '@/components/PageHeader.astro';
 import { Badge } from '@/components/starwind/badge';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/starwind/card';
 import { formatDate, getPosts } from '@/lib/content';
+import { ui } from '@/lib/ui';
 
 const posts = await getPosts();
 ---
 
-<BaseLayout title="Blog" description="Notes and news from Paradox.">
-  <PageHeader title="Blog" lede="Notes and news from Paradox." />
+<BaseLayout title={ui.blog.title} description={ui.blog.description} noindex={posts.length === 0}>
+  <PageHeader title={ui.blog.title} lede={ui.blog.lede} />
   <div class="mx-auto max-w-6xl px-6">
     {
       posts.length === 0 ? (
-        <p class="text-muted-foreground">No posts yet.</p>
+        <p class="text-muted-foreground">{ui.blog.empty}</p>
       ) : (
         <ul class="grid max-w-3xl gap-4">
           {posts.map((post) => (
@@ -25,12 +26,7 @@ const posts = await getPosts();
                       <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
                       {post.data.draft && (
                         <Badge variant="outline" size="sm" eyebrow>
-                          Draft
-                        </Badge>
-                      )}
-                      {post.data.placeholder && (
-                        <Badge variant="warning" size="sm" eyebrow>
-                          Placeholder
+                          {ui.blog.draftLabel}
                         </Badge>
                       )}
                     </div>

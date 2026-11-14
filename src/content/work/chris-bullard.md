@@ -1,5 +1,6 @@
 ---
 title: Chris Bullard
+published: false
 summary: "Brand & Artist Website"
 types:
   - brand
@@ -11,7 +12,6 @@ gallery:
   - /images/work/chris-bullard/ChrisBullard-Web.jpg
   - /images/work/chris-bullard/ChrisBullard-Logo.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 178
   url: "https://paradoxcreative.com/portfolio/chris-bullard/"

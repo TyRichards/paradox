@@ -1,5 +1,6 @@
 ---
 title: Referrals
+published: false
 summary: "Brand & Private Referral Network Website"
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: Paradox - Ty Richards - Prevention In Motion Website
 gallery:
   - /images/work/referrals/Referrals-Web.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 227
   url: "https://paradoxcreative.com/portfolio/referrals/"

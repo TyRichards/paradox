@@ -1,5 +1,6 @@
 ---
 title: Spotio
+published: false
 summary: "Mobile App Brand & Website"
 types:
   - brand
@@ -12,7 +13,6 @@ gallery:
   - /images/work/spotio/Spotio-Home1.jpg
   - /images/work/spotio/Spotio-Features1.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 317
   url: "https://paradoxcreative.com/portfolio/spotio/"

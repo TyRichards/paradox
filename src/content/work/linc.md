@@ -1,5 +1,6 @@
 ---
 title: LINC
+published: false
 summary: Community Non-Profit Website Design
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: Paradox - Ty Richards - LINC North Texas Website
 gallery:
   - /images/work/linc/LINC-Web.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 278
   url: "https://paradoxcreative.com/portfolio/linc/"

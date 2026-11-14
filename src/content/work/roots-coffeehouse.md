@@ -1,5 +1,6 @@
 ---
 title: Roots Coffeehouse
+published: false
 summary: Café Franchise Website
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: Paradox - Ty Richards - Roots Coffeehouse Website
 gallery:
   - /images/work/roots-coffeehouse/RootsCoffeehouse-Web.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 260
   url: "https://paradoxcreative.com/portfolio/roots-coffeehouse/"

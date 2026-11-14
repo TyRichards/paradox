@@ -1,5 +1,6 @@
 ---
 title: Dynamic Electric
+published: false
 summary: "Brand & Landing Page Website"
 types:
   - brand
@@ -11,7 +12,6 @@ gallery:
   - /images/work/dynamic-electric/DynamicElectric-Web1.jpg
   - /images/work/dynamic-electric/DynamicElectric-Logo.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 113
   url: "https://paradoxcreative.com/portfolio/dynamic-electric/"

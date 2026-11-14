@@ -1,5 +1,6 @@
 ---
 title: Alta Mira
+published: false
 summary: Brochure Website
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: Paradox - Ty Richards - Alta Mira Recovery Website
 gallery:
   - /images/work/alta-mira/AltaMira-Web.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 166
   url: "https://paradoxcreative.com/portfolio/alta-mira/"

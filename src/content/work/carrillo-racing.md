@@ -1,5 +1,6 @@
 ---
 title: Carrillo Racing
+published: false
 summary: Racecar Driver Brochure Website Design
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: Paradox - Ty Richards - Gregory Carrillo Racing Website
 gallery:
   - /images/work/carrillo-racing/GregoryCarilloRacing-Web.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 275
   url: "https://paradoxcreative.com/portfolio/carrillo-racing/"

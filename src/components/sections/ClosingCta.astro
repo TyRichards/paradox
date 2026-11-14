@@ -1,0 +1,21 @@
+---
+import { Button } from '@/components/starwind/button';
+
+interface Props {
+  heading: string;
+  text: string;
+  cta: { label: string; href: string };
+}
+
+const { heading, text, cta } = Astro.props;
+---
+
+<section class="mx-auto max-w-6xl px-6">
+  <div class="flex flex-col gap-6 rounded-2xl bg-mist p-8 ring-1 ring-border sm:flex-row sm:items-center sm:justify-between sm:p-10">
+    <div class="max-w-2xl">
+      <h2 class="font-heading text-2xl font-black tracking-tight sm:text-3xl">{heading}</h2>
+      <p class="mt-2 text-muted-foreground">{text}</p>
+    </div>
+    <Button href={cta.href} variant="primary" size="lg" class="shrink-0 rounded-full font-bold">{cta.label}</Button>
+  </div>
+</section>

@@ -1,5 +1,6 @@
 ---
 title: Lead Me Into Temptation - Album Art
+published: false
 types:
   - brand
   - print
@@ -12,7 +13,6 @@ gallery:
   - /images/work/lead-me-into-temptation-album-art/PaulNipper-Art2.jpg
   - /images/work/lead-me-into-temptation-album-art/PaulNipper-Art3.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 93
   url: "https://paradoxcreative.com/portfolio/lead-me-into-temptation-album-art/"

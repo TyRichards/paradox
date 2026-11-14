@@ -1,5 +1,6 @@
 ---
 title: Frame The TV
+published: false
 summary: Website Header Redesign
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: Paradox - Ty Richards - Frame The TV Website
 gallery:
   - /images/work/frame-the-tv/FrameTheTV-Web.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 195
   url: "https://paradoxcreative.com/portfolio/frame-the-tv/"

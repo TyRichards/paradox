@@ -1,5 +1,6 @@
 ---
 title: Success Solutions
+published: false
 summary: Checklist Dashboard - Web App Design
 types:
   - app
@@ -10,7 +11,6 @@ coverAlt: Paradox - Success Solutions Website
 gallery:
   - /images/work/success-solutions/Dashboard-Web1.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 263
   url: "https://paradoxcreative.com/portfolio/success-solutions/"

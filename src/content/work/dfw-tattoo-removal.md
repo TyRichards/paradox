@@ -1,5 +1,6 @@
 ---
 title: DFW Tattoo Removal
+published: false
 summary: Brochure Website
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: Paradox - Ty Richards - DFW Tattoo Removal Website
 gallery:
   - /images/work/dfw-tattoo-removal/DFWTattooRemoval-Web.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 234
   url: "https://paradoxcreative.com/portfolio/dfw-tattoo-removal/"

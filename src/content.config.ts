@@ -16,9 +16,35 @@ const pages = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
+    eyebrow: z.string().optional(),
     heading: z.string().optional(),
+    lede: z.string().optional(),
+    portrait: z.object({ src: z.string(), alt: z.string() }).optional(),
     ctas: z.array(link).optional(),
-    placeholder: z.boolean().default(false),
+    audiences: z
+      .object({
+        heading: z.string(),
+        items: z.array(z.object({ title: z.string(), body: z.string() })),
+      })
+      .optional(),
+    offersSection: z.object({ heading: z.string(), intro: z.string().optional(), linkLabel: z.string() }).optional(),
+    workSection: z.object({ heading: z.string(), linkLabel: z.string() }).optional(),
+    closing: z.object({ heading: z.string(), text: z.string(), cta: link }).optional(),
+  }),
+});
+
+const offers = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/offers' }),
+  schema: z.object({
+    title: z.string(),
+    price: z.string(),
+    cadence: z.string().optional(),
+    summary: z.string(),
+    bullets: z.array(z.string()).min(3).max(5),
+    ctaLabel: z.string(),
+    featured: z.boolean().default(false),
+    featuredLabel: z.string().optional(),
+    order: z.number().int().default(999),
   }),
 });
 
@@ -33,7 +59,6 @@ const blog = defineCollection({
     coverAlt: z.string().optional(),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
-    placeholder: z.boolean().default(false),
     legacy: z
       .object({
         wpId: z.number().int().optional(),
@@ -48,15 +73,16 @@ const work = defineCollection({
   schema: z.object({
     title: z.string(),
     summary: z.string().optional(),
+    published: z.boolean().default(false),
     types: z.array(z.enum(WORK_TYPES)).default([]),
     client: z.string().optional(),
     projectDate: z.string().optional(),
+    projectUrl: z.url().optional(),
     order: z.number().int().default(999),
     cover: z.string().optional(),
     coverAlt: z.string().optional(),
     gallery: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
-    placeholder: z.boolean().default(false),
     legacy: z
       .object({
         wpId: z.number().int().optional(),
@@ -69,15 +95,4 @@ const work = defineCollection({
   }),
 });
 
-const services = defineCollection({
-  loader: glob({ pattern: '*.md', base: './src/content/services' }),
-  schema: z.object({
-    title: z.string(),
-    summary: z.string(),
-    workType: z.enum(WORK_TYPES).optional(),
-    order: z.number().int().default(999),
-    placeholder: z.boolean().default(false),
-  }),
-});
-
-export const collections = { pages, blog, work, services };
+export const collections = { pages, offers, blog, work };

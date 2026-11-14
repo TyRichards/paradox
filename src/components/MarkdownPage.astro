@@ -2,7 +2,7 @@
 import { render } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/PageHeader.astro';
-import PlaceholderNote from '@/components/PlaceholderNote.astro';
+import ClosingCta from '@/components/sections/ClosingCta.astro';
 import { Prose } from '@/components/starwind/prose';
 import { getPage } from '@/lib/content';
 
@@ -12,16 +12,17 @@ interface Props {
 
 const page = await getPage(Astro.props.id);
 const { Content } = await render(page);
+const { title, description, heading, eyebrow, lede, closing } = page.data;
 ---
 
-<BaseLayout title={page.data.title} description={page.data.description}>
+<BaseLayout title={title} description={description}>
   <slot name="head" slot="head" />
-  <PageHeader title={page.data.title} />
+  <PageHeader title={heading ?? title} eyebrow={eyebrow} lede={lede} />
   <div class="mx-auto max-w-6xl px-6">
-    {page.data.placeholder && <PlaceholderNote />}
     <Prose class="text-lg">
       <Content />
     </Prose>
     <slot />
   </div>
+  {closing && <div class="mt-20"><ClosingCta heading={closing.heading} text={closing.text} cta={closing.cta} /></div>}
 </BaseLayout>

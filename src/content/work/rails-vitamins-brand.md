@@ -1,5 +1,6 @@
 ---
 title: Rails Vitamins Brand
+published: false
 types:
   - brand
   - web
@@ -11,7 +12,6 @@ coverAlt: Paradox - Ty Richards - Rails Vitamins
 gallery:
   - /images/work/rails-vitamins-brand/RailsVitamins-Logo2.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 98
   url: "https://paradoxcreative.com/portfolio/rails-vitamins-brand/"

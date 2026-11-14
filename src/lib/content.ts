@@ -1,14 +1,8 @@
 import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
 import { WORK_TYPES } from '../content.config';
+import { site } from './site';
 
 export type WorkType = (typeof WORK_TYPES)[number];
-
-export const WORK_TYPE_LABELS: Record<WorkType, string> = {
-  brand: 'Brand',
-  web: 'Web',
-  print: 'Print',
-  app: 'App',
-};
 
 export { WORK_TYPES };
 
@@ -18,19 +12,38 @@ export async function getPage(id: string) {
   return page;
 }
 
+/** Published work only. Unpublished entries stay in the repo but get no page and no listing. */
 export async function getWork(): Promise<CollectionEntry<'work'>[]> {
-  const entries = await getCollection('work');
+  const entries = await getCollection('work', ({ data }) => data.published);
   return entries.sort((a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title));
 }
 
+// Skips the collection lookup (and Astro's "collection is empty" warning) while the blog has no files.
+const blogFileCount = Object.keys(import.meta.glob('/src/content/blog/**/*.md')).length;
+
 export async function getPosts(): Promise<CollectionEntry<'blog'>[]> {
+  if (blogFileCount === 0) return [];
   const posts = await getCollection('blog', ({ data }) => import.meta.env.DEV || !data.draft);
   return posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 }
 
-export async function getServices(): Promise<CollectionEntry<'services'>[]> {
-  const entries = await getCollection('services');
-  return entries.sort((a, b) => a.data.order - b.data.order);
+/** Site nav from site.json, minus the Blog link while there are no posts to show. */
+export async function getNav() {
+  const showBlog = await hasPosts();
+  return site.nav.filter((item) => showBlog || item.href.replace(/\/$/, '') !== '/blog');
+}
+
+export async function hasPosts() {
+  return (await getPosts()).length > 0;
+}
+
+export async function getOffers(): Promise<CollectionEntry<'offers'>[]> {
+  const offers = await getCollection('offers');
+  return offers.sort((a, b) => a.data.order - b.data.order);
+}
+
+export function offerContactHref(offerId: string) {
+  return `/contact/?offer=${encodeURIComponent(offerId)}`;
 }
 
 export function formatDate(date: Date) {

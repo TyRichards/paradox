@@ -1,5 +1,6 @@
 ---
 title: City View Church
+published: false
 summary: "Brand & Brochure Website"
 types:
   - brand
@@ -11,7 +12,6 @@ gallery:
   - /images/work/city-view-church/CityViewChurch-Web.jpg
   - /images/work/city-view-church/CityViewChurch-Logo.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 182
   url: "https://paradoxcreative.com/portfolio/city-view-church/"

@@ -1,6 +1,9 @@
 ---
 title: Contact
-description: Start a project with Paradox.
+description: Get in touch with Paradox about a Process Audit, Process Automation, or a Brand/Web Foundation.
+heading: Let’s talk
 ---
 
-Got a project or endeavor you are ready to start? Send an email to: ty at paradoxcreative dot com. Send as many details about the project as you can, and don't forget a rough ballpark budget. Thanks for considering Paradox.
+Tell me a little about your business and what’s slowing it down. I’ll reply by email.
+
+Prefer email? Write to ty at paradoxcreative dot com.

@@ -1,5 +1,6 @@
 ---
 title: "Chris & Lolly"
+published: false
 summary: "Brand & Single-Page Artist Website"
 types:
   - brand
@@ -11,7 +12,6 @@ gallery:
   - /images/work/chris-lolly/ChrisAndLolly-Web.jpg
   - /images/work/chris-lolly/ChrisAndLolly-Logo.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 174
   url: "https://paradoxcreative.com/portfolio/chris-lolly/"

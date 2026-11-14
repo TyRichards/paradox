@@ -1,5 +1,6 @@
 ---
 title: Prevention In Motion
+published: false
 summary: Corporate Wellness Consultant Website
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: Paradox - Ty Richards - Prevention In Motion Website
 gallery:
   - /images/work/prevention-in-motion/PreventionInMotion-Web.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 224
   url: "https://paradoxcreative.com/portfolio/prevention-in-motion/"

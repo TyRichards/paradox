@@ -1,0 +1,27 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import Audiences from '@/components/sections/Audiences.astro';
+import ClosingCta from '@/components/sections/ClosingCta.astro';
+import OfferCards from '@/components/sections/OfferCards.astro';
+import { Prose } from '@/components/starwind/prose';
+import { getOffers, getPage } from '@/lib/content';
+
+const page = await getPage('pricing');
+const { Content } = await render(page);
+const { title, description, heading, eyebrow, lede, audiences, closing } = page.data;
+const offers = await getOffers();
+---
+
+<BaseLayout title={title} description={description}>
+  <PageHeader title={heading ?? title} eyebrow={eyebrow} lede={lede} />
+  <div class="mx-auto max-w-6xl space-y-20 px-6">
+    <section class="pt-4">
+      <OfferCards offers={offers} />
+    </section>
+    {page.body?.trim() && <Prose class="text-lg"><Content /></Prose>}
+    {audiences && <Audiences heading={audiences.heading} items={audiences.items} />}
+  </div>
+  {closing && <div class="mt-20"><ClosingCta heading={closing.heading} text={closing.text} cta={closing.cta} /></div>}
+</BaseLayout>

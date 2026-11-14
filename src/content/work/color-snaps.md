@@ -1,5 +1,6 @@
 ---
 title: Color Snaps
+published: false
 summary: eCommerce Web Design
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: Paradox - Ty Richards - Color Snap Website
 gallery:
   - /images/work/color-snaps/ColorSnaps-Web.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 155
   url: "https://paradoxcreative.com/portfolio/color-snaps/"

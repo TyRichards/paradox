@@ -1,5 +1,6 @@
 ---
 title: Calista
+published: false
 summary: Brochure Website
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: "Paradox - Ty Richards - Calista Skin & Laser Center"
 gallery:
   - /images/work/calista/CalistaLaser-Web1.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 169
   url: "https://paradoxcreative.com/portfolio/calista/"

@@ -1,5 +1,6 @@
 ---
 title: Bronson Rock
+published: false
 summary: Restaurant Website
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: Paradox - Ty Richards - Bronson Rock Website
 gallery:
   - /images/work/bronson-rock-2/BronsonRock-Web.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 158
   url: "https://paradoxcreative.com/portfolio/bronson-rock-2/"

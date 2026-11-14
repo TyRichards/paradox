@@ -1,5 +1,6 @@
 ---
 title: Lambert Auction Co.
+published: false
 summary: Auctioneer Website
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: Paradox - Ty Richards - Lambert Auction Company Website
 gallery:
   - /images/work/lambert-auction-co/LambertAuctionCo-Web.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 215
   url: "https://paradoxcreative.com/portfolio/lambert-auction-co/"

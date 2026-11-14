@@ -1,5 +1,6 @@
 ---
 title: Gentle Beginnings
+published: false
 summary: Birth Center Brochure Website
 types:
   - web
@@ -9,7 +10,6 @@ coverAlt: Paradox - Ty Richards - Gentle Beginnings Website
 gallery:
   - /images/work/gentle-beginnings/GentleBeginnings-Web1.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 161
   url: "https://paradoxcreative.com/portfolio/gentle-beginnings/"

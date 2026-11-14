@@ -1,5 +1,6 @@
 ---
 title: My Insurance Sucks
+published: false
 summary: Insurance Agency eCommerce Website - Mark Roden
 types:
   - web
@@ -12,7 +13,6 @@ gallery:
   - /images/work/my-insurance-sucks/MyInsuranceSucks-MC2.jpg
   - /images/work/my-insurance-sucks/MyInsuranceSucks-Schedule.jpg
 featured: false
-placeholder: false
 legacy:
   wpId: 310
   url: "https://paradoxcreative.com/portfolio/my-insurance-sucks/"
