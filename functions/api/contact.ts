@@ -9,7 +9,8 @@
  *
  * Environment (Pages project → Settings → Variables and Secrets):
  *   TURNSTILE_SECRET     (secret)   Turnstile widget secret key
- *   TURNSTILE_HOSTNAMES  (text)     Comma-separated hostnames the widget may be solved on
+ *   TURNSTILE_HOSTNAMES  (text)     Comma-separated hostnames the widget may be solved on; each
+ *                                   entry also allows its subdomains (e.g. preview deployments)
  *   RESEND_API_KEY       (secret)   Resend API key with send access
  *   CONTACT_TO_EMAIL     (text)     Inbox(es) that receive inquiries, comma-separated
  *   CONTACT_FROM_EMAIL   (text)     Optional sender on a Resend-verified domain
@@ -172,14 +173,25 @@ async function verifyTurnstile(token: string, request: Request, env: Env): Promi
 
   const allowed = (env.TURNSTILE_HOSTNAMES ?? new URL(request.url).hostname)
     .split(',')
-    .map((h) => h.trim().toLowerCase())
+    .map(normalizeHostname)
     .filter(Boolean);
-  if (!result.hostname || !allowed.includes(result.hostname.toLowerCase())) {
+  if (!result.hostname || !isAllowedHostname(result.hostname, allowed)) {
     console.warn('contact: Turnstile hostname not allowed', result.hostname);
     return false;
   }
 
   return true;
+}
+
+function normalizeHostname(host: string): string {
+  return host.trim().toLowerCase().replace(/\.+$/, '');
+}
+
+// Exact match, or a subdomain on a "." boundary: "paradox-cnd.pages.dev" allows
+// "abc123.paradox-cnd.pages.dev" but not "evil-paradox-cnd.pages.dev".
+function isAllowedHostname(hostname: string, allowed: string[]): boolean {
+  const host = normalizeHostname(hostname);
+  return allowed.some((entry) => host === entry || host.endsWith(`.${entry}`));
 }
 
 async function sendEmail({ name, email, company, offer, message }: Fields, env: Env): Promise<boolean> {

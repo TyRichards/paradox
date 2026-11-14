@@ -74,7 +74,7 @@ What the Function does on each POST (JSON or form-encoded):
 1. Rejects bodies over 32 KB and fails closed (503) if any required secret is missing.
 2. Silently drops submissions that fill the hidden honeypot field (`website`).
 3. Validates name, email, and message. Business name and offer are optional. The offer must look like an offer id or it's dropped.
-4. Verifies the Turnstile token with `https://challenges.cloudflare.com/turnstile/v0/siteverify`, and requires `success`, action `contact`, and a hostname from `TURNSTILE_HOSTNAMES`.
+4. Verifies the Turnstile token with `https://challenges.cloudflare.com/turnstile/v0/siteverify`, and requires `success`, action `contact`, and a hostname that matches an entry in `TURNSTILE_HOSTNAMES` or is a subdomain of one.
 5. Sends the message with Resend, with `reply_to` set to the visitor's email.
 6. Returns `{ "ok": true }` or `{ "ok": false, "error": "<code>" }`. The page turns the code into a message from `src/data/ui.json` (`contact.errors`). It never returns secrets or upstream error bodies. Without JavaScript, the form still works: the Function redirects back to `/contact/?status=sent` (or `?status=error&code=…`).
 
@@ -89,7 +89,7 @@ What the Function does on each POST (JSON or form-encoded):
 | `PUBLIC_TURNSTILE_SITE_KEY` | Text | Turnstile site key. Read at **build** time, so redeploy after setting it. |
 | `PUBLIC_CONTACT_FORM_ENABLED` | Text | `true` to show the form. Read at **build** time. Leave unset (off) until Resend works; `/contact/` then shows only the email link. |
 | `TURNSTILE_SECRET` | Secret | Turnstile secret key |
-| `TURNSTILE_HOSTNAMES` | Text | Comma-separated hostnames allowed to solve the widget, e.g. `example.com,www.example.com,paradox-cnd.pages.dev`. If unset, only the request's own hostname is accepted. |
+| `TURNSTILE_HOSTNAMES` | Text | Comma-separated hostnames allowed to solve the widget, e.g. `example.com,paradox-cnd.pages.dev`. Each entry also allows its subdomains on a `.` boundary, so `paradox-cnd.pages.dev` covers every preview (`abc123.paradox-cnd.pages.dev`) but not `evil-paradox-cnd.pages.dev`. If unset, only the request's own hostname (and its subdomains) is accepted. |
 | `RESEND_API_KEY` | Secret | Resend API key |
 | `CONTACT_TO_EMAIL` | Text | Inbox for inquiries (comma-separate for more than one) |
 | `CONTACT_FROM_EMAIL` | Text | Optional. Sender on the verified domain, e.g. `Paradox website <hello@example.com>`. Defaults to `onboarding@resend.dev`, which Resend only delivers to the account owner. |
