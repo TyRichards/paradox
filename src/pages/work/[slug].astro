@@ -1,132 +1,48 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import { render } from 'astro:content';
-import ArrowLeft from '@tabler/icons/outline/arrow-left.svg';
-import ArrowRight from '@tabler/icons/outline/arrow-right.svg';
-import ExternalLink from '@tabler/icons/outline/external-link.svg';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import PageHeader from '@/components/PageHeader.astro';
-import { Badge } from '@/components/starwind/badge';
-import { Button } from '@/components/starwind/button';
-import { Prose } from '@/components/starwind/prose';
-import { Separator } from '@/components/starwind/separator';
+import Section from '@/components/wrapper/Section.astro';
+import ButtonWrapper from '@/components/wrapper/ButtonWrapper.astro';
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+import RichText from '@/components/typography/RichText.astro';
+import Button from '@/components/Button.astro';
+import Img from '@/components/media/Img.astro';
 import { getWork } from '@/lib/content';
 import { ui } from '@/lib/ui';
 
 export const getStaticPaths = (async () => {
   const work = await getWork();
-  return work.map((entry, i) => ({
-    params: { slug: entry.id },
-    props: { entry, prev: work[i - 1], next: work[i + 1] },
-  }));
+  return work.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
 }) satisfies GetStaticPaths;
 
-const { entry, prev, next } = Astro.props;
+const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { title, summary, types, client, projectDate, cover, coverAlt, gallery, projectUrl } = entry.data;
+const { title, summary, cover, coverAlt, gallery, projectUrl } = entry.data;
 const hasBody = Boolean(entry.body?.trim());
-
-const hero = gallery.length > 0 ? gallery[0] : null;
-const heroAlt = hero ? `${title} ${ui.work.screenshotAltSuffix}` : '';
-const remainingGallery = gallery.length > 1 ? gallery.slice(1) : [];
+const hero = gallery[0];
 ---
 
 <BaseLayout title={title} description={summary ?? `${title}. ${ui.work.description}`}>
-  <PageHeader eyebrow={ui.work.eyebrow} title={title} lede={summary}>
-    <dl class="mt-6 flex flex-wrap items-start gap-x-8 gap-y-3 text-sm">
-      {
-        types.length > 0 && (
-          <div>
-            <dt class="mb-1 font-bold">{ui.work.typeLabel}</dt>
-            <dd class="flex flex-wrap gap-1.5">
-              {types.map((t) => (
-                <Badge variant="secondary" size="sm" eyebrow class="font-semibold">
-                  {ui.work.types[t]}
-                </Badge>
-              ))}
-            </dd>
-          </div>
-        )
-      }
-      {
-        client && (
-          <div>
-            <dt class="mb-1 font-bold">{ui.work.clientLabel}</dt>
-            <dd class="text-muted-foreground">{client}</dd>
-          </div>
-        )
-      }
-      {
-        projectDate && (
-          <div>
-            <dt class="mb-1 font-bold">{ui.work.dateLabel}</dt>
-            <dd class="text-muted-foreground">{projectDate}</dd>
-          </div>
-        )
-      }
-    </dl>
-    {
-      projectUrl && (
-        <Button href={projectUrl} variant="primary" class="mt-8 rounded-full font-bold" target="_blank" rel="noopener">
-          {ui.work.visitSiteLabel}
-          <ExternalLink />
-        </Button>
-      )
-    }
-  </PageHeader>
+  {/* Header */}
+  <Section paddingBottom="small">
+    <Heading tag="h1" maxWidth={18}>{title}</Heading>
+    <Paragraph variant="large" class="color-faded" maxWidth={52}>{summary}</Paragraph>
+  </Section>
 
-  <div class="mx-auto max-w-6xl px-6">
-    {
-      hero ? (
-        <img src={hero} alt={heroAlt} class="mb-10 w-full rounded-xl ring-1 ring-border" />
-      ) : (
-        cover && (
-          <img
-            src={cover}
-            alt={coverAlt ?? ''}
-            class="mx-auto mb-10 block max-w-full rounded-xl ring-1 ring-border"
-            style="max-width: min(100%, 480px);"
-          />
-        )
-      )
-    }
-    {
-      hasBody && (
-        <Prose class="text-lg">
-          <Content />
-        </Prose>
-      )
-    }
-    {
-      remainingGallery.length > 0 && (
-        <div class="mt-10 grid gap-4 sm:grid-cols-2">
-          {remainingGallery.map((img) => (
-            <img src={img} alt="" loading="lazy" class="w-full rounded-xl ring-1 ring-border" />
-          ))}
-        </div>
-      )
-    }
-
-    <Separator class="mt-16 mb-6" />
-    <nav aria-label={ui.work.moreWorkLabel} class="flex justify-between gap-4">
-      {
-        prev ? (
-          <Button href={`/work/${prev.id}/`} variant="ghost" class="font-semibold">
-            <ArrowLeft />
-            {prev.data.title}
-          </Button>
-        ) : (
-          <span />
-        )
-      }
-      {
-        next && (
-          <Button href={`/work/${next.id}/`} variant="ghost" class="font-semibold">
-            {next.data.title}
-            <ArrowRight />
-          </Button>
-        )
-      }
-    </nav>
-  </div>
+  {/* Project */}
+  <Section paddingTop="none">
+    {hero ? (
+      <Img src={hero} alt={`${title} ${ui.work.screenshotAltSuffix}`} class="radius-main" />
+    ) : (
+      cover && <Img src={cover} alt={coverAlt} variant="densities" class="radius-main" />
+    )}
+    {hasBody && <RichText variant="large" maxWidth={60}><Content /></RichText>}
+    {projectUrl && (
+      <ButtonWrapper marginTop="0">
+        <Button element="link" href={projectUrl} target="_blank" rel="noopener">{ui.work.visitSiteLabel}</Button>
+      </ButtonWrapper>
+    )}
+  </Section>
 </BaseLayout>

@@ -1,0 +1,74 @@
+---
+import NavLink from "@/components/global/NavLink.astro";
+import { getNav } from "@/lib/content";
+import { site } from "@/lib/site";
+import { ui } from "@/lib/ui";
+
+const nav = await getNav();
+const path = Astro.url.pathname;
+const inSection = (href: string) => href !== "/" && path.startsWith(href);
+---
+
+<header class="nav_wrap">
+  <a href="/" class="nav_logo">
+    <img src="/logo.png" alt={site.name} width="511" height="97" class="nav_logo-img" />
+  </a>
+  <nav class="nav_menu" aria-label={ui.header.menuTitle}>
+    <ul class="nav_list" role="list">
+      {nav.map((item) => (
+        <NavLink href={item.href} data-section={inSection(item.href) ? "" : undefined}>
+          {item.label}
+        </NavLink>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<style is:global>
+  @layer components {
+    .nav_wrap {
+      width: var(--site-width);
+      max-width: var(--max-width-main);
+      margin-inline: auto;
+      padding-block: var(--space-6);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4) var(--space-6);
+    }
+    .nav_logo {
+      display: block;
+      border-radius: var(--radius-small);
+    }
+    .nav_logo-img {
+      display: block;
+      height: 1.75rem;
+      width: auto;
+    }
+    .nav_menu {
+      @media (width < 30rem) {
+        width: 100%;
+      }
+    }
+    .nav_list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-5);
+    }
+    .nav_link {
+      color: var(--text-2);
+      transition: color var(--hover-duration) var(--hover-ease);
+      @media (hover: hover) {
+        &:hover {
+          color: var(--text);
+        }
+      }
+      &[aria-current="page"],
+      &[data-section] {
+        color: var(--text);
+      }
+    }
+  }
+</style>

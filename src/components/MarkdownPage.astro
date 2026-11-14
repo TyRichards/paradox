@@ -1,9 +1,12 @@
 ---
 import { render } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import PageHeader from '@/components/PageHeader.astro';
-import ClosingCta from '@/components/sections/ClosingCta.astro';
-import { Prose } from '@/components/starwind/prose';
+import Section from '@/components/wrapper/Section.astro';
+import ButtonWrapper from '@/components/wrapper/ButtonWrapper.astro';
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+import RichText from '@/components/typography/RichText.astro';
+import Button from '@/components/Button.astro';
 import { getPage } from '@/lib/content';
 
 interface Props {
@@ -12,17 +15,26 @@ interface Props {
 
 const page = await getPage(Astro.props.id);
 const { Content } = await render(page);
-const { title, description, heading, eyebrow, lede, closing } = page.data;
+const { title, description, heading, lede, closing } = page.data;
 ---
 
 <BaseLayout title={title} description={description}>
   <slot name="head" slot="head" />
-  <PageHeader title={heading ?? title} eyebrow={eyebrow} lede={lede} />
-  <div class="mx-auto max-w-6xl px-6">
-    <Prose class="text-lg">
-      <Content />
-    </Prose>
+
+  {/* Header */}
+  <Section paddingBottom="small">
+    <Heading tag="h1" maxWidth={18}>{heading ?? title}</Heading>
+    <Paragraph variant="large" class="color-faded" maxWidth={52}>{lede}</Paragraph>
+  </Section>
+
+  {/* Body */}
+  <Section paddingTop="none">
+    <RichText variant="large" maxWidth={60}><Content /></RichText>
     <slot />
-  </div>
-  {closing && <div class="mt-20"><ClosingCta heading={closing.heading} text={closing.text} cta={closing.cta} /></div>}
+    {closing && (
+      <ButtonWrapper marginTop="0">
+        <Button element="link" href={closing.cta.href}>{closing.cta.label}</Button>
+      </ButtonWrapper>
+    )}
+  </Section>
 </BaseLayout>

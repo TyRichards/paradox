@@ -1,7 +1,8 @@
 ---
-import '@/styles/starwind.css';
-import Header from '@/components/Header.astro';
-import Footer from '@/components/Footer.astro';
+import '@/styles/global.css';
+import Nav from '@/components/global/Nav.astro';
+import Footer from '@/components/global/Footer.astro';
+import SkipLink from '@/components/global/SkipLink.astro';
 import { site } from '@/lib/site';
 import { ui } from '@/lib/ui';
 import { hasPosts } from '@/lib/content';
@@ -40,17 +41,26 @@ const showRss = await hasPosts();
     {noindex && <meta name="robots" content="noindex" />}
     <slot name="head" />
   </head>
-  <body class="flex min-h-screen flex-col font-sans">
-    <a
-      href="#main"
-      class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:rounded focus:bg-ink focus:px-3 focus:py-2 focus:text-paper"
-    >
-      {ui.header.skipToContent}
-    </a>
-    <Header />
-    <main id="main" class="flex-1">
+  <body class="page_wrap">
+    <SkipLink label={ui.header.skipToContent} />
+    <Nav />
+    <main id="main" class="page_main" tabindex="-1">
       <slot />
     </main>
     <Footer />
   </body>
 </html>
+
+<style is:global>
+  @layer components {
+    .page_wrap {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+    }
+    .page_main {
+      flex: 1;
+      outline: none;
+    }
+  }
+</style>

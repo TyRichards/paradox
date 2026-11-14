@@ -1,92 +1,63 @@
 ---
 import { render } from 'astro:content';
-import ArrowRight from '@tabler/icons/outline/arrow-right.svg';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import WorkGrid from '@/components/WorkGrid.astro';
-import Audiences from '@/components/sections/Audiences.astro';
-import ClosingCta from '@/components/sections/ClosingCta.astro';
-import Hero from '@/components/sections/Hero.astro';
-import OfferCards from '@/components/sections/OfferCards.astro';
-import { Button } from '@/components/starwind/button';
-import { Prose } from '@/components/starwind/prose';
-import { formatDate, getOffers, getPage, getPosts, getWork } from '@/lib/content';
-import { ui } from '@/lib/ui';
+import Section from '@/components/wrapper/Section.astro';
+import Heading from '@/components/typography/Heading.astro';
+import RichText from '@/components/typography/RichText.astro';
+import Button from '@/components/Button.astro';
+import HeroHome from '@/components/content/HeroHome.astro';
+import ItemList from '@/components/content/ItemList.astro';
+import { getOffers, getPage, getWork } from '@/lib/content';
 
 const home = await getPage('home');
-const pricing = await getPage('pricing');
 const { Content } = await render(home);
-const { heading, title, eyebrow, lede, ctas, portrait, offersSection, workSection, closing } = home.data;
-const audiences = home.data.audiences ?? pricing.data.audiences;
+const { heading, title, lede, ctas, portrait, offersSection, workSection } = home.data;
 
 const work = await getWork();
 const featured = work.filter((w) => w.data.featured);
-const selectedWork = (featured.length > 0 ? featured : work).slice(0, 6);
+const selectedWork = (featured.length > 0 ? featured : work).slice(0, 3);
 const offers = await getOffers();
-const posts = (await getPosts()).slice(0, 3);
 ---
 
 <BaseLayout description={home.data.description}>
-  <Hero heading={heading ?? title} eyebrow={eyebrow} lede={lede} ctas={ctas} portrait={portrait} />
+  {/* Hero */}
+  <Section paddingTop="medium" paddingBottom="large">
+    <HeroHome heading={heading ?? title} lede={lede} cta={ctas?.[0]} portrait={portrait} />
+  </Section>
 
-  <section class="mx-auto max-w-6xl px-6 py-20">
-    <Prose class="max-w-3xl text-xl [--prose-color:var(--foreground)]">
-      <Content />
-    </Prose>
-    {audiences && <div class="mt-14"><Audiences heading={audiences.heading} items={audiences.items} /></div>}
-  </section>
+  {/* Intro */}
+  {home.body?.trim() && (
+    <Section paddingTop="none">
+      <RichText variant="large" maxWidth={60}><Content /></RichText>
+    </Section>
+  )}
 
-  {
-    offersSection && offers.length > 0 && (
-      <section class="border-y bg-muted">
-        <div class="mx-auto max-w-6xl px-6 py-20">
-          <div class="mb-12 flex flex-wrap items-end justify-between gap-4">
-            <div class="max-w-2xl">
-              <h2 class="font-heading text-3xl font-black tracking-tight">{offersSection.heading}</h2>
-              {offersSection.intro && <p class="mt-2 text-muted-foreground">{offersSection.intro}</p>}
-            </div>
-            <Button href="/pricing/" variant="ghost" class="font-bold text-primary">
-              {offersSection.linkLabel} <ArrowRight />
-            </Button>
-          </div>
-          <OfferCards offers={offers} />
-        </div>
-      </section>
-    )
-  }
+  {/* Offers */}
+  {offersSection && offers.length > 0 && (
+    <Section paddingTop="none">
+      <Heading>{offersSection.heading}</Heading>
+      <ItemList
+        items={offers.map((offer) => ({
+          title: offer.data.title,
+          meta: [offer.data.price, offer.data.cadence].filter(Boolean).join(' '),
+          text: offer.data.summary,
+        }))}
+      />
+      <Button element="link" href="/pricing/" variant="link">{offersSection.linkLabel}</Button>
+    </Section>
+  )}
 
-  {
-    workSection && selectedWork.length > 0 && (
-      <section class="mx-auto max-w-6xl px-6 py-20">
-        <div class="mb-10 flex items-end justify-between gap-4">
-          <h2 class="font-heading text-3xl font-black tracking-tight">{workSection.heading}</h2>
-          <Button href="/work/" variant="ghost" class="font-bold text-primary">
-            {workSection.linkLabel} <ArrowRight />
-          </Button>
-        </div>
-        <WorkGrid entries={selectedWork} />
-      </section>
-    )
-  }
-
-  {
-    posts.length > 0 && (
-      <section class="mx-auto max-w-6xl px-6 pb-20">
-        <h2 class="mb-8 font-heading text-3xl font-black tracking-tight">{ui.blog.homeHeading}</h2>
-        <ul class="divide-y border-y">
-          {posts.map((post) => (
-            <li>
-              <a href={`/blog/${post.id}/`} class="group flex flex-col gap-1 py-5 sm:flex-row sm:items-baseline sm:gap-6">
-                <time datetime={post.data.pubDate.toISOString()} class="shrink-0 text-sm text-muted-foreground sm:w-44">
-                  {formatDate(post.data.pubDate)}
-                </time>
-                <span class="font-bold group-hover:text-primary">{post.data.title}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
-    )
-  }
-
-  {closing && <ClosingCta heading={closing.heading} text={closing.text} cta={closing.cta} />}
+  {/* Work */}
+  {workSection && selectedWork.length > 0 && (
+    <Section paddingTop="none">
+      <Heading>{workSection.heading}</Heading>
+      <ItemList
+        items={selectedWork.map((entry) => ({
+          title: entry.data.title,
+          href: `/work/${entry.id}/`,
+          text: entry.data.summary,
+        }))}
+      />
+    </Section>
+  )}
 </BaseLayout>

@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import PageHeader from '@/components/PageHeader.astro';
-import WorkGrid from '@/components/WorkGrid.astro';
+import Section from '@/components/wrapper/Section.astro';
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+import ItemList from '@/components/content/ItemList.astro';
 import { getWork } from '@/lib/content';
 import { ui } from '@/lib/ui';
 
@@ -9,8 +11,21 @@ const work = await getWork();
 ---
 
 <BaseLayout title={ui.work.title} description={ui.work.description}>
-  <PageHeader title={ui.work.title} lede={ui.work.lede} />
-  <div class="mx-auto max-w-6xl px-6">
-    {work.length > 0 ? <WorkGrid entries={work} /> : <p class="text-muted-foreground">{ui.work.empty}</p>}
-  </div>
+  {/* Header */}
+  <Section paddingBottom="small">
+    <Heading tag="h1">{ui.work.title}</Heading>
+    <Paragraph variant="large" class="color-faded" maxWidth={52}>{ui.work.lede}</Paragraph>
+  </Section>
+
+  {/* Projects */}
+  <Section paddingTop="none">
+    {work.length > 0 ? (
+      <ItemList
+        headingTag="h2"
+        items={work.map((entry) => ({ title: entry.data.title, href: `/work/${entry.id}/`, text: entry.data.summary }))}
+      />
+    ) : (
+      <Paragraph class="color-faded">{ui.work.empty}</Paragraph>
+    )}
+  </Section>
 </BaseLayout>

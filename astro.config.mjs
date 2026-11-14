@@ -2,7 +2,6 @@
 import { readdirSync } from 'node:fs';
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-import tailwindcss from '@tailwindcss/vite';
 import { loadEnv } from 'vite';
 
 // The site URL drives canonical links, Open Graph URLs, the sitemap, RSS, and robots.txt.
@@ -22,7 +21,4 @@ export default defineConfig({
       filter: (page) => !page.includes('/admin/') && (hasPosts || !new URL(page).pathname.startsWith('/blog')),
     }),
   ],
-  vite: {
-    plugins: [tailwindcss()],
-  },
 });

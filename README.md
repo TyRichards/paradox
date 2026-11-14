@@ -5,8 +5,7 @@ Static site for Paradox, Ty Richards' business process & automation agency. It r
 ## Stack
 
 - **[Astro 7](https://astro.build/)** + **TypeScript** (strict), static output (`dist/`)
-- **[Tailwind CSS 4](https://tailwindcss.com/)** via `@tailwindcss/vite` (Astro's recommended setup, added with `astro add tailwind`).
-- **[Starwind UI](https://starwind.dev/)** components (Astro-native, Tailwind 4) in `src/components/starwind/`. The single stylesheet is `src/styles/starwind.css`: Paradox brand colors plus Starwind's theme tokens mapped onto them.
+- **[Lumos for Astro](https://github.com/lumosframework/lumos-for-astro)** (MIT, Timothy Ricks): plain CSS custom properties and a few Astro primitives. No Tailwind.
 - **Markdown content collections** as the source of truth (`src/content/`, schemas in `src/content.config.ts`)
 - **[Sveltia CMS](https://sveltiacms.app/en/)**: a Git-based editor over the same files, at `/admin/`. No database.
 - **Cloudflare Pages** (free plan): static hosting, with `_redirects` / `_headers` in `public/`. One Pages Function (`functions/api/contact.ts`) handles contact-form POSTs on the free Functions quota. No D1, R2, or paid Workers.
@@ -58,16 +57,13 @@ Full guide: **[docs/CMS.md](docs/CMS.md)**. The short version:
 
 `public/admin/config.yml` must stay in sync with `src/content.config.ts`. `npm run build` fails on content that doesn't match the schema.
 
-## Design system: Starwind UI
+## Design system: Lumos for Astro (trial)
 
-[Starwind UI](https://starwind.dev/) is the default design system for Paradox static sites. It's Astro-native (no React), built on Tailwind 4, and its components are copied into the repo, so they can be edited like any other source file.
+This branch trials [Lumos for Astro](https://github.com/lumosframework/lumos-for-astro) by Timothy Ricks (MIT; see `THIRD-PARTY-NOTICES.md`), vendored from upstream commit `43e4d529`. The direction is minimal: lots of whitespace, a strong type scale, one accent color, and one primary button per page.
 
-- Components live in `src/components/starwind/` and are imported through the `@/` alias, e.g. `import { Button } from '@/components/starwind/button'`.
-- Installed so far: alert, avatar, badge, button, card, input, label, prose, separator, sheet (mobile menu), spinner, textarea. Add more with `npx starwind@latest add <name>`, and update them with `npx starwind@latest update`.
-- **Theming:** `src/styles/starwind.css` defines the Paradox palette (`ink`, `paper`, `mist`, `line`, `teal`, `teal-light`, `teal-ink`, `highlight`) and maps Starwind's semantic tokens onto it. `primary` is `teal-ink` (#3d7e68) rather than the logo teal (#51a589), because white text on the logo teal fails WCAG AA contrast. Use the brand names (e.g. `bg-teal-light text-ink`) for brand moments like the hero, and the semantic names (`bg-primary`, `text-muted-foreground`, `border-border`) everywhere else.
-- Markdown bodies render through Starwind's `Prose` component (replaces `@tailwindcss/typography`).
-
-**Backup:** [shadcn/ui](https://ui.shadcn.com/) is the fallback for full apps, or for sites that need its deeper React component set (data tables, complex forms, command menus). It needs React islands, so it isn't installed here.
+- **Tokens:** `src/styles/lumos/base.css` (fluid `clamp()` type and spacing scale, themes), `patterns.css`, and `utilities.css` are upstream files, kept unchanged so they can be upgraded. Paradox overrides live in `src/styles/paradox.css`: the system font stack, bold headings, a narrower page, and `--accent` (#3d7e68) as the only accent.
+- **Primitives:** only the components the pages use are vendored: `Section`, `ButtonWrapper`, `Heading`, `Paragraph`, `RichText`, `Button`, `Img`, `Icon`, `Input`, `Select`, `Textarea`, `NavLink`, `SkipLink`.
+- **Custom blocks:** `src/components/content/` (`HeroHome`, `ItemList`, `ContactForm`) plus `global/Nav` and `global/Footer`. Each owns its CSS in `<style is:global>` under `@layer components`, with root classes ending in `_wrap`, per Lumos's [`LUMOS.md`](https://github.com/lumosframework/lumos-for-astro/blob/main/LUMOS.md).
 
 ## Contact form
 
@@ -145,13 +141,12 @@ src/
   content.config.ts Collection schemas (Zod)
   data/site.json    Site settings (CMS-editable)
   data/ui.json      Interface text (CMS-editable)
-  components/       Header, Footer, WorkCard, WorkGrid, ...
-  components/sections/  Hero, OfferCards, Audiences, ClosingCta
-  components/starwind/  Starwind UI components (Button, Card, Input, ...)
+  components/       Lumos primitives (wrapper/, typography/, form/, media/, global/, Button)
+  components/content/  Paradox blocks: HeroHome, ItemList, ContactForm
   layouts/          BaseLayout
   lib/              Content helpers, site settings loader
   pages/            Routes
-  styles/starwind.css  Tailwind entry, Paradox palette, Starwind theme tokens
+  styles/global.css    CSS entry: Lumos layers + paradox.css brand tokens
 docs/CMS.md         Editor/admin guide
 IMPORT.md           Plan for the full WordPress (WXR) import
 ```

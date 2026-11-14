@@ -1,0 +1,9 @@
+/* Cascade order, lowest priority first */
+
+@layer base, patterns, components, utilities;
+
+/* Lumos for Astro styles, vendored unchanged (MIT, see ./lumos/LICENSE) */
+@import "./lumos/base.css" layer(base);
+@import "./paradox.css" layer(base);
+@import "./lumos/patterns.css" layer(patterns);
+@import "./lumos/utilities.css" layer(utilities);

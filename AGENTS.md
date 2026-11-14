@@ -7,7 +7,7 @@ Static Astro 7 + Tailwind 4 site for Paradox (business process & automation agen
 - Don't invent client work, testimonials, or stats. Work entries stay hidden unless `published: true`.
 - No hardcoded domain: the site URL comes from `PUBLIC_SITE_URL` (see README).
 - No database CMS, no paid Cloudflare products (D1, R2, paid Workers), no SSR adapter. The only server code is the free-tier Pages Function in `functions/api/contact.ts`.
-- UI uses Starwind UI (`src/components/starwind/`, add with `npx starwind@latest add <name>`). Styles and tokens live in `src/styles/starwind.css`; use semantic tokens (`primary`, `muted-foreground`, `border`) and the brand names (`teal`, `teal-light`, `ink`) rather than raw hex. Don't add React or shadcn/ui to this site.
+- UI uses Lumos for Astro (MIT, vendored; see README and `THIRD-PARTY-NOTICES.md`). Keep `src/styles/lumos/*` unchanged and put brand overrides in `src/styles/paradox.css`. Keep it minimal: one accent (`--accent`), one primary button per page, no decorative icons, badges, gradients, or card grids. Custom CSS lives only in components (root class ends in `_wrap`). No Tailwind, React, or shadcn/ui.
 - Run `npm run check` and `npm run build` before committing.
 
 ## Development

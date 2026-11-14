@@ -1,27 +1,39 @@
 ---
 import { render } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import PageHeader from '@/components/PageHeader.astro';
-import Audiences from '@/components/sections/Audiences.astro';
-import ClosingCta from '@/components/sections/ClosingCta.astro';
-import OfferCards from '@/components/sections/OfferCards.astro';
-import { Prose } from '@/components/starwind/prose';
-import { getOffers, getPage } from '@/lib/content';
+import Section from '@/components/wrapper/Section.astro';
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+import RichText from '@/components/typography/RichText.astro';
+import ItemList from '@/components/content/ItemList.astro';
+import { getOffers, getPage, offerContactHref } from '@/lib/content';
 
 const page = await getPage('pricing');
 const { Content } = await render(page);
-const { title, description, heading, eyebrow, lede, audiences, closing } = page.data;
+const { title, description, heading, lede } = page.data;
 const offers = await getOffers();
 ---
 
 <BaseLayout title={title} description={description}>
-  <PageHeader title={heading ?? title} eyebrow={eyebrow} lede={lede} />
-  <div class="mx-auto max-w-6xl space-y-20 px-6">
-    <section class="pt-4">
-      <OfferCards offers={offers} />
-    </section>
-    {page.body?.trim() && <Prose class="text-lg"><Content /></Prose>}
-    {audiences && <Audiences heading={audiences.heading} items={audiences.items} />}
-  </div>
-  {closing && <div class="mt-20"><ClosingCta heading={closing.heading} text={closing.text} cta={closing.cta} /></div>}
+  {/* Header */}
+  <Section paddingBottom="small">
+    <Heading tag="h1" maxWidth={18}>{heading ?? title}</Heading>
+    <Paragraph variant="large" class="color-faded" maxWidth={52}>{lede}</Paragraph>
+  </Section>
+
+  {/* Offers */}
+  <Section paddingTop="none">
+    <ItemList
+      headingTag="h2"
+      items={offers.map((offer) => ({
+        id: offer.id,
+        title: offer.data.title,
+        meta: [offer.data.price, offer.data.cadence].filter(Boolean).join(' '),
+        text: offer.data.summary,
+        points: offer.data.bullets,
+        action: { label: offer.data.ctaLabel, href: offerContactHref(offer.id), primary: offer.data.featured },
+      }))}
+    />
+    {page.body?.trim() && <RichText maxWidth={60}><Content /></RichText>}
+  </Section>
 </BaseLayout>
