@@ -9,12 +9,12 @@ The WXR export (`paradox.wordpress.2026-11-05.000.xml`, WordPress 7.1.4 / WP Eng
 | WordPress content | Count | New location | Status |
 | --- | --- | --- | --- |
 | Portfolio items (`portfolio`) | 51 | `src/content/work/<slug>.md` | **Imported.** Title, summary (from `content:encoded`), types, client, projectDate, menu_order, cover image, gallery images. 134 images downloaded to `public/images/work/<slug>/`. |
-| Portfolio types (`portfolio-type`) | 4 | `types` field + `src/content/services/*.md` | Types mapped. Service descriptions remain labeled placeholders. |
+| Portfolio types (`portfolio-type`) | 4 | `types` field | Types mapped. (The services pages were later replaced by `/pricing/`.) |
 | Home page (WP ID 2) | 1 | `src/content/pages/home.md` | **Imported.** Body text from WXR. |
 | Quote page (WP ID 67) | 1 | `src/content/pages/contact.md` | **Imported.** Body text from WXR. |
 | Portfolio page (WP ID 16) | 1 | `/work/` route | Skipped (empty in WXR; the route already exists). |
-| Privacy page (WP ID 41) | 1 | `src/content/pages/privacy.md` | **Skipped.** Generic 2015 boilerplate about orders/payments that doesn't match the static site. Left as a rewrite placeholder. |
-| Posts | 1 | — | **Skipped.** Only post is the default "Hello world!" (ID 1). The placeholder blog post remains. |
+| Privacy page (WP ID 41) | 1 | `src/content/pages/privacy.md` | **Skipped.** Generic 2015 boilerplate about orders/payments that doesn't match the static site. Rewritten as a short draft policy. |
+| Posts | 1 | — | **Skipped.** Only post is the default "Hello world!" (ID 1). The blog is empty and hidden until a real post exists. |
 | Comments | ~1 | — | Skipped. No comment system on the static site. |
 | Attachments | 158 | `public/images/work/` | **134 project images downloaded** (covers + galleries). 24 remaining attachments are site chrome (logos, favicons, headshots) not used in content. |
 | Categories | 1 | — | Skipped (only "Uncategorized"). |
@@ -25,8 +25,7 @@ The WXR export (`paradox.wordpress.2026-11-05.000.xml`, WordPress 7.1.4 / WP Eng
 
 - [ ] **Privacy policy:** Rewrite `src/content/pages/privacy.md` to match what the static site actually collects.
 - [ ] **About page:** Write real copy for `src/content/pages/about.md`.
-- [ ] **Service descriptions:** Write real copy for the four `src/content/services/*.md` files.
-- [ ] **Blog:** Write real posts (or set `draft: true` on the placeholder and leave it). Delete `src/content/blog/welcome-to-the-new-paradox.md` before launch.
+- [ ] **Blog:** Write real posts. The blog appears in the nav once one exists.
 - [ ] **Image optimization:** The current images are served as-is from `public/`. For production, consider moving to entry-relative folders with Astro's `image()` schema helper for responsive/optimized output. See the "Images (future optimization)" section below.
 - [ ] **`_tzp_portfolio_url`:** Not present in any WXR portfolio item. No `projectUrl` field was added.
 
@@ -73,7 +72,7 @@ Only one published post in the WXR (ID 1, "Hello world!"), which was skipped per
 | --- | --- | --- | --- |
 | 2 | `contact` | `home.md` | **Imported** (WP ID 2's `title` is "Home" and its slug is "contact" due to WP permalink history) |
 | 16 | `portfolio` | `/work/` route | Skipped (empty) |
-| 41 | `privacy` | `privacy.md` | Skipped (rewrite placeholder) |
+| 41 | `privacy` | `privacy.md` | Skipped (rewritten as a draft) |
 | 67 | `quote` | `contact.md` | **Imported** |
 
 ## Images
@@ -106,7 +105,7 @@ node scripts/import-wxr.mjs import/paradox.wordpress.2026-11-05.000.xml
 
 - [x] `npm run build` passes (64 pages, 0 errors)
 - [x] Work entries have covers and galleries from the WXR
-- [x] `placeholder: false` on all work entries
+- [x] Work entries hidden by default (`published: false`); only `worship-online` is published
 - [x] Home and contact page bodies from WXR
 - [ ] Privacy policy rewritten
 - [ ] About page written

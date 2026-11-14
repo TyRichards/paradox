@@ -11,14 +11,14 @@
 | CMS collection | Files | Shows up at |
 | --- | --- | --- |
 | Blog | `src/content/blog/*.md` | `/blog/`, `/blog/<slug>/`, `/rss.xml` |
-| Work | `src/content/work/*.md` | `/work/`, `/work/<slug>/`, `/work/type/<type>/`, home page |
-| Services | `src/content/services/*.md` | `/services/`, home page |
-| Pages | `src/content/pages/{home,about,services,contact,privacy}.md` | the matching page |
+| Work | `src/content/work/*.md` | `/work/`, `/work/<slug>/`, home page (only when **Published** is on) |
+| Offers | `src/content/offers/*.md` | `/pricing/`, home page, contact form offer list |
+| Pages | `src/content/pages/{home,pricing,about,contact,privacy}.md` | the matching page |
 | Site settings | `src/data/site.json` | site name, default title/description, main nav |
 
 The read-only **WordPress origin** group on blog and work entries records where an entry came from on the old site. Leave it alone; the import uses it (see [`IMPORT.md`](../IMPORT.md)).
 
-**Placeholder** toggles show a yellow "placeholder content" notice on the page. Turn the toggle off once the real copy is in.
+Work entries are hidden until **Published** is on: no page, no listing. **Site settings → Interface text** holds the footer, form labels and messages, and other small UI strings.
 
 ## Option 1: edit locally (no sign-in)
 
@@ -38,7 +38,7 @@ On `https://<your-site>/admin/`:
 - **Sign In with GitHub** (one click, better for non-technical editors) needs a small OAuth helper. Use [Sveltia CMS Authenticator](https://github.com/sveltia/sveltia-cms-auth) on the **free** Cloudflare Workers plan:
   1. Deploy it with the "Deploy to Cloudflare Workers" button in its README. Note the Worker URL (`https://sveltia-cms-auth.<subdomain>.workers.dev`).
   2. [Register a GitHub OAuth app](https://github.com/settings/applications/new) with callback URL `<WORKER_URL>/callback`, then generate a client secret.
-  3. In the Worker's settings, add the variables `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` (encrypted), and `ALLOWED_DOMAINS` (e.g. `paradoxcreative.com, *.paradoxcreative.com, *.pages.dev`).
+  3. In the Worker's settings, add the variables `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` (encrypted), and `ALLOWED_DOMAINS` (e.g. `example.com, *.example.com, *.pages.dev`).
   4. Uncomment `base_url` under `backend` in `public/admin/config.yml`, set it to the Worker URL, then commit.
 
 Editors need write access to the GitHub repo. Saves commit straight to `main`. That works with branch protection off; if you turn on "require pull request", switch the CMS to the [editorial workflow](https://sveltiacms.app/en/docs/workflows/editorial) (`publish_mode: editorial_workflow`).

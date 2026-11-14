@@ -1,6 +1,6 @@
 # Paradox
 
-Static rebuild of [paradoxcreative.com](https://paradoxcreative.com) (Paradox Creative, Ty Richards). It replaces the 2015 WordPress site. The archived theme is at [TyRichards/paradox-2015](https://github.com/TyRichards/paradox-2015) for reference only.
+Static site for Paradox, Ty Richards' business process & automation agency. It replaces the 2015 Paradox Creative WordPress site. The archived theme is at [TyRichards/paradox-2015](https://github.com/TyRichards/paradox-2015) for reference only.
 
 ## Stack
 
@@ -27,18 +27,27 @@ npm run check      # astro check (TypeScript + .astro diagnostics)
 
 | Route | Source |
 | --- | --- |
-| `/` | `src/content/pages/home.md` + featured work, services, latest posts |
-| `/about/` | `src/content/pages/about.md` (placeholder) |
-| `/services/` | `src/content/pages/services.md` + `src/content/services/*.md` |
-| `/work/`, `/work/type/<brand\|web\|print\|app>/`, `/work/<slug>/` | `src/content/work/*.md` (51 projects from the old portfolio) |
-| `/blog/`, `/blog/<slug>/`, `/rss.xml` | `src/content/blog/*.md` |
+| `/` | `src/content/pages/home.md` + offers, published work, latest posts |
+| `/pricing/` | `src/content/pages/pricing.md` + `src/content/offers/*.md` |
+| `/work/`, `/work/<slug>/` | `src/content/work/*.md`, **published entries only** |
+| `/about/` | `src/content/pages/about.md` |
 | `/contact/` | `src/content/pages/contact.md` + the contact form (posts to `/api/contact`, see [Contact form](#contact-form)) |
-| `/privacy/` | `src/content/pages/privacy.md` (placeholder) |
+| `/privacy/` | `src/content/pages/privacy.md` |
+| `/blog/`, `/blog/<slug>/`, `/rss.xml` | `src/content/blog/*.md`. Blog is hidden from the nav, footer, and sitemap until a post exists. |
 | `/admin/` | Sveltia CMS (`public/admin/`) |
 
-Site name, default meta, and nav are in `src/data/site.json`. All of it, including the site settings, can be edited in the CMS.
+`/services` and `/services/*` redirect to `/pricing/` (see `public/_redirects`).
 
-Content flagged `placeholder: true` shows a yellow notice on the page. Nothing marked that way should ship as-is.
+**Where copy lives.** Every user-facing string is in a content file, never in a component:
+
+- Page copy (headings, ledes, buttons, section headings, closing CTAs): `src/content/pages/*.md`
+- Pricing cards: `src/content/offers/*.md`. The filename is the offer id, so `process-audit.md` is linked as `/contact/?offer=process-audit`, which preselects it in the contact form.
+- Site name, default meta, nav, and header button: `src/data/site.json` (schema `src/lib/site.ts`)
+- Interface text (footer, form labels and errors, work/blog labels, 404): `src/data/ui.json` (schema `src/lib/ui.ts`)
+
+All of it is editable in the CMS. The page sections (`src/components/sections/`: Hero, OfferCards, Audiences, ClosingCta) are small, self-contained components, so they can be swapped or reordered without touching the copy.
+
+**Work.** The 51 imported projects stay in the repo, but only entries with `published: true` get a page or appear in a listing. Right now that's only `worship-online`. Flip the toggle in the CMS to publish another one.
 
 ## Editing content (Sveltia CMS)
 
@@ -67,26 +76,26 @@ Full guide: **[docs/CMS.md](docs/CMS.md)**. The short version:
 What the Function does on each POST (JSON or form-encoded):
 
 1. Rejects bodies over 32 KB and fails closed (503) if any required secret is missing.
-2. Silently drops submissions that fill the hidden honeypot field (`company`).
-3. Validates name, email, and project details (budget is optional).
+2. Silently drops submissions that fill the hidden honeypot field (`website`).
+3. Validates name, email, and message. Business name and offer are optional. The offer must look like an offer id or it's dropped.
 4. Verifies the Turnstile token with `https://challenges.cloudflare.com/turnstile/v0/siteverify`, and requires `success`, action `contact`, and a hostname from `TURNSTILE_HOSTNAMES`.
 5. Sends the message with Resend, with `reply_to` set to the visitor's email.
-6. Returns `{ "ok": true }` or `{ "ok": false, "error": "…" }`. It never returns secrets or upstream error bodies. Without JavaScript, the form still works: the Function redirects back to `/contact/?status=sent` (or `=error`).
+6. Returns `{ "ok": true }` or `{ "ok": false, "error": "<code>" }`. The page turns the code into a message from `src/data/ui.json` (`contact.errors`). It never returns secrets or upstream error bodies. Without JavaScript, the form still works: the Function redirects back to `/contact/?status=sent` (or `?status=error&code=…`).
 
 ### Setup Ty needs to do
 
-1. **Turnstile:** Cloudflare dashboard → Turnstile → Add widget. Add the hostnames (`paradoxcreative.com`, `www.paradoxcreative.com`, and the `*.pages.dev` project hostname if you want previews to work). Widget mode: Managed. Copy the site key and the secret key.
-2. **Resend:** create a free account, verify the `paradoxcreative.com` sending domain (DNS records), and create an API key with *Sending access*.
+1. **Turnstile:** Cloudflare dashboard → Turnstile → Add widget. Add the site's hostnames (your custom domain, plus `paradox-cnd.pages.dev` if you want previews to work). Widget mode: Managed. Copy the site key and the secret key.
+2. **Resend:** create a free account, verify the sending domain (DNS records), and create an API key with *Sending access*.
 3. **Cloudflare Pages** → project → Settings → Variables and Secrets. Add these for **Production** (and **Preview** if previews should send mail):
 
 | Name | Type | Value |
 | --- | --- | --- |
 | `PUBLIC_TURNSTILE_SITE_KEY` | Text | Turnstile site key. Read at **build** time, so redeploy after setting it. |
 | `TURNSTILE_SECRET` | Secret | Turnstile secret key |
-| `TURNSTILE_HOSTNAMES` | Text | Comma-separated hostnames allowed to solve the widget, e.g. `paradoxcreative.com,www.paradoxcreative.com,paradox.pages.dev`. If unset, only the request's own hostname is accepted. |
+| `TURNSTILE_HOSTNAMES` | Text | Comma-separated hostnames allowed to solve the widget, e.g. `example.com,www.example.com,paradox-cnd.pages.dev`. If unset, only the request's own hostname is accepted. |
 | `RESEND_API_KEY` | Secret | Resend API key |
 | `CONTACT_TO_EMAIL` | Text | Inbox for inquiries (comma-separate for more than one) |
-| `CONTACT_FROM_EMAIL` | Text | Optional. Sender on the verified domain, e.g. `Paradox website <hello@paradoxcreative.com>`. Defaults to `onboarding@resend.dev`, which Resend only delivers to the account owner. |
+| `CONTACT_FROM_EMAIL` | Text | Optional. Sender on the verified domain, e.g. `Paradox website <hello@example.com>`. Defaults to `onboarding@resend.dev`, which Resend only delivers to the account owner. |
 
 If `PUBLIC_TURNSTILE_SITE_KEY` is missing from a production build, the form renders disabled with a "use email instead" notice. If the server secrets are missing, the Function returns 503. Either way it fails closed.
 
@@ -114,7 +123,13 @@ Use Workers & Pages → Create → Pages → Connect to Git → `TyRichards/para
 | Build output directory | `dist` |
 | Node version | from `.node-version` (no env var needed) |
 
-No adapter is needed because the site is fully static. Pages picks up `functions/` automatically. Set the [contact form variables](#setup-ty-needs-to-do) before expecting mail. Every PR gets a `*.pages.dev` preview URL. `public/_redirects` sends the old WordPress URLs (`/portfolio/*`, `/quote/`, etc.) to the new routes.
+### Site URL
+
+Nothing in the code hardcodes a domain. `astro.config.mjs` sets Astro's `site` from **`PUBLIC_SITE_URL`**, falling back to `https://paradox-cnd.pages.dev`. That one value drives canonical links, Open Graph URLs, the sitemap, RSS, and `robots.txt` (generated by `src/pages/robots.txt.ts`). The CMS has no `site_url`, so it uses whatever origin it's opened on.
+
+When a custom domain goes live, add `PUBLIC_SITE_URL` (e.g. `https://example.com`, no trailing slash) under Pages → Settings → Variables and Secrets for **Production**, then redeploy. Leave it unset for Preview so previews point at the pages.dev URL.
+
+No adapter is needed because the site is fully static. Pages picks up `functions/` automatically. Set the [contact form variables](#setup-ty-needs-to-do) before expecting mail. Every PR gets a `*.pages.dev` preview URL. `public/_redirects` sends the old WordPress URLs (`/portfolio/*`, `/quote/`, etc.) and the retired `/services` and `/work/type/*` pages to the new routes. Old portfolio URLs for unpublished projects go to `/work/`.
 
 ## Project layout
 
@@ -126,10 +141,12 @@ public/
 functions/
   api/contact.ts    Pages Function: Turnstile check + Resend email
 src/
-  content/          Markdown: blog/, work/, services/, pages/
+  content/          Markdown: pages/, offers/, work/, blog/
   content.config.ts Collection schemas (Zod)
   data/site.json    Site settings (CMS-editable)
+  data/ui.json      Interface text (CMS-editable)
   components/       Header, Footer, WorkCard, WorkGrid, ...
+  components/sections/  Hero, OfferCards, Audiences, ClosingCta
   components/starwind/  Starwind UI components (Button, Card, Input, ...)
   layouts/          BaseLayout
   lib/              Content helpers, site settings loader
@@ -141,9 +158,9 @@ IMPORT.md           Plan for the full WordPress (WXR) import
 
 ## Next steps
 
-1. **Finish the WordPress leftovers.** See the outstanding list in [IMPORT.md](IMPORT.md), and delete the placeholder blog post once real posts exist.
-2. **Write the placeholder copy.** About, the four service descriptions, and a current privacy policy.
-3. **Connect Cloudflare Pages** with the settings above. Point the domain there when ready; `site` in `astro.config.mjs` is already `https://paradoxcreative.com`.
+1. **Review the draft copy.** Home, Pricing, the three offers, About, Contact, Privacy, and `ui.json` are short honest drafts. Check the offer bullets especially, since they describe what each package includes.
+2. **Choose which work to publish.** Toggle `published` on the strongest projects (see the shortlist in PR #1).
+3. **Point a domain** at the Pages project when ready, and set `PUBLIC_SITE_URL` (see [Site URL](#site-url)).
 4. **Set up CMS sign-in for editors.** Deploy Sveltia CMS Authenticator (free Worker), set `base_url`, and set `ALLOWED_DOMAINS`.
 5. **Turn on the contact form.** Create the Turnstile widget and Resend key, then set the variables in [Contact form](#setup-ty-needs-to-do).
 6. **Brand pass.** Add a social preview image, and optionally self-host a webfont (the 2015 site used Lato).
