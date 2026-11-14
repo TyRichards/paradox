@@ -1,5 +1,6 @@
 ---
-import MarkdownPage from '../components/MarkdownPage.astro';
+import MarkdownPage from '@/components/MarkdownPage.astro';
+import { site } from '@/lib/site';
 ---
 
-<MarkdownPage id="about" />
+<MarkdownPage id="about" cta={site.navCta} />

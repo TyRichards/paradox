@@ -2,12 +2,10 @@
 title: Process Automation
 price: $499
 cadence: per month
-summary: Monthly help designing, building, and looking after the automations that keep your business running.
+summary: I design, build, and look after your automations.
 bullets:
-  - Process mapping and cleanup, one process at a time
-  - Automations built around the tools you already use
-  - Keep an eye on them, and fix things when they break
-  - A monthly check-in to plan what to automate next
+  - Built around the tools you already use
+  - I fix them when they break
 ctaLabel: Start automating
 featured: true
 featuredLabel: Main offer

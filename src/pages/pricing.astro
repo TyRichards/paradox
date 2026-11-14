@@ -5,12 +5,13 @@ import Section from '@/components/wrapper/Section.astro';
 import Heading from '@/components/typography/Heading.astro';
 import Paragraph from '@/components/typography/Paragraph.astro';
 import RichText from '@/components/typography/RichText.astro';
+import Button from '@/components/Button.astro';
 import ItemList from '@/components/content/ItemList.astro';
 import { getOffers, getPage, offerContactHref } from '@/lib/content';
 
 const page = await getPage('pricing');
 const { Content } = await render(page);
-const { title, description, heading, lede } = page.data;
+const { title, description, heading, lede, audiences, closing } = page.data;
 const offers = await getOffers();
 ---
 
@@ -36,4 +37,25 @@ const offers = await getOffers();
     />
     {page.body?.trim() && <RichText maxWidth={60}><Content /></RichText>}
   </Section>
+
+  {/* Audiences */}
+  {audiences && (
+    <Section paddingTop="none" paddingBottom="small" gap="5">
+      <Heading variant="h4">{audiences.heading}</Heading>
+      <div>
+        {audiences.items.map((item) => (
+          <Paragraph><strong>{item.title}.</strong> <span class="color-faded">{item.body}</span></Paragraph>
+        ))}
+      </div>
+    </Section>
+  )}
+
+  {/* Closing */}
+  {closing && (
+    <Section paddingTop="none" gap="5">
+      <Heading variant="h4">{closing.heading}</Heading>
+      <Paragraph class="color-faded">{closing.text}</Paragraph>
+      <Button element="link" href={closing.cta.href} variant="link">{closing.cta.label}</Button>
+    </Section>
+  )}
 </BaseLayout>

@@ -148,7 +148,7 @@ collections:
       - { name: price, label: Price, widget: string, hint: 'Shown as written, e.g. “$79”.' }
       - { name: cadence, label: Billing, widget: string, required: false, hint: 'e.g. “one-time” or “per month”.' }
       - { name: summary, label: Short description, widget: text }
-      - { name: bullets, label: Bullet points, widget: list, min: 3, max: 5, field: { name: bullet, label: Bullet, widget: string } }
+      - { name: bullets, label: Bullet points, widget: list, min: 1, max: 5, field: { name: bullet, label: Bullet, widget: string } }
       - { name: ctaLabel, label: Button label, widget: string, hint: 'The button links to the contact form with this offer preselected.' }
       - { name: featured, label: Featured (main offer), widget: boolean, default: false }
       - { name: featuredLabel, label: Featured badge, widget: string, required: false }
@@ -293,9 +293,6 @@ collections:
             label: Footer
             widget: object
             fields:
-              - { name: heading, label: Heading, widget: string }
-              - { name: text, label: Text, widget: text }
-              - { name: cta, label: Button, widget: object, fields: *link_fields }
               - { name: tagline, label: Tagline (after the copyright), widget: string }
               - { name: links, label: Links, widget: list, fields: *link_fields }
               - { name: rssLabel, label: RSS link label, widget: string, hint: 'Shown only while there are posts.' }

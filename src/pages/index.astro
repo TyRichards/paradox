@@ -7,15 +7,12 @@ import RichText from '@/components/typography/RichText.astro';
 import Button from '@/components/Button.astro';
 import HeroHome from '@/components/content/HeroHome.astro';
 import ItemList from '@/components/content/ItemList.astro';
-import { getOffers, getPage, getWork } from '@/lib/content';
+import { getOffers, getPage } from '@/lib/content';
 
 const home = await getPage('home');
 const { Content } = await render(home);
-const { heading, title, lede, ctas, portrait, offersSection, workSection } = home.data;
+const { heading, title, lede, ctas, portrait, offersSection } = home.data;
 
-const work = await getWork();
-const featured = work.filter((w) => w.data.featured);
-const selectedWork = (featured.length > 0 ? featured : work).slice(0, 3);
 const offers = await getOffers();
 ---
 
@@ -44,20 +41,6 @@ const offers = await getOffers();
         }))}
       />
       <Button element="link" href="/pricing/" variant="link">{offersSection.linkLabel}</Button>
-    </Section>
-  )}
-
-  {/* Work */}
-  {workSection && selectedWork.length > 0 && (
-    <Section paddingTop="none">
-      <Heading>{workSection.heading}</Heading>
-      <ItemList
-        items={selectedWork.map((entry) => ({
-          title: entry.data.title,
-          href: `/work/${entry.id}/`,
-          text: entry.data.summary,
-        }))}
-      />
     </Section>
   )}
 </BaseLayout>

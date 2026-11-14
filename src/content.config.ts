@@ -40,7 +40,7 @@ const offers = defineCollection({
     price: z.string(),
     cadence: z.string().optional(),
     summary: z.string(),
-    bullets: z.array(z.string()).min(3).max(5),
+    bullets: z.array(z.string()).min(1).max(5),
     ctaLabel: z.string(),
     featured: z.boolean().default(false),
     featuredLabel: z.string().optional(),

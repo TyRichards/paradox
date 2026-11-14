@@ -7,9 +7,6 @@ const link = z.object({ label: z.string(), href: z.string() });
 const uiSchema = z.object({
   header: z.object({ skipToContent: z.string(), openMenu: z.string(), menuTitle: z.string() }),
   footer: z.object({
-    heading: z.string(),
-    text: z.string(),
-    cta: link,
     tagline: z.string(),
     links: z.array(link),
     rssLabel: z.string(),

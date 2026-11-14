@@ -11,11 +11,13 @@ import { getPage } from '@/lib/content';
 
 interface Props {
   id: string;
+  cta?: { label: string; href: string };
 }
 
 const page = await getPage(Astro.props.id);
 const { Content } = await render(page);
 const { title, description, heading, lede, closing } = page.data;
+const cta = closing?.cta ?? Astro.props.cta;
 ---
 
 <BaseLayout title={title} description={description}>
@@ -31,9 +33,9 @@ const { title, description, heading, lede, closing } = page.data;
   <Section paddingTop="none">
     <RichText variant="large" maxWidth={60}><Content /></RichText>
     <slot />
-    {closing && (
+    {cta && (
       <ButtonWrapper marginTop="0">
-        <Button element="link" href={closing.cta.href}>{closing.cta.label}</Button>
+        <Button element="link" href={cta.href}>{cta.label}</Button>
       </ButtonWrapper>
     )}
   </Section>

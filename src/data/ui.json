@@ -5,9 +5,6 @@
     "menuTitle": "Menu"
   },
   "footer": {
-    "heading": "Busywork eating your week.",
-    "text": "Start with a $79 Process Audit to find what to fix first and what’s worth automating.",
-    "cta": { "label": "Book a Process Audit", "href": "/contact/?offer=process-audit" },
     "tagline": "Business process & automation, from Texas.",
     "links": [
       { "label": "Pricing", "href": "/pricing/" },
@@ -22,8 +19,8 @@
   "work": {
     "title": "Work",
     "description": "Selected projects by Paradox.",
-    "lede": "A few projects Ty has built with clients. More case studies are on the way.",
-    "empty": "Case studies are being written up. Check back soon.",
+    "lede": "A few projects. More case studies are on the way.",
+    "empty": "Case studies are on the way.",
     "eyebrow": "Work",
     "typeLabel": "Type",
     "clientLabel": "Client",
@@ -35,8 +32,8 @@
   },
   "blog": {
     "title": "Blog",
-    "description": "Notes from Paradox on business processes and automation.",
-    "lede": "Notes on business processes and automation.",
+    "description": "Notes on process and automation.",
+    "lede": "Notes on process and automation.",
     "empty": "No posts yet.",
     "eyebrow": "Blog",
     "homeHeading": "From the blog",
@@ -51,7 +48,7 @@
     "offerLabel": "What are you interested in?",
     "offerOther": "Not sure yet",
     "messageLabel": "What’s going on?",
-    "messagePlaceholder": "Tell me about the process that’s slowing you down, or what you’re building.",
+    "messagePlaceholder": "Tell me what’s slowing you down.",
     "submitLabel": "Send",
     "sendingLabel": "Sending…",
     "successTitle": "Thanks, your message is on its way.",
@@ -64,7 +61,7 @@
     "errors": {
       "too_large": "Your message is too long. Shorten it and try again.",
       "not_configured": "The contact form isn’t switched on yet. Email instead.",
-      "bad_request": "We couldn’t read the form. Refresh the page and try again.",
+      "bad_request": "The form didn't come through. Refresh the page and try again.",
       "missing_fields": "Name, email, and a short note are required.",
       "too_long": "One of the fields is too long.",
       "invalid_email": "Enter a valid email address.",
@@ -74,7 +71,7 @@
   },
   "notFound": {
     "title": "That page isn’t here.",
-    "lede": "It may have moved when the site was rebuilt.",
+    "lede": "It may have moved.",
     "backLabel": "Back home"
   }
 }

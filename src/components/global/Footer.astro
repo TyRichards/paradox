@@ -9,7 +9,7 @@ const links = [...ui.footer.links, ...(showRss ? [{ label: ui.footer.rssLabel, h
 ---
 
 <footer class="footer_wrap text-style-small">
-  <p>&copy; {year} {site.name}</p>
+  <p>&copy; {year} {site.name}. {ui.footer.tagline}</p>
   <ul class="footer_links" role="list">
     {links.map((link) => (
       <li><a class="footer_link" href={link.href}>{link.label}</a></li>
