@@ -3,5 +3,5 @@
 TURNSTILE_SECRET=1x0000000000000000000000000000000AA
 TURNSTILE_HOSTNAMES=localhost
 RESEND_API_KEY=re_replace_me
-CONTACT_TO_EMAIL=you@example.com
+CONTACT_TO_EMAIL=ty@paradoxcreative.com
 # CONTACT_FROM_EMAIL=Paradox website <hello@example.com>
