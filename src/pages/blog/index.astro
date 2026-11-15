@@ -1,0 +1,36 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Section from '@/components/wrapper/Section.astro';
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+import ItemList from '@/components/content/ItemList.astro';
+import { formatDate, getPosts } from '@/lib/content';
+import { ui } from '@/lib/ui';
+
+const posts = await getPosts();
+---
+
+<BaseLayout title={ui.blog.title} description={ui.blog.description} noindex={posts.length === 0}>
+  {/* Header */}
+  <Section paddingBottom="small">
+    <Heading tag="h1">{ui.blog.title}</Heading>
+    <Paragraph variant="large" class="color-faded" maxWidth={52}>{ui.blog.lede}</Paragraph>
+  </Section>
+
+  {/* Posts */}
+  <Section paddingTop="none">
+    {posts.length === 0 ? (
+      <Paragraph class="color-faded">{ui.blog.empty}</Paragraph>
+    ) : (
+      <ItemList
+        headingTag="h2"
+        items={posts.map((post) => ({
+          title: post.data.title,
+          href: `/blog/${post.id}/`,
+          meta: [formatDate(post.data.pubDate), post.data.draft && ui.blog.draftLabel].filter(Boolean).join(' · '),
+          text: post.data.description,
+        }))}
+      />
+    )}
+  </Section>
+</BaseLayout>

@@ -1,0 +1,48 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Section from '@/components/wrapper/Section.astro';
+import ButtonWrapper from '@/components/wrapper/ButtonWrapper.astro';
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+import RichText from '@/components/typography/RichText.astro';
+import Button from '@/components/Button.astro';
+import Img from '@/components/media/Img.astro';
+import { getWork } from '@/lib/content';
+import { ui } from '@/lib/ui';
+
+export const getStaticPaths = (async () => {
+  const work = await getWork();
+  return work.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}) satisfies GetStaticPaths;
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, summary, cover, coverAlt, gallery, projectUrl } = entry.data;
+const hasBody = Boolean(entry.body?.trim());
+const hero = gallery[0];
+---
+
+<BaseLayout title={title} description={summary ?? `${title}. ${ui.work.description}`}>
+  {/* Header */}
+  <Section paddingBottom="small">
+    <Heading tag="h1" maxWidth={18}>{title}</Heading>
+    <Paragraph variant="large" class="color-faded" maxWidth={52}>{summary}</Paragraph>
+  </Section>
+
+  {/* Project */}
+  <Section paddingTop="none">
+    {hero ? (
+      <Img src={hero} alt={`${title} ${ui.work.screenshotAltSuffix}`} class="radius-main" />
+    ) : (
+      cover && <Img src={cover} alt={coverAlt} variant="densities" class="radius-main" />
+    )}
+    {hasBody && <RichText variant="large" maxWidth={60}><Content /></RichText>}
+    {projectUrl && (
+      <ButtonWrapper marginTop="0">
+        <Button element="link" href={projectUrl} target="_blank" rel="noopener">{ui.work.visitSiteLabel}</Button>
+      </ButtonWrapper>
+    )}
+  </Section>
+</BaseLayout>

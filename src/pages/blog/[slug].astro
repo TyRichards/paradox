@@ -1,0 +1,41 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Section from '@/components/wrapper/Section.astro';
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+import RichText from '@/components/typography/RichText.astro';
+import Img from '@/components/media/Img.astro';
+import { formatDate, getPosts } from '@/lib/content';
+import { ui } from '@/lib/ui';
+
+export const getStaticPaths = (async () => {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { title, description, pubDate, updatedDate, cover, coverAlt, tags, draft } = post.data;
+const dateline = [
+  formatDate(pubDate),
+  updatedDate && `${ui.blog.updatedLabel} ${formatDate(updatedDate)}`,
+].filter(Boolean).join(' · ');
+---
+
+<BaseLayout title={title} description={description} noindex={draft}>
+  {/* Header */}
+  <Section paddingBottom="small">
+    <Heading tag="h1" maxWidth={18}>{title}</Heading>
+    <Paragraph class="color-faded">{dateline}</Paragraph>
+    <Paragraph variant="large" class="color-faded" maxWidth={52}>{description}</Paragraph>
+  </Section>
+
+  {/* Article */}
+  <Section paddingTop="none">
+    {cover && <Img src={cover} alt={coverAlt} class="radius-main" />}
+    <RichText variant="large" maxWidth={60}><Content /></RichText>
+    {tags.length > 0 && <Paragraph variant="small" class="color-faded">{tags.map((tag) => `#${tag}`).join(' ')}</Paragraph>}
+  </Section>
+</BaseLayout>

@@ -1,0 +1,50 @@
+/* Paradox brand layer. Overrides Lumos tokens from ./lumos/base.css; loaded after it in the same layer. */
+
+/* Design tokens */
+:root {
+  --ink: #333333;
+  --paper: #ffffff;
+  --mist: #f0f7f5;
+  --accent: #3d7e68;
+
+  --light-100: var(--paper);
+  --light-200: var(--mist);
+  --light-300: var(--paper);
+  --dark-900: var(--ink);
+  --brand-500: var(--accent);
+  --brand-text: var(--paper);
+
+  --primary-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --display-font-weight: var(--primary-bold);
+  --h1-font-weight: var(--primary-bold);
+  --h2-font-weight: var(--primary-bold);
+  --h3-font-weight: var(--primary-bold);
+  --h4-font-weight: var(--primary-bold);
+
+  --text-main-min: 17;
+  --text-main-max: 19;
+  --text-large-min: 19;
+  --text-large-max: 24;
+
+  --max-width-main: 56rem;
+}
+
+/* Color themes */
+:root,
+.theme-light {
+  --text: var(--ink);
+  --text-2: color-mix(in lab, currentcolor 65%, transparent);
+  --border: color-mix(in lab, var(--ink) 14%, transparent);
+  --heading-accent: var(--accent);
+
+  --button-background: var(--accent);
+  --button-text: var(--paper);
+  --button-background-hover: var(--ink);
+  --button-text-hover: var(--paper);
+
+  --link-border-hover: var(--accent);
+}
+
+:focus-visible {
+  outline-color: var(--accent);
+}

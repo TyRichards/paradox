@@ -1,0 +1,106 @@
+---
+import Button from "@/components/Button.astro";
+
+type Item = {
+  id?: string;
+  title: string;
+  href?: string;
+  meta?: string;
+  text?: string;
+  points?: string[];
+  action?: { label: string; href: string; primary?: boolean };
+};
+
+interface Props {
+  render?: boolean;
+  items: Item[];
+  headingTag?: "h2" | "h3";
+  class?: string;
+}
+
+const { render = true, items, headingTag: Tag = "h3", class: className } = Astro.props;
+---
+
+{render && items?.length > 0 && (
+  <ul class:list={["item-list_wrap", className]} role="list">
+    {items.map((item) => (
+      <li class="item-list_item" id={item.id}>
+        <div class="item-list_head">
+          <Tag class="item-list_title text-style-h4">
+            {item.href ? <a href={item.href}>{item.title}</a> : item.title}
+          </Tag>
+          {item.meta && <p class="item-list_meta">{item.meta}</p>}
+        </div>
+        {item.text && <p class="item-list_text">{item.text}</p>}
+        {item.points && item.points.length > 0 && (
+          <ul class="item-list_points">
+            {item.points.map((point) => <li>{point}</li>)}
+          </ul>
+        )}
+        {item.action && (
+          <div class="item-list_action">
+            <Button element="link" href={item.action.href} variant={item.action.primary ? "main" : "link"}>
+              {item.action.label}
+            </Button>
+          </div>
+        )}
+      </li>
+    ))}
+  </ul>
+)}
+
+<style is:global>
+  @layer components {
+    .item-list_wrap {
+      width: 100%;
+      border-top: var(--border-width) solid var(--border);
+    }
+    .item-list_item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      padding-block: var(--space-7);
+      border-bottom: var(--border-width) solid var(--border);
+    }
+    .item-list_head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-2) var(--space-5);
+    }
+    .item-list_title {
+      margin: 0;
+      & a {
+        text-decoration: underline;
+        text-decoration-color: var(--border);
+        text-underline-offset: 0.2em;
+        transition: text-decoration-color var(--hover-duration) var(--hover-ease);
+        @media (hover: hover) {
+          &:hover {
+            text-decoration-color: currentcolor;
+          }
+        }
+      }
+    }
+    .item-list_meta {
+      font-weight: var(--primary-bold);
+    }
+    .item-list_text {
+      color: var(--text-2);
+      max-width: 60ch;
+    }
+    .item-list_points {
+      color: var(--text-2);
+      padding-left: 1.25em;
+      list-style: disc;
+      max-width: 60ch;
+      & li + li {
+        margin-top: var(--space-1);
+      }
+    }
+    .item-list_action {
+      margin-top: var(--space-3);
+    }
+  }
+</style>

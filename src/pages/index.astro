@@ -1,0 +1,46 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Section from '@/components/wrapper/Section.astro';
+import Heading from '@/components/typography/Heading.astro';
+import RichText from '@/components/typography/RichText.astro';
+import Button from '@/components/Button.astro';
+import HeroHome from '@/components/content/HeroHome.astro';
+import ItemList from '@/components/content/ItemList.astro';
+import { getOffers, getPage } from '@/lib/content';
+
+const home = await getPage('home');
+const { Content } = await render(home);
+const { heading, title, lede, ctas, portrait, offersSection } = home.data;
+
+const offers = await getOffers();
+---
+
+<BaseLayout description={home.data.description}>
+  {/* Hero */}
+  <Section paddingTop="medium" paddingBottom="large">
+    <HeroHome heading={heading ?? title} lede={lede} cta={ctas?.[0]} portrait={portrait} />
+  </Section>
+
+  {/* Intro */}
+  {home.body?.trim() && (
+    <Section paddingTop="none">
+      <RichText variant="large" maxWidth={60}><Content /></RichText>
+    </Section>
+  )}
+
+  {/* Offers */}
+  {offersSection && offers.length > 0 && (
+    <Section paddingTop="none">
+      <Heading>{offersSection.heading}</Heading>
+      <ItemList
+        items={offers.map((offer) => ({
+          title: offer.data.title,
+          meta: [offer.data.price, offer.data.cadence].filter(Boolean).join(' '),
+          text: offer.data.summary,
+        }))}
+      />
+      <Button element="link" href="/pricing/" variant="link">{offersSection.linkLabel}</Button>
+    </Section>
+  )}
+</BaseLayout>

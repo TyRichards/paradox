@@ -1,0 +1,77 @@
+{
+  "header": {
+    "skipToContent": "Skip to content",
+    "openMenu": "Open menu",
+    "menuTitle": "Menu"
+  },
+  "footer": {
+    "tagline": "Business process & automation, from Texas.",
+    "links": [
+      { "label": "Pricing", "href": "/pricing/" },
+      { "label": "Contact", "href": "/contact/" },
+      { "label": "Privacy", "href": "/privacy/" }
+    ],
+    "rssLabel": "RSS"
+  },
+  "pricing": {
+    "featuredDefaultLabel": "Main offer"
+  },
+  "work": {
+    "title": "Work",
+    "description": "Selected projects by Paradox.",
+    "lede": "A few projects. More case studies are on the way.",
+    "empty": "Case studies are on the way.",
+    "eyebrow": "Work",
+    "typeLabel": "Type",
+    "clientLabel": "Client",
+    "dateLabel": "Date",
+    "visitSiteLabel": "Visit the live site",
+    "screenshotAltSuffix": "project screenshot",
+    "moreWorkLabel": "More work",
+    "types": { "brand": "Brand", "web": "Web", "print": "Print", "app": "App" }
+  },
+  "blog": {
+    "title": "Blog",
+    "description": "Notes on process and automation.",
+    "lede": "Notes on process and automation.",
+    "empty": "No posts yet.",
+    "eyebrow": "Blog",
+    "homeHeading": "From the blog",
+    "updatedLabel": "Updated",
+    "draftLabel": "Draft",
+    "feedTitle": "Paradox blog"
+  },
+  "contact": {
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "companyLabel": "Business name (optional)",
+    "offerLabel": "What are you interested in?",
+    "offerOther": "Not sure yet",
+    "messageLabel": "What’s going on?",
+    "messagePlaceholder": "Tell me what’s slowing you down.",
+    "submitLabel": "Send",
+    "sendingLabel": "Sending…",
+    "successTitle": "Thanks, your message is on its way.",
+    "successText": "Ty will reply by email.",
+    "errorTitle": "That didn’t go through",
+    "errorText": "Try again, or email instead.",
+    "notConfiguredTitle": "The contact form isn’t switched on yet",
+    "notConfiguredText": "Use the email address above for now.",
+    "tokenPending": "Wait for the spam check to finish, then send again.",
+    "errors": {
+      "too_large": "Your message is too long. Shorten it and try again.",
+      "not_configured": "The contact form isn’t switched on yet. Email instead.",
+      "bad_request": "The form didn't come through. Refresh the page and try again.",
+      "missing_fields": "Name, email, and a short note are required.",
+      "too_long": "One of the fields is too long.",
+      "invalid_email": "Enter a valid email address.",
+      "spam_check": "The spam check failed. Refresh the page and try again.",
+      "send_failed": "Your message couldn’t be sent. Try again or email instead."
+    }
+  },
+  "notFound": {
+    "title": "That page isn’t here.",
+    "lede": "It may have moved.",
+    "backLabel": "Back home"
+  }
+}

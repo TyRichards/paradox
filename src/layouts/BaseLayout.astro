@@ -1,0 +1,66 @@
+---
+import '@/styles/global.css';
+import Nav from '@/components/global/Nav.astro';
+import Footer from '@/components/global/Footer.astro';
+import SkipLink from '@/components/global/SkipLink.astro';
+import { site } from '@/lib/site';
+import { ui } from '@/lib/ui';
+import { hasPosts } from '@/lib/content';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+
+const { title, description = site.description, noindex = false } = Astro.props;
+const pageTitle = title ? `${title} | ${site.name}` : site.title;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const showRss = await hasPosts();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="52x52" href="/favicon.png" />
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    {showRss && <link rel="alternate" type="application/rss+xml" title={ui.blog.feedTitle} href="/rss.xml" />}
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content="website" />
+    {noindex && <meta name="robots" content="noindex" />}
+    <slot name="head" />
+  </head>
+  <body class="page_wrap">
+    <SkipLink label={ui.header.skipToContent} />
+    <Nav />
+    <main id="main" class="page_main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style is:global>
+  @layer components {
+    .page_wrap {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+    }
+    .page_main {
+      flex: 1;
+      outline: none;
+    }
+  }
+</style>

@@ -1,0 +1,20 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Section from '@/components/wrapper/Section.astro';
+import ButtonWrapper from '@/components/wrapper/ButtonWrapper.astro';
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+import Button from '@/components/Button.astro';
+import { ui } from '@/lib/ui';
+---
+
+<BaseLayout title={ui.notFound.title} noindex>
+  {/* Not found */}
+  <Section paddingTop="large" paddingBottom="large">
+      <Heading tag="h1">{ui.notFound.title}</Heading>
+      <Paragraph variant="large" class="color-faded">{ui.notFound.lede}</Paragraph>
+      <ButtonWrapper marginTop="8">
+        <Button element="link" href="/">{ui.notFound.backLabel}</Button>
+      </ButtonWrapper>
+  </Section>
+</BaseLayout>

@@ -1,0 +1,48 @@
+---
+import { hasPosts } from "@/lib/content";
+import { site } from "@/lib/site";
+import { ui } from "@/lib/ui";
+
+const year = new Date().getFullYear();
+const showRss = await hasPosts();
+const links = [...ui.footer.links, ...(showRss ? [{ label: ui.footer.rssLabel, href: "/rss.xml" }] : [])];
+---
+
+<footer class="footer_wrap text-style-small">
+  <p>&copy; {year} {site.name}. {ui.footer.tagline}</p>
+  <ul class="footer_links" role="list">
+    {links.map((link) => (
+      <li><a class="footer_link" href={link.href}>{link.label}</a></li>
+    ))}
+  </ul>
+</footer>
+
+<style is:global>
+  @layer components {
+    .footer_wrap {
+      width: var(--site-width);
+      max-width: var(--max-width-main);
+      margin-inline: auto;
+      padding-block: var(--space-8);
+      border-top: var(--border-width) solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-4);
+      color: var(--text-2);
+    }
+    .footer_links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-5);
+    }
+    .footer_link {
+      transition: color var(--hover-duration) var(--hover-ease);
+      @media (hover: hover) {
+        &:hover {
+          color: var(--text);
+        }
+      }
+    }
+  }
+</style>

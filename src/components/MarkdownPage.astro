@@ -1,0 +1,42 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Section from '@/components/wrapper/Section.astro';
+import ButtonWrapper from '@/components/wrapper/ButtonWrapper.astro';
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+import RichText from '@/components/typography/RichText.astro';
+import Button from '@/components/Button.astro';
+import { getPage } from '@/lib/content';
+
+interface Props {
+  id: string;
+  cta?: { label: string; href: string };
+}
+
+const page = await getPage(Astro.props.id);
+const { Content } = await render(page);
+const { title, description, heading, lede, closing } = page.data;
+const cta = closing?.cta ?? Astro.props.cta;
+---
+
+<BaseLayout title={title} description={description}>
+  <slot name="head" slot="head" />
+
+  {/* Header */}
+  <Section paddingBottom="small">
+    <Heading tag="h1" maxWidth={18}>{heading ?? title}</Heading>
+    <Paragraph variant="large" class="color-faded" maxWidth={52}>{lede}</Paragraph>
+  </Section>
+
+  {/* Body */}
+  <Section paddingTop="none">
+    <RichText variant="large" maxWidth={60}><Content /></RichText>
+    <slot />
+    {cta && (
+      <ButtonWrapper marginTop="0">
+        <Button element="link" href={cta.href}>{cta.label}</Button>
+      </ButtonWrapper>
+    )}
+  </Section>
+</BaseLayout>

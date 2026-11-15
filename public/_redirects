@@ -1,0 +1,24 @@
+# Cloudflare Pages redirects: legacy WordPress URLs -> new routes.
+# https://developers.cloudflare.com/pages/configuration/redirects/
+# Static rules must come before dynamic (splat) rules.
+
+/portfolio                  /work/          301
+/quote                      /contact/       301
+/quote/                     /contact/       301
+/2015/07/21/hello-world/    /               301
+/feed/                      /rss.xml        301
+/wp-sitemap.xml             /sitemap-index.xml  301
+/wp-admin/                  /admin/         302
+/services                   /pricing/       301
+/services/                  /pricing/       301
+/work/type/                 /work/          301
+# Old portfolio URLs for published projects. Unpublished ones fall through to /work/ below.
+/portfolio/worship-online/  /work/worship-online/   301
+/portfolio/worship-online   /work/worship-online/   301
+
+/portfolio/*                /work/          301
+/portfolio-type/*           /work/          301
+/services/*                 /pricing/       301
+/work/type/*                /work/          301
+/category/*                 /               301
+/author/*                   /about/         301

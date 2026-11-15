@@ -1,0 +1,51 @@
+---
+import Button from "@/components/Button.astro";
+import ButtonWrapper from "@/components/wrapper/ButtonWrapper.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+
+interface Props {
+  render?: boolean;
+  heading: string;
+  lede?: string;
+  cta?: { label: string; href: string };
+  portrait?: { src: string; alt: string };
+  class?: string;
+}
+
+const { render = true, heading, lede, cta, portrait, class: className } = Astro.props;
+---
+
+{render && heading && (
+  <div class:list={["hero-home_wrap", className]}>
+    {portrait && (
+      <img
+        class="hero-home_portrait"
+        src={portrait.src}
+        alt={portrait.alt}
+        width="600"
+        height="600"
+        fetchpriority="high"
+      />
+    )}
+    <Heading tag="h1" maxWidth={18} class="text-wrap-balance">{heading}</Heading>
+    <Paragraph variant="large" maxWidth={52} class="color-faded">{lede}</Paragraph>
+    {cta && (
+      <ButtonWrapper marginTop="7">
+        <Button element="link" href={cta.href}>{cta.label}</Button>
+      </ButtonWrapper>
+    )}
+  </div>
+)}
+
+<style is:global>
+  @layer components {
+    .hero-home_portrait {
+      width: 4.5rem;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: var(--space-7);
+    }
+  }
+</style>
