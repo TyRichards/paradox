@@ -57,9 +57,9 @@ Full guide: **[docs/CMS.md](docs/CMS.md)**. The short version:
 
 `public/admin/config.yml` must stay in sync with `src/content.config.ts`. `npm run build` fails on content that doesn't match the schema.
 
-## Design system: Lumos for Astro (trial)
+## Design system: Lumos for Astro
 
-This branch trials [Lumos for Astro](https://github.com/lumosframework/lumos-for-astro) by Timothy Ricks (MIT; see `THIRD-PARTY-NOTICES.md`), vendored from upstream commit `43e4d529`. The direction is minimal: lots of whitespace, a strong type scale, one accent color, and one primary button per page.
+The site uses [Lumos for Astro](https://github.com/lumosframework/lumos-for-astro) by Timothy Ricks (MIT; see `THIRD-PARTY-NOTICES.md`), vendored from upstream commit `43e4d529`. The direction is minimal: lots of whitespace, a strong type scale, one accent color, and one primary button per page.
 
 - **Tokens:** `src/styles/lumos/base.css` (fluid `clamp()` type and spacing scale, themes), `patterns.css`, and `utilities.css` are upstream files, kept unchanged so they can be upgraded. Paradox overrides live in `src/styles/paradox.css`: the system font stack, bold headings, a narrower page, and `--accent` (#3d7e68) as the only accent.
 - **Primitives:** only the components the pages use are vendored: `Section`, `ButtonWrapper`, `Heading`, `Paragraph`, `RichText`, `Button`, `Img`, `Icon`, `Input`, `Select`, `Textarea`, `NavLink`, `SkipLink`.
